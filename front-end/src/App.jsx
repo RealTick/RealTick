@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import StockInfo from './components/stockInfo';
+import ErrorMessage from './components/errorMessage'; 
 
 function App() {
   const [symbol, setSymbol] = useState('');
@@ -32,16 +34,9 @@ function App() {
       />
       <button onClick={fetchData}>Search</button>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ErrorMessage error={error} />
 
-      {data && (
-        <div>
-          <h2>{symbol}</h2>
-          <p>Current Price: {data.current_price}</p>
-          <p>Market Cap: {data.market_cap}</p>
-          {/* Display the chart data (You can integrate Chart.js for better visualization later) */}
-        </div>
-      )}
+      {data && <StockInfo symbol={symbol} data={data} />}
     </div>
   );
 }
