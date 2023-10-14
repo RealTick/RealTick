@@ -9,19 +9,20 @@ import Input from './components/Input';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
 
-
 function App() {
-  const [symbol, setSymbol] = useState('');
+  const [inputSymbol, setInputSymbol] = useState('');  // Renamed for clarity
+  const [displayedSymbol, setDisplayedSymbol] = useState(''); // New state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   const handleFetchData = async () => {
     try {
-      const response = await fetchData(symbol);
+      const response = await fetchData(inputSymbol);
 
       if (response) {
         setData(response);
         setError(null);
+        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
       } else {
         setError('Received unexpected data format.');
       }
@@ -36,26 +37,23 @@ function App() {
       <ThemeLoader />
      
       <div className="App">
-        
         <div className='searchContainer'>
           <div className='searchBox'>
-            <Input symbol={symbol} setSymbol={setSymbol} fetchData={handleFetchData} />
+            <Input 
+              symbol={inputSymbol} 
+              setSymbol={setInputSymbol} 
+              fetchData={handleFetchData} 
+            />
           </div>
         </div>
         
         <div className='stockDataContainer'>
           <div className='stockData'>
-            {data && <StockInfo symbol={symbol} data={data} />}
+            {data && <StockInfo symbol={displayedSymbol} data={data} />}
           </div>
-          
           <ErrorMessage error={error} />
         </div>
-
-        
-        
       </div>
-
-
     </ThemeProvider>
   );
 }
