@@ -36,9 +36,23 @@ function App() {
       <ThemeLoader />
      
       <div className="App">
-        <Input symbol={symbol} setSymbol={setSymbol} fetchData={handleFetchData} />
-        <ErrorMessage error={error} />
-        {data && <StockInfo symbol={symbol} data={data} />}
+        
+        <div className='searchContainer'>
+          <div className='searchBox'>
+            <Input symbol={symbol} setSymbol={setSymbol} fetchData={handleFetchData} />
+          </div>
+        </div>
+        
+        <div className='stockDataContainer'>
+          <div className='stockData'>
+            {data && <StockInfo symbol={symbol} data={data} />}
+          </div>
+          
+          <ErrorMessage error={error} />
+        </div>
+
+        
+        
       </div>
 
 

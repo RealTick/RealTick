@@ -1,0 +1,27 @@
+/* Input.module.css */
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 700px;
+  margin: 0 auto; 
+  padding: 10px;
+  background-color: #597cb1;
+  border-radius: 5px;
+}
+
+.inputField {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.searchButton {
+  width: 25%;
+  padding: 10px;
+  border: none;
+  color: white; 
+  cursor: pointer;
+  border-radius: 5px;
+}

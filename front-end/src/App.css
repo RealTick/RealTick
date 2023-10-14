@@ -1,7 +1,30 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+.searchContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
 }
 
+.stockDataContainer {
+  position: absolute;
+  background-color: #597cb1; 
+  left: 300px;
+  top: 200px;
+  width: 500px;  /* desired width */
+  height: 200px;  /* desired height */
+  padding: 15px; /* space inside the container */
+}
+
+.stockData {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}

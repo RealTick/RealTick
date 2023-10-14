@@ -9,6 +9,12 @@ button {
     color: #ffffff; /* Light Text */
 }
 
+button:hover {
+    background-color: #16181a;
+    color: #ffffff; /* Light Text */
+
+}
+
 input {
     background-color: #424549; /* Darker Background */
     color: #ffffff; /* Light Text */
