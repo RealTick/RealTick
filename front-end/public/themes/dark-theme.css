@@ -1,0 +1,19 @@
+/* dark-theme.css */
+body {
+    background-color: #232629; /* Dark Background */
+    color: #ffffff; /* Light Text */
+}
+
+button {
+    background-color: #36393e; /* Darker Background */
+    color: #ffffff; /* Light Text */
+}
+
+input {
+    background-color: #424549; /* Darker Background */
+    color: #ffffff; /* Light Text */
+}
+
+input::placeholder{
+    color: #756c6c; /* Light Text */
+}
