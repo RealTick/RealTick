@@ -11,15 +11,17 @@ function Input({ symbol, setSymbol, fetchData }) {
   };
 
   return (
-    <div className={styles.inputContainer}>
-      <input
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-        onKeyDown={handleKeyDown}  // Added onKeyDown event handler
-        placeholder="Enter stock symbol... (Stocks, Bonds, ETFS, etc.)"
-        className={styles.inputField}
-      />
-      <button onClick={fetchData} className={styles.searchButton}>Search</button>
+    <div className={styles.searchContainer}>
+      <div className={styles.inputContainer}>
+        <input
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter stock symbol... (Stocks, Bonds, ETFS, etc.)"
+          className={styles.inputField}
+        />
+        <button onClick={fetchData} className={styles.searchButton}>Search</button>
+      </div>
     </div>
   );
 }

@@ -1,25 +1,36 @@
 /* dark-theme.css */
+:root {
+    --background-color: #352F44;
+    --text-color: #ffffff;
+    --button-background: #B9B4C7;
+    --button-hover-background: #4e485f;
+    --input-background: #5C5470;
+    --placeholder-color: #756c6c;
+    --title-background: #16181a00;
+    --data-point-background: #7a606e;
+    --container-background: #A78295;
+    --container-background-hover: #694c5b2f;
+}
+
 body {
-    background-color: #232629; /* Dark Background */
-    color: #ffffff; /* Light Text */
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 button {
-    background-color: #36393e; /* Darker Background */
-    color: #ffffff; /* Light Text */
+    background-color: var(--button-background);
+    color: var(--text-color);
 }
 
 button:hover {
-    background-color: #16181a;
-    color: #ffffff; /* Light Text */
-
+    background-color: var(--button-hover-background);
 }
 
 input {
-    background-color: #424549; /* Darker Background */
-    color: #ffffff; /* Light Text */
+    background-color: var(--input-background);
+    color: var(--text-color);
 }
 
-input::placeholder{
-    color: #756c6c; /* Light Text */
+input::placeholder {
+    color: var(--placeholder-color);
 }

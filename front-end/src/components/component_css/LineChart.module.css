@@ -1,0 +1,28 @@
+/* LineChart.module.css */
+
+.lineChartContainer {
+    /* Positioning and Size */
+    position: absolute;
+    left: 50%; /* Updated for a more centered positioning */
+    top: 10vh; /* Using vh for a more responsive position */
+    width: 50vw; /* Using vw to make it responsive to the viewport width */
+    min-height: 400px; /* Keeping min-height to ensure a minimum size */
+    
+    /* Layout and Display */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Consider whether this is needed with column direction */
+    
+    /* Styling */
+    background-color: var(--container-background);
+    padding: 15px;
+    border-radius: 15px;
+    
+    /* Add a transition for smooth visual changes */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Example of adding a hover state */
+.lineChartContainer:hover {
+    background-color: var(--container-background-hover);
+}

@@ -3,15 +3,16 @@ import axios from 'axios';
 import './App.css';
 
 import fetchData from './components/StockService';
-import StockInfo from './components/stockInfo';
+import StockInfo from './components/StockInfo';
 import ErrorMessage from './components/errorMessage'; 
 import Input from './components/Input';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
+import LineChart from './components/LineChart';
 
 function App() {
-  const [inputSymbol, setInputSymbol] = useState('');  // Renamed for clarity
-  const [displayedSymbol, setDisplayedSymbol] = useState(''); // New state
+  const [inputSymbol, setInputSymbol] = useState(''); 
+  const [displayedSymbol, setDisplayedSymbol] = useState('');
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -37,6 +38,12 @@ function App() {
       <ThemeLoader />
      
       <div className="App">
+        <div className='lineChartContainer'>
+          <div className='LineChart'>
+            <LineChart />
+          </div>
+        </div>
+      
         <div className='searchContainer'>
           <div className='searchBox'>
             <Input 
@@ -53,6 +60,7 @@ function App() {
           </div>
           <ErrorMessage error={error} />
         </div>
+
       </div>
     </ThemeProvider>
   );
