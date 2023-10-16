@@ -80,13 +80,23 @@ def get_stock_data():
 
     if not data.empty:
         return jsonify({
+            'stock_display_name': stock_display_name,
+            'long_name': stock_long_name,
+            'short_name':stock_short_name,
+            'symbol': stock_symbol,
             'current_price': current_price,
+            'prev_close': prev_close,
             'opening_price': opening_price,
+            'market_cap': market_cap,
+            'volume': volume,
+            'fifty_two_week_range': fifty_two_week_range,
+            'forward_dividend_yield': forward_dividend_yield,
+            'days_range': days_range,
+            'beta': beta,
             'yearly_return': yearly_return,
             'ytd_return': ytd_return,
-            'market_cap': stock.info.get('marketCap', "N/A"),
             'chart': chart_data,
-            'news' : news
+            'news':news
         })
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400
