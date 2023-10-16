@@ -64,7 +64,7 @@ def get_stock_data():
 
     
     # ALL FETCHING DOWN BELOW
-    current_price = data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
+    current_price = stock.info['currentPrice'] #data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
     prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
     opening_price = data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
