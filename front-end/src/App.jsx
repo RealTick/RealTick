@@ -59,8 +59,10 @@ function App() {
           </div>
         </div>
 
-        {/* console.log(data?.chart_data)
-    <LineChart chartData={data?.chart_data}/> */}
+        
+         {/* <LineChart chartData={data?.chart_data}/> */}
+
+
         {/* <div className="lineChartContainer">
           <div className="LineChart">
             <LineChart chartData={data?.chart} />
