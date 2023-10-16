@@ -10,6 +10,7 @@ const StockInfo = ({ symbol, data }) => {
         <div className={styles.column}>
           {/* TODO: This should be with the title and different CSS group so that it changes color on change of data */}
           <p className={styles.dataPoint}>Current Price: {data.current_price}</p>
+          <p className={styles.dataPoint}>Differece: {data.price_diff}</p>
           <p className={styles.dataPoint}>Previous Close: {data.prev_close}</p>
           <p className={styles.dataPoint}>Market Cap: {data.market_cap}</p>
           <p className={styles.dataPoint}>Open: {data.opening_price}</p>

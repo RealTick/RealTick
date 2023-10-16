@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";  // Added useEffect
 import axios from "axios";
 import "./App.css";
 
@@ -35,6 +35,22 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    // Fetch stock data right away and then set up an interval to fetch every minute.
+    const fetchStockData = () => {
+      handleFetchData();
+    };
+
+    // Call the fetch function immediately
+    fetchStockData();
+
+    // Set up the interval
+    const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+
   return (
     <ThemeProvider>
       <ThemeLoader />
@@ -59,10 +75,7 @@ function App() {
           </div>
         </div>
 
-        
-         {/* <LineChart chartData={data?.chart_data}/> */}
-
-
+        {/* <LineChart chartData={data?.chart_data}/> */}
         {/* <div className="lineChartContainer">
           <div className="LineChart">
             <LineChart chartData={data?.chart} />
