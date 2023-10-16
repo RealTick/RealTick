@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import StockInfo from './components/stockInfo';
+
+import fetchData from './components/StockService';
+import StockInfo from './components/StockInfo';
 import ErrorMessage from './components/errorMessage'; 
+import Input from './components/Input';
+import { ThemeProvider } from './contexts/ThemeContext';
+import ThemeLoader from '../public/themes/ThemeLoader';
+import LineChart from './components/LineChart';
+import NewsModule from './components/NewsModule';
 
 function App() {
-  const [symbol, setSymbol] = useState('');
+  const [inputSymbol, setInputSymbol] = useState(''); 
+  const [displayedSymbol, setDisplayedSymbol] = useState('');
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [period, setPeriod] = useState('1y');
 
-  const fetchData = async () => {
+  const handleFetchData = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/stock?symbol=${symbol}&period=${period}`);
+      const response = await fetchData(inputSymbol);
 
-      if (response.data) {
-        setData(response.data);
+      if (response) {
+        setData(response);
         setError(null);
+        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
       } else {
         setError('Received unexpected data format.');
       }
@@ -26,24 +34,41 @@ function App() {
     }
   };
 
-  const handlePeriodChange = (newPeriod) => {
-    setPeriod(newPeriod);
-    fetchData(); // Refetch data whenever the period changes
-  };
-
   return (
-    <div className="App">
-      <input
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-        placeholder="Enter stock symbol..."
-      />
-      <button onClick={fetchData}>Search</button>
+    <ThemeProvider>
+      <ThemeLoader />
+     
+      <div className="App">
+        {/* <div className='lineChartContainer'>
+          <div className='LineChart'>
+            <LineChart />
+          </div>
+        </div> */}
+      
+        <div className='searchContainer'>
+          <div className='searchBox'>
+            <Input 
+              symbol={inputSymbol} 
+              setSymbol={setInputSymbol} 
+              fetchData={handleFetchData} 
+            />
+          </div>
+        </div>
+        
+        <div className='stockDataContainer'>
+          <div className='stockData'>
+            {data && <StockInfo symbol={displayedSymbol} data={data} />}
+          </div>
+          <ErrorMessage error={error} />
+        </div>
 
-      <ErrorMessage error={error} />
-
-      {data && <StockInfo symbol={symbol} data={data} onPeriodChange={handlePeriodChange} />}
-    </div>
+        <div className='stockDataContainer'>
+          <div className='newsModule'>
+            <NewsModule data={data?.news} />
+          </div>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
 

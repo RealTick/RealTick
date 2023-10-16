@@ -14,14 +14,11 @@ def get_stock_data():
 
     #Ticker
     stock = yf.Ticker(symbol)
-<<<<<<< Updated upstream
     data = stock.history(period=period)  # Fetch data for 1 year
 
-=======
     data = stock.history(period=period)
     news = stock.news
         
->>>>>>> Stashed changes
     # Convert Timestamp to string for chart data
     chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
 
@@ -77,13 +74,8 @@ def get_stock_data():
             'beta': beta,
             'yearly_return': yearly_return,
             'ytd_return': ytd_return,
-<<<<<<< Updated upstream
             'market_cap': stock.info.get('marketCap', "N/A"),
             'chart': chart_data
-=======
-            'chart': chart_data,
-            'news' : news
->>>>>>> Stashed changes
         })
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400

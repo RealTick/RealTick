@@ -1,28 +1,31 @@
+// LineChart.jsx
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+import styles from './component_css/LineChart.module.css'; // maybe for all charts? dunno if multiple css modules needed
 
-function LineChart({ data }) {
-    console.log("Chart data:", data);
 
-    const chartData = {
-        labels: Object.keys(data),
-        datasets: [
-            {
-                label: 'Closing Price',
-                data: Object.values(data),
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1,
-            },
-        ],
-    };
 
-    return (
-        <div style={{ width: '100%', height: '400px' }}>
-            <Line data={chartData} options={{ maintainAspectRatio: false }} />
-        </div>
-    );
-}
+Chart.register(...registerables);
 
+const data = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  datasets: [{
+    label: 'Sales',
+    data: [3, 2, 2, 1, 5],
+    fill: true,
+    borderColor: 'rgb(0, 0, 0)',
+    tension: 0.1,
+  }]
+};
+
+function LineChart () {
+
+  return ( 
+  <div className={styles.lineChartContainer}>
+    <Line data={data} />
+  </div>
+  );
+};
 
 export default LineChart;

@@ -1,35 +1,20 @@
 import React from 'react';
-import LineChart from './LineChart';
+import styles from './component_css/StockInfo.module.css';
 
-function StockInfo({ symbol, data }) {
+const StockInfo = ({ symbol, data }) => {
   return (
-    <div className="stock-info">
-        <div className="header-info">
-            <h2>{symbol}</h2>
-            <p><strong>Current Price:</strong> ${data.current_price.toFixed(2)}</p>
-        </div>
-        
-        <div className="details">
-            <div className="detail-item">
-                <p><strong>Opening Price:</strong> ${data.opening_price.toFixed(2)}</p>
-                <p><strong>Yearly Return:</strong> {data.yearly_return.toFixed(2)}%</p>
-            </div>
-            
-            <div className="detail-item">
-                <p><strong>YTD Return:</strong> {data.ytd_return.toFixed(2)}%</p>
-                <p><strong>Market Cap:</strong> ${data.market_cap.toLocaleString()}</p>
-            </div>
-        </div>
+    <div className={styles.stockDataContainer}>
+      <h1 className={styles.title}>{symbol}</h1>
+      <p className={styles.dataPoint}>Current Price: {data.current_price}</p>
+      <p className={styles.dataPoint}>Market Cap: {data.market_cap}</p>
+      <p className={styles.dataPoint}>Yearly Return: {data.yearly_return}</p>
+      <p className={styles.dataPoint}>Year-To-Date Return: {data.ytd_return}</p>
+      <p className={styles.dataPoint}>Opening Price: {data.opening_price}</p>
+      
+      {/* Additional data points go here */}
+      {/* Display the chart data (You can integrate Chart.js for better visualization later) */}
     </div>
-
   );
-}
-
-const periodMapping = {
-  '1mo': '1 Month',
-  '3mo': '3 Months',
-  '6mo': '6 Months',
-  '1y': '1 Year',
 };
 
 export default StockInfo;
