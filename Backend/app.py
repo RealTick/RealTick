@@ -10,15 +10,17 @@ def get_stock_data():
     symbol = request.args.get('symbol')
     period = request.args.get('period', '1y')  # default to 1 year if no period is provided
     print(f"Received request for symbol: {symbol}")  # This will log to console
+
+    # Ticker DEFINE
     stock = yf.Ticker(symbol)
     data = stock.history(period=period)  # Fetch data for 1 year
+    
+    # News
     news = stock.news
         
     # Convert Timestamp to string for chart data
     chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
 
-    # Fetch opening price
-    opening_price = data['Open'].iloc[-1]
 
     # Calculate yearly return
     if len(data) > 0:
@@ -43,10 +45,33 @@ def get_stock_data():
     52-week range, 
     and Forward Dividend & Yield.
     '''
+    def format_market_cap(value):
+        if value == "N/A":
+            return value
+
+        trillion = 1_000_000_000_000
+        billion = 1_000_000_000
+        million = 1_000_000
+
+        if value >= trillion:
+            return f"{value / trillion:.3f}T"
+        elif value >= billion:
+            return f"{value / billion:.3f}B"
+        elif value >= million:
+            return f"{value / million:.3f}M"
+        else:
+            return f"{value}"
+    # ALL FETCHING DOWN BELOW
+    current_price = data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
+    prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
+    opening_price = data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
+    market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
+    volume = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
+    fifty_two_week_range = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
 
     if not data.empty:
         return jsonify({
-            'current_price': data['Close'].iloc[-1],
+            'current_price': current_price,
             'opening_price': opening_price,
             'yearly_return': yearly_return,
             'ytd_return': ytd_return,
