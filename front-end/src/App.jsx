@@ -16,6 +16,7 @@ function App() {
   const [displayedSymbol, setDisplayedSymbol] = useState('');
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [query, setQuery] = useState(false);
 
   const handleFetchData = async () => {
     try {
@@ -25,6 +26,7 @@ function App() {
         setData(response);
         setError(null);
         setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
+        setQuery(true);
       } else {
         setError('Received unexpected data format.');
       }
@@ -63,7 +65,7 @@ function App() {
 
     { <div className='lineChartContainer'>
       <div className='LineChart'>
-        <LineChart chartData={data?.chart}/>
+        {query && <LineChart chartData={data?.chart}/>}
       </div>
       </div> }
 
