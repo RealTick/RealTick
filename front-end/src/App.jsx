@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import StockInfo from './components/stockInfo';
+
+import fetchData from './components/StockService';
+import StockInfo from './components/StockInfo';
 import ErrorMessage from './components/errorMessage'; 
+import Input from './components/Input';
+import { ThemeProvider } from './contexts/ThemeContext';
+import ThemeLoader from '../public/themes/ThemeLoader';
+import LineChart from './components/LineChart';
+import NewsModule from './components/NewsModule';
 
 function App() {
-  const [symbol, setSymbol] = useState('');
+  const [inputSymbol, setInputSymbol] = useState(''); 
+  const [displayedSymbol, setDisplayedSymbol] = useState('');
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  const handleFetchData = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/stock?symbol=${symbol}`);
+      const response = await fetchData(inputSymbol);
 
-      if (response.data) {
-        setData(response.data);
+      if (response) {
+        setData(response);
         setError(null);
+        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
       } else {
         setError('Received unexpected data format.');
       }
@@ -26,18 +35,47 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <input
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-        placeholder="Enter stock symbol..."
+    <ThemeProvider>
+      <ThemeLoader />
+     
+      <div className="App">
+  
+  <div className='searchContainer'>
+    <div className='searchBox'>
+      <Input 
+        symbol={inputSymbol} 
+        setSymbol={setInputSymbol} 
+        fetchData={handleFetchData} 
       />
-      <button onClick={fetchData}>Search</button>
-
-      <ErrorMessage error={error} />
-
-      {data && <StockInfo symbol={symbol} data={data} />}
     </div>
+  </div>
+  
+  <div className="contentContainer">
+    <div className='stockDataContainer'>
+      <div className='stockData'>
+        {data && <StockInfo symbol={displayedSymbol} data={data} />}
+      </div>
+      <ErrorMessage error={error} />
+    </div>
+    
+    
+  </div>
+
+    { <div className='lineChartContainer'>
+      <div className='LineChart'>
+        <LineChart chartData={data?.chart}/>
+      </div>
+      </div> }
+
+  <div className='stockDataContainer'>
+    <div className='newsModule'>
+      <NewsModule data={data?.news} />
+    </div>
+  </div>
+  
+</div>
+
+    </ThemeProvider>
   );
 }
 
