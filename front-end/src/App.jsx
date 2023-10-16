@@ -61,11 +61,11 @@ function App() {
     
   </div>
 
-    {/* <div className='lineChartContainer'>
+    { <div className='lineChartContainer'>
       <div className='LineChart'>
         <LineChart chartData={data?.chart}/>
       </div>
-      </div> */}
+      </div> }
 
   <div className='stockDataContainer'>
     <div className='newsModule'>
