@@ -12,7 +12,8 @@ def get_stock_data():
     print(f"Received request for symbol: {symbol}")  # This will log to console
     stock = yf.Ticker(symbol)
     data = stock.history(period=period)  # Fetch data for 1 year
-
+    news = stock.news
+        
     # Convert Timestamp to string for chart data
     chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
 
@@ -50,7 +51,8 @@ def get_stock_data():
             'yearly_return': yearly_return,
             'ytd_return': ytd_return,
             'market_cap': stock.info.get('marketCap', "N/A"),
-            'chart': chart_data
+            'chart': chart_data,
+            'news' : news
         })
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400

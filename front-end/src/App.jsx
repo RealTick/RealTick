@@ -9,6 +9,7 @@ import Input from './components/Input';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
 import LineChart from './components/LineChart';
+import NewsModule from './components/NewsModule';
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState(''); 
@@ -38,11 +39,11 @@ function App() {
       <ThemeLoader />
      
       <div className="App">
-        <div className='lineChartContainer'>
+        {/* <div className='lineChartContainer'>
           <div className='LineChart'>
             <LineChart />
           </div>
-        </div>
+        </div> */}
       
         <div className='searchContainer'>
           <div className='searchBox'>
@@ -61,6 +62,11 @@ function App() {
           <ErrorMessage error={error} />
         </div>
 
+        <div className='stockDataContainer'>
+          <div className='newsModule'>
+            <NewsModule data={data?.news} />
+          </div>
+        </div>
       </div>
     </ThemeProvider>
   );

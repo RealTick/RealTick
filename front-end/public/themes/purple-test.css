@@ -1,17 +1,15 @@
 /* dark-theme.css */
 :root {
-    --background-color: #36393e;
+    --background-color: #352F44;
     --text-color: #ffffff;
-    --text-color-hovered: #7289da;
-    --text-color-visited: #4d5d96;
-    --button-background: #7289da;
-    --button-hover-background: #7289da;
-    --input-background: #424549;
+    --button-background: #B9B4C7;
+    --button-hover-background: #4e485f;
+    --input-background: #5C5470;
     --placeholder-color: #756c6c;
     --title-background: #16181a00;
-    --data-point-background: #424549;
-    --container-background: #282b30;
-    --container-background-hover: #1e2124;
+    --data-point-background: #7a606e;
+    --container-background: #A78295;
+    --container-background-hover: #694c5b2f;
 }
 
 body {
