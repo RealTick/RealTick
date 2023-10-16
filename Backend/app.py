@@ -61,6 +61,8 @@ def get_stock_data():
             return f"{value / million:.3f}M"
         else:
             return f"{value}"
+
+    
     # ALL FETCHING DOWN BELOW
     current_price = data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
     prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
@@ -68,6 +70,13 @@ def get_stock_data():
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
     volume = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
     fifty_two_week_range = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
+    forward_dividend_yield = f"{stock.info.get('forwardPE', 'N/A')} x {stock.info.get('forwardEps', 'N/A')}" if stock.info.get('forwardPE') and stock.info.get('forwardEps') else "N/A"
+    days_range = (data['Low'].iloc[-1].round(2), data['High'].iloc[-1].round(2)) if not data.empty else ("N/A", "N/A")
+    beta = stock.info.get('beta', "N/A")
+    stock_long_name=stock.info.get('longName')
+    stock_short_name=stock.info.get('shortName')
+    stock_symbol=stock.info.get('symbol')
+    stock_display_name=stock_long_name+f'({stock_symbol})'
 
     if not data.empty:
         return jsonify({
