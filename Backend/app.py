@@ -68,11 +68,14 @@ def get_stock_data():
     prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
     opening_price = data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
-    volume = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
+    volume_unformatted = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
+    volume = "{:,}".format(volume_unformatted) if not isinstance(volume_unformatted, str) else volume_unformatted
+
     fifty_two_week_range_tuple = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
     fifty_two_week_range= f"{fifty_two_week_range_tuple[0]} - {fifty_two_week_range_tuple[1]}" if not data.empty else "N/A"
     forward_dividend_yield = f"{stock.info.get('forwardPE', 'N/A')} x {stock.info.get('forwardEps', 'N/A')}" if stock.info.get('forwardPE') and stock.info.get('forwardEps') else "N/A"
-    days_range = (data['Low'].iloc[-1].round(2), data['High'].iloc[-1].round(2)) if not data.empty else ("N/A", "N/A")
+    days_range_tuple = (data['Low'].iloc[-1].round(2), data['High'].iloc[-1].round(2)) if not data.empty else ("N/A", "N/A")
+    days_range=f"{days_range_tuple[0]} - {days_range_tuple[1]}" if not data.empty else "N/A"
     beta = stock.info.get('beta', "N/A")
     stock_long_name=stock.info.get('longName')
     stock_short_name=stock.info.get('shortName')
