@@ -4,7 +4,7 @@ import styles from './component_css/StockInfo.module.css';
 const StockInfo = ({ symbol, data }) => {
   return (
     <div className={styles.stockDataContainer}>
-      <h1 className={styles.title}>{symbol}</h1>
+      <h1 className={styles.title}>{data.stock_display_name}</h1>
       <p className={styles.dataPoint}>Current Price: {data.current_price}</p>
       <p className={styles.dataPoint}>Market Cap: {data.market_cap}</p>
       <p className={styles.dataPoint}>Yearly Return: {data.yearly_return}</p>

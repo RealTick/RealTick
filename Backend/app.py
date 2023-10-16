@@ -24,14 +24,14 @@ def get_stock_data():
 
     # Calculate yearly return
     if len(data) > 0:
-        yearly_return = ((data['Close'].iloc[-1] - data['Close'].iloc[0]) / data['Close'].iloc[0]) * 100
+        yearly_return = (((data['Close'].iloc[-1] - data['Close'].iloc[0]) / data['Close'].iloc[0]) * 100).round(2)
     else:
         yearly_return = "N/A"
 
     # Calculate YTD return
     start_of_year = data[data.index >= f"{data.index[-1].year}-01-01"]
     if not start_of_year.empty:
-        ytd_return = ((data['Close'].iloc[-1] - start_of_year['Close'].iloc[0]) / start_of_year['Close'].iloc[0]) * 100
+        ytd_return = (((data['Close'].iloc[-1] - start_of_year['Close'].iloc[0]) / start_of_year['Close'].iloc[0]) * 100).round(2)
     else:
         ytd_return = "N/A"
 
@@ -76,7 +76,7 @@ def get_stock_data():
     stock_long_name=stock.info.get('longName')
     stock_short_name=stock.info.get('shortName')
     stock_symbol=stock.info.get('symbol')
-    stock_display_name=stock_long_name+f'({stock_symbol})'
+    stock_display_name=stock_long_name+f' ({stock_symbol})'
 
     if not data.empty:
         return jsonify({
