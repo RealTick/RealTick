@@ -69,7 +69,8 @@ def get_stock_data():
     opening_price = data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
     volume = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
-    fifty_two_week_range = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
+    fifty_two_week_range_tuple = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
+    fifty_two_week_range= f"{fifty_two_week_range_tuple[0]} - {fifty_two_week_range_tuple[1]}" if not data.empty else "N/A"
     forward_dividend_yield = f"{stock.info.get('forwardPE', 'N/A')} x {stock.info.get('forwardEps', 'N/A')}" if stock.info.get('forwardPE') and stock.info.get('forwardEps') else "N/A"
     days_range = (data['Low'].iloc[-1].round(2), data['High'].iloc[-1].round(2)) if not data.empty else ("N/A", "N/A")
     beta = stock.info.get('beta', "N/A")
