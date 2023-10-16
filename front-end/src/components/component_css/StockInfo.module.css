@@ -1,11 +1,12 @@
 /* StockInfo.module.css */
 
 .stockDataContainer {
+  flex: 1;
   /* Positioning and Size */
   position: absolute;
   left: 15%;
   top: 13vh;
-  width: 20vw;
+  width: 35vw;
   min-height: 450px;
 
   /* Layout and Display */
@@ -17,17 +18,38 @@
   border-radius: 15px;
   padding: 15px;
   background-color: var(--container-background);
+
+  /* two-column layout */
+  display: flex;
+  flex-direction: column;  /* DIRECTION */
+  justify-content: stretch;
 }
 
+.dataColumns {
+  /* Use Flexbox for the two-column layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  /* Add spacing between the columns */
+}
 
-.title,
+.column {
+  display: flex;
+  flex-direction: column;
+  /* padding: 0 10px; /* space between */ 
+}
+
+.title{
+  width: 100%;
+  flex: 1;
+}
 .dataPoint {
   margin: 0;
 }
 
 .title {
-  font-size: 50px;
+  font-size: 45px;
   font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
   background-color: var(--title-background);
   padding: 10px;
   margin-bottom: 15px;
