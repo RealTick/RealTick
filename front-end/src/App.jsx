@@ -10,6 +10,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
 import LineChart from './components/LineChart';
 import NewsModule from './components/NewsModule';
+import Logo from './components/Logo';
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState(''); 
@@ -52,6 +53,12 @@ function App() {
     </div>
   </div>
   
+  
+  <div className="logoContainer">
+    <Logo /> 
+  </div>
+  
+
   <div className="contentContainer">
     <div className='stockDataContainer'>
       <div className='stockData'>
@@ -59,7 +66,6 @@ function App() {
       </div>
       <ErrorMessage error={error} />
     </div>
-    
     
   </div>
 

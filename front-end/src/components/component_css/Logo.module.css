@@ -1,0 +1,13 @@
+.logoContainer {
+    top: 1%;
+    left: 0.5%;
+    width: 225px;
+    height: 90px;
+    
+    padding: 10px;
+    margin: 10px;
+    position: absolute;
+    background-color: var(--container-background);
+
+    border-radius: 15px;
+}
