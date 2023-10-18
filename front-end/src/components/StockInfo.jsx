@@ -18,6 +18,9 @@ const StockInfo = ({ symbol, data }) => {
           {/* <p className={styles.dataPoint}>Differece: {data.price_diff}</p> */}
           <p className={`${styles.dataPoint} ${priceDiffClass}`}>Difference: {data.price_diff}</p>
           <p className={`${styles.dataPoint} ${priceDiffClass}`}>Difference (%): {data.price_diff_percentage}</p>
+          {/* TODO: Change: -1.59 (1.20%)  */}
+          
+
           <p className={styles.dataPoint}>Previous Close: {data.prev_close}</p>
           <p className={styles.dataPoint}>Market Cap: {data.market_cap}</p>
           <p className={styles.dataPoint}>Open: {data.opening_price}</p>
