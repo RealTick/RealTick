@@ -12,18 +12,68 @@ import LineChart from "./components/LineChart";
 import NewsModule from "./components/NewsModule";
 import { Line } from "react-chartjs-2";
 
+import PeriodSelector from './components/PeriodSelector';  // Adjust path if needed
+
+const trimDataByPeriod = (data, period) => {
+  if (!data || typeof data !== 'object') return null;
+
+  const currentDate = new Date();
+  let startDate;
+
+  switch (period) {
+      case '1d':
+          startDate = new Date(currentDate);
+          startDate.setDate(currentDate.getDate() - 1);
+          break;
+      case '5d':
+          startDate = new Date(currentDate);
+          startDate.setDate(currentDate.getDate() - 5);
+          break;
+      case '1m':
+          startDate = new Date(currentDate);
+          startDate.setMonth(currentDate.getMonth() - 1);
+          break;
+      case '6m':
+          startDate = new Date(currentDate);
+          startDate.setMonth(currentDate.getMonth() - 6);
+          break;
+      case '1y':
+          startDate = new Date(currentDate);
+          startDate.setFullYear(currentDate.getFullYear() - 1);
+          break;
+      case 'max':
+      default:
+          return data;
+  }
+
+  return Object.keys(data).reduce((acc, dateStr) => {
+      const date = new Date(dateStr);
+      if (date >= startDate) {
+          acc[dateStr] = data[dateStr];
+      }
+      return acc;
+  }, {});
+};
+
+
+
+
 function App() {
   const [inputSymbol, setInputSymbol] = useState("");
   const [displayedSymbol, setDisplayedSymbol] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedPeriod, setSelectedPeriod] = useState('1y');  // Default to 1 year
 
-  const handleFetchData = async () => {
+  const handleFetchData = async (period=selectedPeriod) => {
     try {
-      const response = await fetchData(inputSymbol);
+      const response = await fetchData(inputSymbol, period);
+      console.log('Raw Response:',response);
 
-      if (response) {
-        setData(response);
+      if (response && response.chart) {
+        const trimmedChartData = trimDataByPeriod(response.chart, period);
+        console.log('Trimmed Chart Data:',response)
+        setData({ ...response, chart: trimmedChartData });
         setError(null);
         setDisplayedSymbol(inputSymbol); // Update displayedSymbol only upon successful fetching
       } else {
@@ -45,11 +95,11 @@ function App() {
     fetchStockData();
 
     // Set up the interval
-    const intervalId = setInterval(fetchStockData, 15000); // 60000ms = 1 minute
+    const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+  }, [inputSymbol,selectedPeriod]); // Dependency array. Refetches when inputSymbol changes.
 
   return (
     <ThemeProvider>
@@ -83,6 +133,16 @@ function App() {
             <LineChart chartData={data?.chart} />
           </div>
         </div>
+
+        <PeriodSelector
+    selectedPeriod={selectedPeriod}
+    onSelectPeriod={(period) => {
+        setSelectedPeriod(period);
+        handleFetchData(period);  // Fetch data immediately for the new period
+    }}
+/>
+
+        
 
         <div className="stockDataContainer">
           <div className="newsModule">

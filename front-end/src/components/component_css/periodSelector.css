@@ -1,0 +1,12 @@
+/* styles.css (or the appropriate stylesheet) */
+.periodSelector button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.periodSelector button.active {
+    background-color: #007BFF;
+    color: #fff;
+}
