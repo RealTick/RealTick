@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";  // Added useEffect
+import React, { useState, useEffect } from "react"; // Added useEffect
 import axios from "axios";
 import "./App.css";
 
@@ -12,67 +12,67 @@ import LineChart from "./components/LineChart";
 import NewsModule from "./components/NewsModule";
 import { Line } from "react-chartjs-2";
 
-import PeriodSelector from './components/PeriodSelector';  // Adjust path if needed
+// oct 18
+// import CandlestickChart from "./components/CandlestickChart";
+
+import PeriodSelector from "./components/PeriodSelector"; // Adjust path if needed
 
 const trimDataByPeriod = (data, period) => {
-  if (!data || typeof data !== 'object') return null;
+  if (!data || typeof data !== "object") return null;
 
   const currentDate = new Date();
   let startDate;
 
   switch (period) {
-      case '1d':
-          startDate = new Date(currentDate);
-          startDate.setDate(currentDate.getDate() - 1);
-          break;
-      case '5d':
-          startDate = new Date(currentDate);
-          startDate.setDate(currentDate.getDate() - 5);
-          break;
-      case '1m':
-          startDate = new Date(currentDate);
-          startDate.setMonth(currentDate.getMonth() - 1);
-          break;
-      case '6m':
-          startDate = new Date(currentDate);
-          startDate.setMonth(currentDate.getMonth() - 6);
-          break;
-      case '1y':
-          startDate = new Date(currentDate);
-          startDate.setFullYear(currentDate.getFullYear() - 1);
-          break;
-      case 'max':
-      default:
-          return data;
+    case "1d":
+      startDate = new Date(currentDate);
+      startDate.setDate(currentDate.getDate() - 1);
+      break;
+    case "5d":
+      startDate = new Date(currentDate);
+      startDate.setDate(currentDate.getDate() - 5);
+      break;
+    case "1m":
+      startDate = new Date(currentDate);
+      startDate.setMonth(currentDate.getMonth() - 1);
+      break;
+    case "6m":
+      startDate = new Date(currentDate);
+      startDate.setMonth(currentDate.getMonth() - 6);
+      break;
+    case "1y":
+      startDate = new Date(currentDate);
+      startDate.setFullYear(currentDate.getFullYear() - 1);
+      break;
+    case "max":
+    default:
+      return data;
   }
 
   return Object.keys(data).reduce((acc, dateStr) => {
-      const date = new Date(dateStr);
-      if (date >= startDate) {
-          acc[dateStr] = data[dateStr];
-      }
-      return acc;
+    const date = new Date(dateStr);
+    if (date >= startDate) {
+      acc[dateStr] = data[dateStr];
+    }
+    return acc;
   }, {});
 };
-
-
-
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState("");
   const [displayedSymbol, setDisplayedSymbol] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [selectedPeriod, setSelectedPeriod] = useState('1y');  // Default to 1 year
+  const [selectedPeriod, setSelectedPeriod] = useState("1y"); // Default to 1 year
 
-  const handleFetchData = async (period=selectedPeriod) => {
+  const handleFetchData = async (period = selectedPeriod) => {
     try {
       const response = await fetchData(inputSymbol, period);
-      console.log('Raw Response:',response);
+      console.log("Raw Response:", response);
 
       if (response && response.chart) {
         const trimmedChartData = trimDataByPeriod(response.chart, period);
-        console.log('Trimmed Chart Data:',response)
+        console.log("Trimmed Chart Data:", response);
         setData({ ...response, chart: trimmedChartData });
         setError(null);
         setDisplayedSymbol(inputSymbol); // Update displayedSymbol only upon successful fetching
@@ -99,7 +99,7 @@ function App() {
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [inputSymbol,selectedPeriod]); // Dependency array. Refetches when inputSymbol changes.
+  }, [inputSymbol, selectedPeriod]); // Dependency array. Refetches when inputSymbol changes.
 
   return (
     <ThemeProvider>
@@ -127,7 +127,6 @@ function App() {
 
         {/* <LineChart chartData={data?.chart_data}/> */}
 
-
         <div className="lineChartContainer">
           <div className="LineChart">
             <LineChart chartData={data?.chart} />
@@ -135,14 +134,12 @@ function App() {
         </div>
 
         <PeriodSelector
-    selectedPeriod={selectedPeriod}
-    onSelectPeriod={(period) => {
-        setSelectedPeriod(period);
-        handleFetchData(period);  // Fetch data immediately for the new period
-    }}
-/>
-
-        
+          selectedPeriod={selectedPeriod}
+          onSelectPeriod={(period) => {
+            setSelectedPeriod(period);
+            handleFetchData(period); // Fetch data immediately for the new period
+          }}
+        />
 
         <div className="stockDataContainer">
           <div className="newsModule">

@@ -83,7 +83,7 @@ def get_stock_data():
     stock_display_name=stock_long_name+f' ({stock_symbol})'
     price_diff=(current_price-prev_close).round(3)
     price_diff_percentage=((current_price-prev_close)/(prev_close)*100).round(3)    
-    
+    #print(chart_data)
 
     if not data.empty:
         return jsonify({

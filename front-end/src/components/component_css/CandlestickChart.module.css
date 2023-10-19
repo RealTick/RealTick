@@ -1,0 +1,22 @@
+/* CandlestickChart.module.css
+
+.candlestickChartContainer {
+    flex: 1;
+    position: absolute;
+    left: 65%; 
+    top: 13vh; 
+    width: 35vw;
+    min-height: 450px; 
+    margin-left: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--container-background);
+    padding: 15px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.candlestickChartContainer:hover {
+    background-color: var(--container-background-hover);
+} */
