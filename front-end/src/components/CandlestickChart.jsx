@@ -21,8 +21,30 @@ function CandlestickChart({ chartData }) {
 
   const layout = {
     title: 'Stock Price',
+    paper_bgcolor: 'rgba(210, 210, 210, 1)',
+    plot_bgcolor: 'rgba(82, 114, 242, 1)',
     xaxis: {
-      title: 'Date',
+        title: 'Date',
+        rangeselector: {
+           x: 0,
+           y: 1.2,
+           xanchor: 'left',
+           font: {size:8},
+           buttons: [{
+               step: 'month',
+               stepmode: 'backward',
+               count: 1,
+               label: '1 month'
+           }, {
+               step: 'month',
+               stepmode: 'backward',
+               count: 6,
+               label: '6 months'
+           }, {
+               step: 'all',
+               label: 'All dates'
+           }]
+        }
     },
     yaxis: {
       title: 'Price',
