@@ -1,47 +1,45 @@
-// import React, { useEffect } from 'react';
-// import { Chart } from 'chart.js';
-// import { CandlestickController, LinearScale, TimeScale, Title } from 'chart.js';
-// import styles from './component_css/CandlestickChart.module.css';
+import React from 'react';
+import Plot from 'react-plotly.js';
 
-// // Register the necessary modules for the candlestick chart
-// Chart.register(CandlestickController, LinearScale, TimeScale, Title);
+function CandlestickChart({ data }) {
+    const trace = {
+        x: data.map(d => d.time),
+        close: data.map(d => d.close),
+        high: data.map(d => d.high),
+        low: data.map(d => d.low),
+        open: data.map(d => d.open),
 
-// const CandlestickChart = () => {
-  
-//   useEffect(() => {
-//     const data = {
-//       labels: ["2023-01-01", "2023-01-02", "2023-01-03", "2023-01-04", "2023-01-05"],
-//       datasets: [{
-//         label: 'Candlestick Data',
-//         data: [
-//           { t: new Date("2023-01-01").getTime(), o: 110, h: 120, l: 105, c: 118 },
-//           { t: new Date("2023-01-02").getTime(), o: 119, h: 125, l: 115, c: 122 },
-//           { t: new Date("2023-01-03").getTime(), o: 121, h: 128, l: 120, c: 126 },
-//           { t: new Date("2023-01-04").getTime(), o: 127, h: 130, l: 124, c: 129 },
-//           { t: new Date("2023-01-05").getTime(), o: 129, h: 134, l: 128, c: 132 }
-//         ]
-//       }]
-//     };
+        increasing: {line: {color: 'green'}},
+        decreasing: {line: {color: 'red'}},
 
-//     const options = {
-//       scales: {
-//         x: {
-//           type: 'time'
-//         },
-//         y: {
-//           type: 'linear'
-//         }
-//       }
-//     };
+        type: 'candlestick',
+        xaxis: 'x',
+        yaxis: 'y'
+    };
 
-//     new Chart(document.getElementById('candlestickChart'), {
-//       type: 'candlestick',
-//       data: data,
-//       options: options
-//     });
-//   }, []);
+    const layout = {
+        dragmode: 'zoom',
+        margin: {
+            r: 10,
+            t: 25,
+            b: 40,
+            l: 60
+        },
+        showlegend: false,
+        xaxis: {
+            autorange: true,
+            domain: [0, 1],
+            range: [data[0].time, data[data.length - 1].time],
+            rangeslider: {range: [data[0].time, data[data.length - 1].time]},
+            type: 'date'
+        },
+        yaxis: {
+            autorange: true,
+            type: 'linear'
+        }
+    };
 
-//   return <canvas id="candlestickChart" width="400" height="400"></canvas>;
-// };
+    return <Plot data={[trace]} layout={layout} />;
+}
 
-// export default CandlestickChart;
+export default CandlestickChart;

@@ -15,7 +15,12 @@ import { Line } from "react-chartjs-2";
 // oct 18
 // import CandlestickChart from "./components/CandlestickChart";
 
-import PeriodSelector from "./components/PeriodSelector"; // Adjust path if needed
+//import PeriodSelector from "./components/PeriodSelector"; // Adjust path if needed
+
+//oct 20
+//import CandlestickChart from './components/CandlestickChart';
+
+
 
 const trimDataByPeriod = (data, period) => {
   if (!data || typeof data !== "object") return null;
@@ -58,6 +63,17 @@ const trimDataByPeriod = (data, period) => {
   }, {});
 };
 
+const fetchAlphaVantageData = async () => {
+  try {
+      // Adjust the symbol parameter as needed. Here, it's assumed you have a variable named inputSymbol.
+      const response = await axios.get(`/alphavantage?symbol=${inputSymbol}&interval=5min`);
+      setCandlestickData(response.data);
+  } catch (err) {
+      console.error("Error fetching data from AlphaVantage:", err);
+  }
+};
+
+
 function App() {
   const [inputSymbol, setInputSymbol] = useState("");
   const [displayedSymbol, setDisplayedSymbol] = useState("");
@@ -65,10 +81,14 @@ function App() {
   const [error, setError] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState("1y"); // Default to 1 year
 
+  const [candlestickData, setCandlestickData] = useState([]);
+
+
   const handleFetchData = async (period = selectedPeriod) => {
     try {
       const response = await fetchData(inputSymbol, period);
       console.log("Raw Response:", response);
+      fetchAlphaVantageData(); // Call this after your existing logic
 
       if (response && response.chart) {
         const trimmedChartData = trimDataByPeriod(response.chart, period);
@@ -127,20 +147,20 @@ function App() {
 
         {/* <LineChart chartData={data?.chart_data}/> */}
 
-        <div className="lineChartContainer">
+        {/* <div className="lineChartContainer">
           <div className="LineChart">
             <LineChart chartData={data?.chart} />
           </div>
-        </div>
+        </div> */}
 
-        <PeriodSelector
+        {/* <PeriodSelector
           selectedPeriod={selectedPeriod}
           onSelectPeriod={(period) => {
             setSelectedPeriod(period);
             handleFetchData(period); // Fetch data immediately for the new period
           }}
-        />
-
+        /> */}
+        {/* //<CandlestickChart data={candlestickData} /> */}
         <div className="stockDataContainer">
           <div className="newsModule">
             <NewsModule data={data?.news} />

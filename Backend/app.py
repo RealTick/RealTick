@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import yfinance as yf
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -110,6 +111,33 @@ def get_stock_data():
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400
 
+
+
+# Below your existing routes
+@app.route('/alphavantage', methods=['GET'])
+def get_alphavantage_data():
+    api_key = "YOUR_ALPHAVANTAGE_API_KEY" # Replace with your API key
+    symbol = request.args.get('symbol')
+    interval = request.args.get('interval', '5min')
+
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={api_key}'
+    response = requests.get(url)
+    data = response.json()
+    
+    if 'Time Series (5min)' not in data:
+        return jsonify({'error': 'Could not fetch data from AlphaVantage.'}), 400
+
+    # Extract and structure the data for the frontend
+    timeseries = data['Time Series (5min)']
+    chart_data = [{
+        'time': time,
+        'open': float(values['1. open']),
+        'high': float(values['2. high']),
+        'low': float(values['3. low']),
+        'close': float(values['4. close'])
+    } for time, values in timeseries.items()]
+
+    return jsonify(chart_data)
 
 
 if __name__ == '__main__':
