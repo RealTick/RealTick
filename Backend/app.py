@@ -19,8 +19,16 @@ def get_stock_data():
     news = stock.news
         
     # Convert Timestamp to string for chart data
-    chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
-
+    # chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
+    chart_data = {
+        date.strftime('%Y-%m-%d'): {
+            'open': open_val,
+            'high': high_val,
+            'low': low_val,
+            'close': close_val
+        } 
+        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close'])
+    }
 
     # Calculate yearly return
     if len(data) > 0:

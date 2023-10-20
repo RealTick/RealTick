@@ -8,7 +8,7 @@ import ErrorMessage from './components/errorMessage';
 import Input from './components/Input';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
-import LineChart from './components/LineChart';
+import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
 
@@ -71,7 +71,7 @@ function App() {
 
     { <div className='lineChartContainer'>
       <div className='LineChart'>
-        {query && <LineChart chartData={data?.chart}/>}
+        {query && <CandlestickChart chartData={data?.chart} />}
       </div>
       </div> }
 
