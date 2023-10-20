@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
 
-import fetchData from './components/StockService';
-import StockInfo from './components/StockInfo';
-import ErrorMessage from './components/errorMessage'; 
-import Input from './components/Input';
-import { ThemeProvider } from './contexts/ThemeContext';
-import ThemeLoader from '../public/themes/ThemeLoader';
-import LineChart from './components/LineChart';
-import NewsModule from './components/NewsModule';
-import Logo from './components/Logo';
+import fetchData from "./components/StockService";
+import StockInfo from "./components/StockInfo";
+import ErrorMessage from "./components/errorMessage";
+import Input from "./components/Input";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import ThemeLoader from "../public/themes/ThemeLoader";
+import LineChart from "./components/LineChart";
+import NewsModule from "./components/NewsModule";
+import Logo from "./components/Logo";
+
+import CandlestickChart from "./components/CandlestickChart";
 
 function App() {
-  const [inputSymbol, setInputSymbol] = useState(''); 
-  const [displayedSymbol, setDisplayedSymbol] = useState('');
+  const [inputSymbol, setInputSymbol] = useState("");
+  const [displayedSymbol, setDisplayedSymbol] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(false);
@@ -26,13 +28,13 @@ function App() {
       if (response) {
         setData(response);
         setError(null);
-        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
+        setDisplayedSymbol(inputSymbol); // Update displayedSymbol only upon successful fetching
         setQuery(true);
       } else {
-        setError('Received unexpected data format.');
+        setError("Received unexpected data format.");
       }
     } catch (err) {
-      setError(`Error fetching data: ${err.message || 'Please try again.'}`);
+      setError(`Error fetching data: ${err.message || "Please try again."}`);
       setData(null);
     }
   };
@@ -40,49 +42,44 @@ function App() {
   return (
     <ThemeProvider>
       <ThemeLoader />
-     
+
       <div className="App">
-  
-  <div className='searchContainer'>
-    <div className='searchBox'>
-      <Input 
-        symbol={inputSymbol} 
-        setSymbol={setInputSymbol} 
-        fetchData={handleFetchData} 
-      />
-    </div>
-  </div>
-  
-  
-  <div className="logoContainer">
-    <Logo /> 
-  </div>
-  
+        <div className="searchContainer">
+          <div className="searchBox">
+            <Input
+              symbol={inputSymbol}
+              setSymbol={setInputSymbol}
+              fetchData={handleFetchData}
+            />
+          </div>
+        </div>
 
-  <div className="contentContainer">
-    <div className='stockDataContainer'>
-      <div className='stockData'>
-        {data && <StockInfo symbol={displayedSymbol} data={data} />}
-      </div>
-      <ErrorMessage error={error} />
-    </div>
-    
-  </div>
+        <div className="logoContainer">
+          <Logo />
+        </div>
 
-    { <div className='lineChartContainer'>
+        <div className="contentContainer">
+          <div className="stockDataContainer">
+            <div className="stockData">
+              {data && <StockInfo symbol={displayedSymbol} data={data} />}
+            </div>
+            <ErrorMessage error={error} />
+          </div>
+        </div>
+
+        {/* { <div className='lineChartContainer'>
       <div className='LineChart'>
         {query && <LineChart chartData={data?.chart}/>}
       </div>
-      </div> }
+      </div> } */}
+        <CandlestickChart />
 
-  <div className='stockDataContainer'>
-    <div className='newsModule'>
-      <NewsModule data={data?.news} />
-    </div>
-  </div>
-  
-</div>
-
+        <div className="stockDataContainer">
+          <div className="newsModule">
+            <NewsModule data={data?.news} />
+          </div>
+        </div>
+      </div>
     </ThemeProvider>
   );
 }
