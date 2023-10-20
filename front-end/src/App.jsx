@@ -88,7 +88,7 @@ function App() {
     try {
       const response = await fetchData(inputSymbol, period);
       console.log("Raw Response:", response);
-      fetchAlphaVantageData(); // Call this after your existing logic
+      //fetchAlphaVantageData(); // Call this after your existing logic
 
       if (response && response.chart) {
         const trimmedChartData = trimDataByPeriod(response.chart, period);
@@ -112,7 +112,7 @@ function App() {
     };
 
     // Call the fetch function immediately
-    fetchStockData();
+    //fetchStockData();
 
     // Set up the interval
     const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
