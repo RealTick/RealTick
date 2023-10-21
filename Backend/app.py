@@ -20,6 +20,7 @@ def get_stock_data():
         
     # Convert Timestamp to string for chart data
     # chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
+    
     chart_data = {
         date.strftime('%Y-%m-%d'): {
             'open': open_val,
@@ -27,7 +28,8 @@ def get_stock_data():
             'low': low_val,
             'close': close_val
         } 
-        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close'])
+        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) 
+        #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5}, ...
     }
 
     # Calculate yearly return

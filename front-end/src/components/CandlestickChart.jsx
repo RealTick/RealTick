@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Plot from 'react-plotly.js';
 import styles from './component_css/CandlestickChart.module.css';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 function CandlestickChart({ chartData }) {
   const dates = Object.keys(chartData || {});
+
+  //theming system
+  const { theme } = useContext(ThemeContext); //import theme (i.e. 'dark')
+  const computedStyle = getComputedStyle(document.documentElement); //import stylesheet
+
+  const paper_bgcolor_theme = computedStyle.getPropertyValue(`--background-color`).trim();
+  const text_color_theme = computedStyle.getPropertyValue(`--text-color`).trim();
+  const button_bgcolor = computedStyle.getPropertyValue(`--button-background`).trim();
+  const plot_bgcolor_theme = paper_bgcolor_theme; //temp, can change to w/e
 
   const openPrices = dates.map(date => chartData[date].open);
   const highPrices = dates.map(date => chartData[date].high);
@@ -20,34 +30,67 @@ function CandlestickChart({ chartData }) {
   }];
 
   const layout = {
-    title: 'Stock Price',
-    paper_bgcolor: 'rgba(210, 210, 210, 1)',
-    plot_bgcolor: 'rgba(82, 114, 242, 1)',
+    title: {
+      text: 'Stock Price',
+      font: {
+        size: 30
+      }
+    },
+    paper_bgcolor : paper_bgcolor_theme,
+    plot_bgcolor : plot_bgcolor_theme,
+    font: {
+      color: text_color_theme,
+      family: 'Arial',
+      size: 14,
+    },
     xaxis: {
-        title: 'Date',
+        title: {
+          text: 'Date',
+          font: {
+            size: 20
+          }
+        },
+        tickmode: 'auto', 
+        showgrid: true,   
+        gridcolor: button_bgcolor,
+        griddash: 'solid',
+        tickcolor: text_color_theme,
         rangeselector: {
-           x: 0,
-           y: 1.2,
-           xanchor: 'left',
-           font: {size:8},
-           buttons: [{
-               step: 'month',
-               stepmode: 'backward',
-               count: 1,
-               label: '1 month'
-           }, {
-               step: 'month',
-               stepmode: 'backward',
-               count: 6,
-               label: '6 months'
-           }, {
-               step: 'all',
-               label: 'All dates'
-           }]
-        }
+          x: 0,
+          y: 1.2,
+          xanchor: 'left',
+          font: {size:8},
+          buttons: [{
+              step: 'month',
+              stepmode: 'backward',
+              count: 1,
+              label: '1 month',
+              bgcolor: 'red',
+          }, {
+              step: 'month',
+              stepmode: 'backward',
+              count: 6,
+              label: '6 months',
+              fill: '#FFFFFF',  
+          }, {
+              step: 'all',
+              label: 'All dates',
+              bgcolor: button_bgcolor,
+          }]
+       }
     },
     yaxis: {
-      title: 'Price',
+      title: {
+        text: 'Price',
+        font: {
+          size: 20
+        }
+      },
+      tickmode: 'auto',
+      showgrid: true,  
+      gridcolor: button_bgcolor, 
+      griddash: 'solid',
+      tickcolor: text_color_theme,
     }
   };
 
