@@ -19,8 +19,18 @@ def get_stock_data():
     news = stock.news
         
     # Convert Timestamp to string for chart data
-    chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
-
+    # chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
+    
+    chart_data = {
+        date.strftime('%Y-%m-%d'): {
+            'open': open_val,
+            'high': high_val,
+            'low': low_val,
+            'close': close_val
+        } 
+        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) 
+        #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5}, ...
+    }
 
     # Calculate yearly return
     if len(data) > 0:
@@ -64,9 +74,9 @@ def get_stock_data():
 
     
     # ALL FETCHING DOWN BELOW
-    current_price = data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
+    current_price = stock.info['currentPrice'] #data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
     prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
-    opening_price = data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
+    opening_price = stock.info['open'] #data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
     volume_unformatted = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
     volume = "{:,}".format(volume_unformatted) if not isinstance(volume_unformatted, str) else volume_unformatted
@@ -81,6 +91,8 @@ def get_stock_data():
     stock_short_name=stock.info.get('shortName')
     stock_symbol=stock.info.get('symbol')
     stock_display_name=stock_long_name+f' ({stock_symbol})'
+    price_diff=(current_price-prev_close).round(3)
+    price_diff_percentage=((current_price-prev_close)/(prev_close)*100).round(3) 
 
     if not data.empty:
         return jsonify({
@@ -100,7 +112,9 @@ def get_stock_data():
             'yearly_return': yearly_return,
             'ytd_return': ytd_return,
             'chart': chart_data,
-            'news':news
+            'news':news,
+            'price_diff': price_diff,
+            'price_diff_percentage': price_diff_percentage
         })
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400

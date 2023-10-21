@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// REFRESH_TICKER import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";  // Added useEffect SA
 import axios from 'axios';
 import './App.css';
 
@@ -8,7 +9,7 @@ import ErrorMessage from './components/errorMessage';
 import Input from './components/Input';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeLoader from '../public/themes/ThemeLoader';
-import LineChart from './components/LineChart';
+import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
 
@@ -36,6 +37,24 @@ function App() {
       setData(null);
     }
   };
+
+  // REFRESH_TICKER SA
+  useEffect(() => {
+    // Fetch stock data right away and then set up an interval to fetch every minute.
+    const fetchStockData = () => {
+      handleFetchData();
+    };
+
+    // Call the fetch function immediately
+    //fetchStockData();
+
+    // Set up the interval
+    const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+  // REFRESH_TICKER SA
 
   return (
     <ThemeProvider>
@@ -71,7 +90,7 @@ function App() {
 
     { <div className='lineChartContainer'>
       <div className='LineChart'>
-        {query && <LineChart chartData={data?.chart}/>}
+        {query && <CandlestickChart chartData={data?.chart} />}
       </div>
       </div> }
 
