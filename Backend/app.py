@@ -1,9 +1,71 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import yfinance as yf
+import requests
 
 app = Flask(__name__)
 CORS(app)
+
+def alpha_vantage():
+    # https://colab.research.google.com/drive/1IoGts7YVAkwQ5CETb4DPE5IyhGjGBPYb#scrollTo=abSSNFQZIcYp
+    # Variables
+    api = "Y8LETOLT99NRN9CG"
+    symbol="AAPL"
+
+    # INTRADAY DATA
+    """
+    This API returns current and 20+ years of historical intraday OHLCV time series of the equity specified,
+    overing extended trading hours where applicable (e.g., 4:00am to 8:00pm Eastern Time for the US market).
+    You can query both raw (as-traded) and split/dividend-adjusted intraday data from this endpoint. 
+    The OHLCV data is sometimes called "candles" in finance literature.
+    https://www.alphavantage.co/documentation/
+    """
+    URL_INTRADAY = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&apikey={api}'
+    current_url = URL_INTRADAY
+    r = requests.get(current_url)
+    alpha_chart_data = r.json()
+    # alpha_chart_data
+
+    alpha_chart_data_transformed = {
+        date: {
+            'open': float(stock_data['1. open']),
+            'high': float(stock_data['2. high']),
+            'low': float(stock_data['3. low']),
+            'close': float(stock_data['4. close'])
+        }
+        for date, stock_data in alpha_chart_data['Time Series (5min)'].items()
+    }
+
+    #print(alpha_chart_data_transformed)
+    #alpha_chart_data_transformed
+
+    # END INTRADAY DATA
+
+    # Global QUOTE
+    # A lightweight alternative to the time series APIs, this service returns the latest price and volume information for a ticker of your choice.
+    URL_QUOTE = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api}'
+    current_url = URL_QUOTE
+    r = requests.get(current_url)
+    data = r.json()
+    quote = data['Global Quote']
+
+    # Transform the data
+    alpha_transformed_data = {
+        'symbol': quote['01. symbol'],
+        'open': quote['02. open'],
+        'high': quote['03. high'],
+        'low': quote['04. low'],
+        'price': quote['05. price'],
+        'volume': quote['06. volume'],
+        'latest trading day': quote['07. latest trading day'],
+        'previous close': quote['08. previous close'],
+        'change': quote['09. change'],
+        'change percent': quote['10. change percent']
+    }
+    #alpha_transformed_data['volume']
+
+
+
 
 @app.route('/stock', methods=['GET'])
 def get_stock_data():
