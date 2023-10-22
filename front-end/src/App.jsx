@@ -22,14 +22,14 @@ function App() {
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(false);
 
-  const handleFetchData = async () => {
+  const handleFetchData = async (symbolToFetch) => {
     try {
-      const response = await fetchData(inputSymbol);
-
+      const response = await fetchData(symbolToFetch);
+      
       if (response) {
         setData(response);
         setError(null);
-        setDisplayedSymbol(inputSymbol);
+        setDisplayedSymbol(symbolToFetch); // set it to the symbolToFetch instead of inputSymbol
         setQuery(true);
       } else {
         setError('Received unexpected data format.');
@@ -38,24 +38,25 @@ function App() {
       setError(`Error fetching data: ${err.message || 'Please try again.'}`);
       setData(null);
     }
-  };
-    // REFRESH_TICKER SA
-    useEffect(() => {
-      // Fetch stock data right away and then set up an interval to fetch every minute.
-      const fetchStockData = () => {
-        handleFetchData();
-      };
-  
-      // Call the fetch function immediately
-      //fetchStockData();
-  
-      // Set up the interval
-      const intervalId = setInterval(fetchStockData, 15000); // 60000ms = 1 minute
-  
-      // Clear the interval when the component unmounts
-      return () => clearInterval(intervalId);
-    }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
-    // REFRESH_TICKER SA
+};
+
+  // // REFRESH_TICKER SA
+  // useEffect(() => {
+  //   // Fetch stock data right away and then set up an interval to fetch every minute.
+  //   const fetchStockData = () => {
+  //     handleFetchData();
+  //   };
+
+  //   // Call the fetch function immediately
+  //   //fetchStockData();
+
+  //   // Set up the interval
+  //   const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
+
+  //   // Clear the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+  // // REFRESH_TICKER SA
 
 
 
