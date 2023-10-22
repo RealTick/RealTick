@@ -11,6 +11,8 @@ import ThemeLoader from '../public/themes/ThemeLoader';
 import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
+import './components/component_css/bodyWrapper.css'
+import './components/component_css/headerWrapper.css'
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState(''); 
@@ -26,7 +28,7 @@ function App() {
       if (response) {
         setData(response);
         setError(null);
-        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
+        setDisplayedSymbol(inputSymbol);
         setQuery(true);
       } else {
         setError('Received unexpected data format.');
@@ -40,49 +42,45 @@ function App() {
   return (
     <ThemeProvider>
       <ThemeLoader />
-     
       <div className="App">
-  
-  <div className='searchContainer'>
-    <div className='searchBox'>
-      <Input 
-        symbol={inputSymbol} 
-        setSymbol={setInputSymbol} 
-        fetchData={handleFetchData} 
-      />
-    </div>
-  </div>
-  
-  
-  <div className="logoContainer">
-    <Logo /> 
-  </div>
-  
+        {/* Header */}
+        <div className = "Header">
+          <div className = "headerWrapper">
+            <div className='logoContainer'>
+              <Logo /> 
+            </div>
 
-  <div className="contentContainer">
-    <div className='stockDataContainer'>
-      <div className='stockData'>
-        {data && <StockInfo symbol={displayedSymbol} data={data} />}
+            <div className='searchContainer'>
+              <Input 
+                symbol={inputSymbol} 
+                setSymbol={setInputSymbol} 
+                fetchData={handleFetchData} 
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="Body">
+          <div className="bodyWrapper">
+            <div className='stockDataContainer'>
+              {data && <StockInfo symbol={displayedSymbol} data={data} />}
+              <ErrorMessage error={error} />
+            </div>
+
+            {query && 
+              <div className='candlestickChartContainer'>
+                <CandlestickChart chartData={data?.chart} />
+              </div>
+            }
+          </div>
+
+          {/* Footer */}
+          <div className='newsContainer'>
+            <NewsModule data={data?.news} />
+          </div>
+        </div>
       </div>
-      <ErrorMessage error={error} />
-    </div>
-    
-  </div>
-
-    { <div className='lineChartContainer'>
-      <div className='LineChart'>
-        {query && <CandlestickChart chartData={data?.chart} />}
-      </div>
-      </div> }
-
-  <div className='stockDataContainer'>
-    <div className='newsModule'>
-      <NewsModule data={data?.news} />
-    </div>
-  </div>
-  
-</div>
-
     </ThemeProvider>
   );
 }

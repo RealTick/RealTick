@@ -28,7 +28,7 @@ def get_stock_data():
             'low': low_val,
             'close': close_val
         } 
-        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) 
+        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) #do we need down to the minute?
         #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5}, ...
     }
 
