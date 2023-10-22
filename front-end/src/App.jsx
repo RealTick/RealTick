@@ -1,4 +1,4 @@
-// REFRESH_TICKER import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import React, { useState, useEffect } from "react";  // Added useEffect SA
 import axios from 'axios';
 import './App.css';
@@ -12,6 +12,8 @@ import ThemeLoader from '../public/themes/ThemeLoader';
 import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
+import './components/component_css/bodyWrapper.css'
+import './components/component_css/headerWrapper.css'
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState(''); 
@@ -27,7 +29,7 @@ function App() {
       if (response) {
         setData(response);
         setError(null);
-        setDisplayedSymbol(inputSymbol);  // Update displayedSymbol only upon successful fetching
+        setDisplayedSymbol(inputSymbol);
         setQuery(true);
       } else {
         setError('Received unexpected data format.');
@@ -37,71 +39,68 @@ function App() {
       setData(null);
     }
   };
+    // REFRESH_TICKER SA
+    useEffect(() => {
+      // Fetch stock data right away and then set up an interval to fetch every minute.
+      const fetchStockData = () => {
+        handleFetchData();
+      };
+  
+      // Call the fetch function immediately
+      //fetchStockData();
+  
+      // Set up the interval
+      const intervalId = setInterval(fetchStockData, 15000); // 60000ms = 1 minute
+  
+      // Clear the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+    // REFRESH_TICKER SA
 
-  // REFRESH_TICKER SA
-  useEffect(() => {
-    // Fetch stock data right away and then set up an interval to fetch every minute.
-    const fetchStockData = () => {
-      handleFetchData();
-    };
 
-    // Call the fetch function immediately
-    //fetchStockData();
-
-    // Set up the interval
-    const intervalId = setInterval(fetchStockData, 60000); // 60000ms = 1 minute
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
-  // REFRESH_TICKER SA
 
   return (
     <ThemeProvider>
       <ThemeLoader />
-     
       <div className="App">
-  
-  <div className='searchContainer'>
-    <div className='searchBox'>
-      <Input 
-        symbol={inputSymbol} 
-        setSymbol={setInputSymbol} 
-        fetchData={handleFetchData} 
-      />
-    </div>
-  </div>
-  
-  
-  <div className="logoContainer">
-    <Logo /> 
-  </div>
-  
+        {/* Header */}
+        <div className = "Header">
+          <div className = "headerWrapper">
+            <div className='logoContainer'>
+              <Logo /> 
+            </div>
 
-  <div className="contentContainer">
-    <div className='stockDataContainer'>
-      <div className='stockData'>
-        {data && <StockInfo symbol={displayedSymbol} data={data} />}
+            <div className='searchContainer'>
+              <Input 
+                symbol={inputSymbol} 
+                setSymbol={setInputSymbol} 
+                fetchData={handleFetchData} 
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="Body">
+          <div className="bodyWrapper">
+            <div className='stockDataContainer'>
+              {data && <StockInfo symbol={displayedSymbol} data={data} />}
+              <ErrorMessage error={error} />
+            </div>
+
+            {query && 
+              <div className='candlestickChartContainer'>
+                <CandlestickChart chartData={data?.chart} />
+              </div>
+            }
+          </div>
+
+          {/* Footer */}
+          <div className='newsContainer'>
+            <NewsModule data={data?.news} />
+          </div>
+        </div>
       </div>
-      <ErrorMessage error={error} />
-    </div>
-    
-  </div>
-
-    { <div className='lineChartContainer'>
-      <div className='LineChart'>
-        {query && <CandlestickChart chartData={data?.chart} />}
-      </div>
-      </div> }
-
-  <div className='stockDataContainer'>
-    <div className='newsModule'>
-      <NewsModule data={data?.news} />
-    </div>
-  </div>
-  
-</div>
-
     </ThemeProvider>
   );
 }

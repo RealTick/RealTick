@@ -1,29 +1,24 @@
 /* CandlestickChart.module.css */
+:root {
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+    --border-radius-small: 5px;
+    --border-radius-medium: 15px;
+}
 
 .candlestickChartContainer {
     flex: 1;
-    /* Positioning and Size */
-    position: absolute;
-    left: 38%; /* Updated for a more centered positioning */
-    top: 13vh; /* Using vh for a more responsive position */
-    width: 35vw; /* Using vw to make it responsive to the viewport width */
-    min-height: 450px; 
-    margin-left: 300px;
-    
-    /* Layout and Display */
+    min-height: 500px;
+    min-width: 45vw;
     display: flex;
     flex-direction: column;
-    align-items: stretch; /* Consider whether this is needed with column direction */
-    
-    /* Styling */
     background-color: var(--container-background);
-    padding: 15px;
-    border-radius: 15px;
-    
-    /* Add a transition for smooth visual changes */
-    transition: background-color 0.3s ease-in-out;
+    padding: var(--spacing-medium);
+    /* border-radius: var(--border-radius-medium); */
+    /* transition: background-color 0.3s ease-in-out; */
 }
 
-.candlestickChartContainer:hover {
+/* .candlestickChartContainer:hover {
     background-color: var(--container-background-hover);
-}
+} */

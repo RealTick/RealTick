@@ -6,7 +6,6 @@ const StockInfo = ({ symbol, data }) => {
   // delta coloring
   const priceDiffClass = data.price_diff >= 0 ? styles.positive : styles.negative;
 
-  
   return (
     <div className={styles.stockDataContainer}>
       <h1 className={styles.title}>{data.stock_display_name}</h1>

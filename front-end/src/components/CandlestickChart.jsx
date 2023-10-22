@@ -19,6 +19,9 @@ function CandlestickChart({ chartData }) {
   const button_bgcolor = computedStyle
     .getPropertyValue(`--button-background`)
     .trim();
+  const button_activecolor = computedStyle
+    .getPropertyValue(`--button-hover-background`)
+    .trim();
   const plot_bgcolor_theme = paper_bgcolor_theme; //temp, can change to w/e
 
   const openPrices = dates.map((date) => chartData[date].open);
@@ -38,19 +41,16 @@ function CandlestickChart({ chartData }) {
   ];
 
   const layout = {
-    title: {
-      text: "Stock Price",
-      font: {
-        size: 30,
-      },
-    },
     paper_bgcolor: paper_bgcolor_theme,
     plot_bgcolor: plot_bgcolor_theme,
+    autosize: true,
+    height: 500,
     font: {
       color: text_color_theme,
       family: "Arial",
       size: 14,
     },
+    scrollZoom: true,
     xaxis: {
       title: {
         text: "Date",
@@ -64,9 +64,11 @@ function CandlestickChart({ chartData }) {
       griddash: "solid",
       tickcolor: text_color_theme,
       rangeselector: {
-        x: 0,
+        bgcolor: button_bgcolor,
+        activecolor: button_activecolor,
+        x: 1,
         y: 1.2,
-        xanchor: "left",
+        xanchor: "right",
         font: { size: 8 },
         buttons: [
           {
@@ -74,49 +76,40 @@ function CandlestickChart({ chartData }) {
             stepmode: "backward",
             count: 5,
             label: "5D",
-            bgcolor: "red",
           },
           {
             step: "month",
             stepmode: "backward",
             count: 1,
             label: "1 month",
-            bgcolor: "red",
           },
           {
             step: "month",
             stepmode: "backward",
             count: 6,
             label: "6 months",
-            fill: "#FFFFFF",
           },
           {
             step: "year",
             stepmode: "todate",
             count: 1,
             label: "YTD",
-            fill: "#FFFFFF",
           },
-
           {
             step: "year",
             stepmode: "backward",
             count: 1,
             label: "1Y",
-            fill: "#FFFFFF",
           },
           {
             step: "year",
             stepmode: "backward",
             count: 5,
             label: "5Y",
-            fill: "#FFFFFF",
           },
-
           {
             step: "all",
             label: "MAX",
-            bgcolor: button_bgcolor,
           },
         ],
       },

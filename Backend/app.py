@@ -6,6 +6,7 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
+
 def alpha_vantage():
     # https://colab.research.google.com/drive/1IoGts7YVAkwQ5CETb4DPE5IyhGjGBPYb#scrollTo=abSSNFQZIcYp
     # Variables
@@ -65,12 +66,10 @@ def alpha_vantage():
     #alpha_transformed_data['volume']
 
 
-
-
 @app.route('/stock', methods=['GET'])
 def get_stock_data():
     symbol = request.args.get('symbol')
-    period = request.args.get('period', 'max')  # default to 1 year if no period is provided
+    period = request.args.get('period', '1y')  # default to 1 year if no period is provided
     print(f"Received request for symbol: {symbol}")  # This will log to console
 
     # Ticker DEFINE
@@ -83,6 +82,36 @@ def get_stock_data():
     # Convert Timestamp to string for chart data
     # chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
     
+    
+    ########### 
+    # """
+    
+    # api = "Y8LETOLT99NRN9CG"
+    # # INTRADAY DATA
+    # """
+    # This API returns current and 20+ years of historical intraday OHLCV time series of the equity specified,
+    # overing extended trading hours where applicable (e.g., 4:00am to 8:00pm Eastern Time for the US market).
+    # You can query both raw (as-traded) and split/dividend-adjusted intraday data from this endpoint. 
+    # The OHLCV data is sometimes called "candles" in finance literature.
+    # https://www.alphavantage.co/documentation/
+    
+    # #URL_INTRADAY = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&apikey={api}'
+    # #URL_MONTHLY_ADJUSTED=f"url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol={symbol}&apikey={api}'"
+    # current_url = URL_INTRADAY
+    # r = requests.get(current_url)
+    # alpha_chart_data = r.json()
+    # # alpha_chart_data
+
+    # chart_data = {
+    #     date: {
+    #         'open': float(stock_data['1. open']),
+    #         'high': float(stock_data['2. high']),
+    #         'low': float(stock_data['3. low']),
+    #         'close': float(stock_data['4. close'])
+    #     }
+    #     for date, stock_data in alpha_chart_data['Time Series (5min)'].items()
+    # }
+    
     chart_data = {
         date.strftime('%Y-%m-%d'): {
             'open': open_val,
@@ -90,9 +119,13 @@ def get_stock_data():
             'low': low_val,
             'close': close_val
         } 
-        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) 
+        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) #do we need down to the minute?
         #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5}, ...
     }
+
+    ########### 
+
+
 
     # Calculate yearly return
     if len(data) > 0:
