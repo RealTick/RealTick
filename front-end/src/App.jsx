@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";  // Added useEffect SA
 import axios from 'axios';
 import './App.css';
 
@@ -38,6 +39,25 @@ function App() {
       setData(null);
     }
   };
+    // REFRESH_TICKER SA
+    useEffect(() => {
+      // Fetch stock data right away and then set up an interval to fetch every minute.
+      const fetchStockData = () => {
+        handleFetchData();
+      };
+  
+      // Call the fetch function immediately
+      //fetchStockData();
+  
+      // Set up the interval
+      const intervalId = setInterval(fetchStockData, 15000); // 60000ms = 1 minute
+  
+      // Clear the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }, [inputSymbol]); // Dependency array. Refetches when inputSymbol changes.
+    // REFRESH_TICKER SA
+
+
 
   return (
     <ThemeProvider>

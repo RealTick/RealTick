@@ -64,3 +64,11 @@
 .column .dataPoint:last-child {
   margin-bottom: 0;
 }
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}

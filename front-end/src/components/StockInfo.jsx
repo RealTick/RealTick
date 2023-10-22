@@ -2,6 +2,10 @@ import React from 'react';
 import styles from './component_css/StockInfo.module.css';
 
 const StockInfo = ({ symbol, data }) => {
+
+  // delta coloring
+  const priceDiffClass = data.price_diff >= 0 ? styles.positive : styles.negative;
+
   return (
     <div className={styles.stockDataContainer}>
       <h1 className={styles.title}>{data.stock_display_name}</h1>
@@ -34,6 +38,10 @@ const StockInfo = ({ symbol, data }) => {
           </div>
         </div>
         <div className={styles.column}>
+          <div className={styles.dataPoint}>
+            <span className={styles.dataTitle}>Difference:</span>
+            <span className={`${styles.dataPoint} ${priceDiffClass}`}>{data.price_diff} ({data.price_diff_percentage}%)</span>
+          </div>
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>52 Week Range:</span>
             <span className={styles.dataValue}>{data.fifty_two_week_range}</span>
