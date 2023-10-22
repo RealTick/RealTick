@@ -1,0 +1,21 @@
+/* Base and Utility Styles */
+:root {
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --border-radius-small: 5px;
+    --border-radius-medium: 15px;
+    --bodyWrapper-top: 10%;
+}
+
+.bodyWrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: absolute; 
+    top: var(--bodyWrapper-top);
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1rem;
+    padding: 1rem;
+    width: 90%; 
+}
