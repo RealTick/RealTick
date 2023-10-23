@@ -4,6 +4,7 @@ import styles from './component_css/Input.module.css';
 function Input({ symbol, setSymbol, fetchData }) {
   
   const [localSymbol, setLocalSymbol] = useState(symbol);
+  const [results, setResults] = useState([]); // New state for search results
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -11,9 +12,24 @@ function Input({ symbol, setSymbol, fetchData }) {
     }
   };
 
+  const searchSymbols = async (query) => {
+    try {
+      const response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=Y8LETOLT99NRN9CG`);
+      const data = await response.json();
+      setResults(data.bestMatches || []);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
+  const handleInputChange = (value) => {
+    setLocalSymbol(value);
+    searchSymbols(value); // Call the search function when the input changes
+  };
+
   const handleSubmit = () => {
-    setSymbol(localSymbol); // update the parent state
-    fetchData(localSymbol); // pass the local symbol to the fetchData function
+    setSymbol(localSymbol);
+    fetchData(localSymbol);
   };
 
   return (
@@ -21,7 +37,7 @@ function Input({ symbol, setSymbol, fetchData }) {
       <div className={styles.inputContainer}>
         <input
           value={localSymbol}
-          onChange={(e) => setLocalSymbol(e.target.value.toUpperCase())}
+          onChange={(e) => handleInputChange(e.target.value.toUpperCase())}
           onKeyDown={handleKeyDown}
           placeholder="Enter stock symbol... (Stocks, Bonds, ETFS, etc.)"
           className={styles.inputField}
@@ -29,6 +45,24 @@ function Input({ symbol, setSymbol, fetchData }) {
         <button onClick={handleSubmit} className={styles.searchButton}>
           Search
         </button>
+        {/* Display search results */}
+        {results.length > 0 && (
+          <div className={styles.resultsContainer}>
+            {results.map((result) => (
+              <div
+                key={result['1. symbol']}
+                onClick={() => {
+                  setLocalSymbol(result['1. symbol']);
+                  setResults([]); // Clear the results after selection
+                  handleSubmit();
+                }}
+                className={styles.resultItem}
+              >
+                {result['1. symbol']} - {result['2. name']}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
