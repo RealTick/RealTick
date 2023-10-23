@@ -1,0 +1,46 @@
+/* Input.module.css */
+.searchContainer {
+  position: absolute;
+  top: 1%;
+  left: 52%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1400px;
+  margin: 0 auto; 
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+}
+
+.inputField {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.inputField::placeholder {
+  color: var(--placeholder-color);
+}
+
+.searchButton {
+  width: 19%;
+  padding: 10px;
+  border: none;
+  color: var(--text-color); 
+  background-color: var(--button-background);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.searchButton:hover {
+  background-color: var(--button-hover-background);
+}
