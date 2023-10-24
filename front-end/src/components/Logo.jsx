@@ -3,7 +3,7 @@ import styles from './component_css/Logo.module.css';
 
 const Logo = () => {
     const data = {
-        text: "Logo here"
+        text: "RealTick"
     };
 
     return (

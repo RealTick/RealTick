@@ -4,7 +4,7 @@
     --spacing-medium: 1rem;
     --border-radius-small: 5px;
     --border-radius-medium: 15px;
-    --bodyWrapper-top: 10%;     /* Adjusted from 40% to 10% */
+    --bodyWrapper-top: 15%;     /* Adjusted from 40% to 10% */
 }
 
 .bodyWrapper {

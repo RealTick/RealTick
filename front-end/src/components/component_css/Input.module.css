@@ -52,8 +52,8 @@
   overflow-y: auto;
   position: absolute;
   width: 100%;
-  background: #f7f7f7;
-  z-index: 1000;  /* make sure it appears on top of other content */
+  background: var(--input-background);
+  z-index: 2222;  /* make sure it appears on top of other content */
 }
 
 .resultItem {
@@ -63,5 +63,5 @@
 
 .resultItem:hover {
   background-color: var(--background-color);
-  color: blue;
+  color: var(--text-color-hovered);
 }

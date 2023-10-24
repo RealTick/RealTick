@@ -1,8 +1,9 @@
 .logoContainer {
-    flex: none; /* Ensures the logo doesn't grow or shrink */
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    background-color: var(--container-background);
-    border-radius: 15px;
+    display: flex;           /* Converts the container into a flex container */
+    align-items: center;     /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
+    padding: 5px;
+    background-color: var(--input-background);
+    font-weight: bold;
+    font-size: 30px;
 }
