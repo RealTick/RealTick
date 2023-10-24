@@ -46,13 +46,13 @@
 
 .resultsContainer {
   top: 9%;
-  border: 1px solid #ccc;
+  border: 1px solid #040303;
   max-height: 200px;
   max-width: 57.5%;
   overflow-y: auto;
   position: absolute;
   width: 100%;
-  background: #f7f7f7;
+  background: #0b0a0a;
   z-index: 1000;  /* make sure it appears on top of other content */
 }
 
