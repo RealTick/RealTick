@@ -7,10 +7,10 @@
 
 .headerWrapper {
     display: flex;
-    justify-content: space-between; /* Ensures maximum space between the logo and search */
-    align-items: center; /* Vertically centers children */
+    justify-content: space-between; 
+    align-items: center;
     width: 100%;
-    padding: 1rem 2%; /* Some padding for breathing room */
-    background-color: #f7f7f7; /* Optional: some background color for the header */
-    border-bottom: 1px solid #e1e1e1; /* Optional: bottom border */
+    padding: 1rem 2%; 
+    background-color: #f7f7f7; 
+    border-bottom: 1px solid #e1e1e1; 
 }

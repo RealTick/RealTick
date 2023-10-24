@@ -43,3 +43,25 @@
 .searchButton:hover {
   background-color: var(--button-hover-background);
 }
+
+.resultsContainer {
+  top: 9%;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  max-width: 57.5%;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  background: #f7f7f7;
+  z-index: 1000;  /* make sure it appears on top of other content */
+}
+
+.resultItem {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.resultItem:hover {
+  background-color: var(--background-color);
+  color: blue;
+}

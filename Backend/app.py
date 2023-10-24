@@ -69,7 +69,7 @@ def alpha_vantage():
 @app.route('/stock', methods=['GET'])
 def get_stock_data():
     symbol = request.args.get('symbol')
-    period = request.args.get('period', '1y')  # default to 1 year if no period is provided
+    period = request.args.get('period', 'max')  # default to 1 year if no period is provided
     print(f"Received request for symbol: {symbol}")  # This will log to console
 
     # Ticker DEFINE

@@ -29,7 +29,7 @@ function CandlestickChart({ chartData }) {
   const lowPrices = dates.map((date) => chartData[date].low);
   const closePrices = dates.map((date) => chartData[date].close);
 
-  const data = [
+  const data = React.useMemo(() => [
     {
       type: "candlestick",
       x: dates,
@@ -38,9 +38,9 @@ function CandlestickChart({ chartData }) {
       low: lowPrices,
       close: closePrices,
     },
-  ];
+  ], [dates, openPrices, highPrices, lowPrices, closePrices]);
 
-  const layout = {
+  const layout = React.useMemo(() => ({
     paper_bgcolor: paper_bgcolor_theme,
     plot_bgcolor: plot_bgcolor_theme,
     autosize: true,
@@ -127,7 +127,7 @@ function CandlestickChart({ chartData }) {
       griddash: "solid",
       tickcolor: text_color_theme,
     },
-  };
+  }), [paper_bgcolor_theme, text_color_theme, button_bgcolor, button_activecolor]);
 
   return (
     <div className={styles.candlestickChartContainer}>
@@ -136,4 +136,4 @@ function CandlestickChart({ chartData }) {
   );
 }
 
-export default CandlestickChart;
+export default React.memo(CandlestickChart);
