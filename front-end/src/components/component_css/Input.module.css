@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center; /* Centers its children horizontally */
   align-items: center; /* Centers its children vertically */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .inputContainer {

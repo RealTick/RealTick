@@ -4,18 +4,20 @@
     --spacing-medium: 1rem;
     --spacing-large: 2rem;
     --border-radius-small: 5px;
-    --border-radius-medium: 15px;
+    --border-radius-medium: 1px;
 }
 
 .candlestickChartContainer {
     flex: 1;
     min-height: 500px;
-    min-width: 45vw;
+    min-width: 50vw;
     display: flex;
     flex-direction: column;
     background-color: var(--container-background);
     padding: var(--spacing-medium);
-    /* border-radius: var(--border-radius-medium); */
+    border-radius: var(--border-radius-medium);
+    /* border: 1px solid #7289da; */
+
     /* transition: background-color 0.3s ease-in-out; */
 }
 

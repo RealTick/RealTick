@@ -6,4 +6,6 @@
     background-color: var(--input-background);
     font-weight: bold;
     font-size: 30px;
+    border-radius: 10px;
+    
 }

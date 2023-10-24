@@ -67,17 +67,19 @@ function App() {
         {/* Header */}
         <div className = "Header">
           <div className = "headerWrapper">
-            <div className='logoContainer'>
-              <Logo /> 
+            <div className="leftComponent">
+              <div className='logoContainer'>
+                <Logo /> 
+              </div>
             </div>
-
-            <div className='searchContainer'>
+            <div className="middleComponent">
               <Input 
-                symbol={inputSymbol} 
-                setSymbol={setInputSymbol} 
-                fetchData={handleFetchData} 
-              />
+                  symbol={inputSymbol} 
+                  setSymbol={setInputSymbol} 
+                  fetchData={handleFetchData} 
+                />
             </div>
+            <div className="rightComponent"></div>
           </div>
         </div>
 
