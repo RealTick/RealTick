@@ -41,6 +41,7 @@
   padding: var(--spacing-medium);
   margin-bottom: var(--spacing-medium);
   border-radius: var(--border-radius-small);
+  border-color: var(--button-background-color);
 }
 
 .dataPoint {
