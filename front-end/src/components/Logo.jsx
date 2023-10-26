@@ -6,9 +6,16 @@ const Logo = () => {
         text: "RealTick"
     };
 
+    const handleSubmit = () => {
+        window.location.reload(false);
+      };
+
     return (
         <div className={styles.logoContainer}>
-            {data.text}
+            <button onClick={handleSubmit} className={styles.refreshButton}>
+                
+                {data.text}
+            </button>
         </div>
     );
 };

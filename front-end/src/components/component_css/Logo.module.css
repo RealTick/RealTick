@@ -2,10 +2,20 @@
     display: flex;           /* Converts the container into a flex container */
     align-items: center;     /* Centers items vertically */
     justify-content: center; /* Centers items horizontally */
-    padding: 5px;
-    background-color: var(--input-background);
+    background-color: var(--input-background);    
+    border-radius:10px;
+}
+
+.refreshButton {
+    display:flex;
+    background-color: transparent;
+    border: transparent;
+    padding:5px;
+    flex-grow:1;
     font-weight: bold;
     font-size: 30px;
-    border-radius: 10px;
-    
+}
+
+.refreshButton:hover {
+    background-color: transparent;
 }
