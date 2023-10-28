@@ -7,6 +7,8 @@ const NewsItem = ({ article }) => {
       <img src={article.thumbnail?.resolutions?.[1]?.url} alt={article.title} className={styles.newsImage} />
       <span className={styles.newsLink}>{article.title}</span>
       <p className={styles.newsPublisher}>Publisher: {article.publisher}</p>
+
+      <p className={styles.newsPublisher}>Published at: {article.providerPublishTime}</p>
     </a>
   );
 };
