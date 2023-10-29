@@ -1,8 +1,0 @@
-.logoContainer {
-    flex: none; /* Ensures the logo doesn't grow or shrink */
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    background-color: var(--container-background);
-    border-radius: 15px;
-}
