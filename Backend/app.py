@@ -78,7 +78,7 @@ def get_stock_data():
     
     # News
     news = stock.news
-        
+
     # Convert Timestamp to string for chart data
     # chart_data = {date.strftime('%Y-%m-%d'): close for date, close in data['Close'].items()}
     
@@ -124,8 +124,6 @@ def get_stock_data():
     }
 
     ########### 
-
-
 
     # Calculate yearly return
     if len(data) > 0:
@@ -214,6 +212,42 @@ def get_stock_data():
     else:
         return jsonify({'error': 'Could not fetch data for given symbol.'}), 400
 
+
+################################################################
+# Trending module
+def calculate_trending_assets():
+    # Sample list of assets for demo
+    sample_assets = [
+        {"symbol": "AAPL", "activity": 100},
+        {"symbol": "GOOGL", "activity": 80},
+        {"symbol": "TSLA", "activity": 120},
+        {"symbol": "AMZN", "activity": 90},
+        {"symbol": "MSFT", "activity": 110},
+    ]
+
+    # Trending threshold
+    threshold = 100  # Can be adjusted
+
+    # Filtering assets with activity greater than the threshold
+    trending_assets = [asset for asset in sample_assets if asset["activity"] > threshold]
+
+    # Sorting the trending assets by activity 
+    trending_assets.sort(key=lambda asset: asset["activity"], reverse=True)
+
+    # Extracting the top trending assets
+    top_trending_assets = trending_assets[:10]  # Should be adjusted to the display
+
+    return top_trending_assets
+
+@app.route('/trending-assets', methods=['GET'])
+def get_trending_assets():
+    # Calculate trending assets based on your criteria (e.g., higher trading volume).
+    trending_assets = calculate_trending_assets()
+
+    # Return the list of trending assets in JSON format.
+    return jsonify({'trending_assets': trending_assets})
+
+##############################################################################
 
 
 if __name__ == '__main__':
