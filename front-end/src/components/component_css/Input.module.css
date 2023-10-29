@@ -1,0 +1,69 @@
+/* Input.module.css */
+.searchContainer {
+  flex-grow: 2; /* Allows this container to grow */
+  display: flex;
+  justify-content: center; /* Centers its children horizontally */
+  align-items: center; /* Centers its children vertically */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1400px;
+  margin: 0 auto; 
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+}
+
+.inputField {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.inputField::placeholder {
+  color: var(--placeholder-color);
+}
+
+.searchButton {
+  width: 19%;
+  padding: 10px;
+  border: none;
+  color: var(--text-color); 
+  background-color: var(--button-background);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.searchButton:hover {
+  background-color: var(--button-hover-background);
+}
+
+.resultsContainer {
+  top: 9%;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  max-width: 57.5%;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  background: var(--input-background);
+  z-index: 2222;  /* make sure it appears on top of other content */
+}
+
+.resultItem {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.resultItem:hover {
+  background-color: var(--background-color);
+  color: var(--text-color-hovered);
+}

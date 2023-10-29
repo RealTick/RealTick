@@ -1,0 +1,21 @@
+/* Base and Utility Styles */
+:root {
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --border-radius-small: 5px;
+    --border-radius-medium: 15px;
+    --bodyWrapper-top: 12%;     /* Adjusted from 40% to 10% */
+}
+
+.bodyWrapper {
+    display: flex;
+    justify-content: center; /* This centers its children horizontally */
+    align-items: center; /* This aligns the children to the top; change to 'center' if you want vertical centering */
+    position: absolute; 
+    top: var(--bodyWrapper-top);
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1rem;
+    padding: 1rem;
+    width: 90%; 
+}
