@@ -217,31 +217,58 @@ def get_stock_data():
 # Trending module
 def calculate_trending_assets():
     # Sample list of assets for demo
-    sample_assets = [
-        {"symbol": "AAPL", "activity": 100},
-        {"symbol": "GOOGL", "activity": 80},
-        {"symbol": "TSLA", "activity": 120},
-        {"symbol": "AMZN", "activity": 90},
-        {"symbol": "MSFT", "activity": 110},
-    ]
+    #sample_assets = [
+        #{"symbol": "AAPL", "activity": 100},
+        #{"symbol": "GOOGL", "activity": 80},
+        #{"symbol": "TSLA", "activity": 120},
+        #{"symbol": "AMZN", "activity": 90},
+        #{"symbol": "MSFT", "activity": 110},
+    #]
 
     # Trending threshold
-    threshold = 100  # Can be adjusted
+    #threshold = 100  # Can be adjusted based on what we want 
 
     # Filtering assets with activity greater than the threshold
-    trending_assets = [asset for asset in sample_assets if asset["activity"] > threshold]
+    #trending_assets = [asset for asset in sample_assets if asset["activity"] > threshold]
 
     # Sorting the trending assets by activity 
-    trending_assets.sort(key=lambda asset: asset["activity"], reverse=True)
+    #trending_assets.sort(key=lambda asset: asset["activity"], reverse=True)
 
     # Extracting the top trending assets
-    top_trending_assets = trending_assets[:10]  # Should be adjusted to the display
+    #top_trending_assets = trending_assets[:10]  # Adjust to fit the display
 
-    return top_trending_assets
+    #return top_trending_assets
+
+    ############################################################################################
+    # Using the API
+
+    # Define the URL for the TOP_GAINERS_LOSERS API endpoint
+    api_key ='Y8LETOLT99NRN9CG'
+    url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={api_key}'
+    
+    # HTTP GET request to retrieve top gainers and losers
+    response = requests.get(url)
+    
+    # Checking if the request was successful (HTTP status code 200)
+    if response.status_code == 200:
+        trending_assets_data = response.json()
+        
+        # Extracting the top gainers, top losers, and most actively traded assets
+        top_gainers = trending_assets_data.get("top_gainers", [])
+        top_losers = trending_assets_data.get("top_losers", [])
+        most_actively_traded = trending_assets_data.get("most_actively_traded", [])
+        
+        # Combine the lists into a single list (if needed)
+        trending_assets = top_gainers + top_losers + most_actively_traded
+        
+        return trending_assets
+    else:
+        return {'error': 'Failed to retrieve trending assets.'}
+
 
 @app.route('/trending-assets', methods=['GET'])
 def get_trending_assets():
-    # Calculate trending assets based on your criteria (e.g., higher trading volume).
+    # Calculate trending assets 
     trending_assets = calculate_trending_assets()
 
     # Return the list of trending assets in JSON format.
