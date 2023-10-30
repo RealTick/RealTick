@@ -12,6 +12,7 @@ import ThemeLoader from '../public/themes/ThemeLoader';
 import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
+import Reccomender from './components/Reccomender';
 import './components/component_css/bodyWrapper.css'
 import './components/component_css/headerWrapper.css'
 
@@ -86,6 +87,10 @@ function App() {
         {/* Body */}
         <div className="Body">
           <div className="bodyWrapper">
+            <div classname='reccomenderContainer'>
+              <Reccomender />
+            </div>
+
             <div className='stockDataContainer'>
               {data && <StockInfo symbol={displayedSymbol} data={data} />}
               <ErrorMessage error={error} />
