@@ -87,8 +87,8 @@ function App() {
         {/* Body */}
         <div className="Body">
           <div className="bodyWrapper">
-            <div classname='reccomenderContainer'>
-              <Reccomender />
+            <div className='reccomenderContainer'>
+              {data && <Reccomender />}
             </div>
 
             <div className='stockDataContainer'>

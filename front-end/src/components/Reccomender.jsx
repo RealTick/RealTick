@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './component_css/Reccomender.module.css';
+import Input from './Input';
 
-const Reccomender = (  ) => {
+/* Input({ symbol, setSymbol, fetchData }) */
+
+const Reccomender = ({setSymbol, fetchData}) => {
     const tickers = [
         'META',
         'AAPL',
@@ -9,13 +12,24 @@ const Reccomender = (  ) => {
         'NVDA',
         'NFLX',
         'INTL'
-      ];
+    ];
+      
+    const handleItemClick = (symbol) => {
+        console.log("Button clicked with symbol:", symbol);
+        setSymbol(symbol);
+        fetchData(symbol);
+    };
 
     return (
         <div className={styles.reccomenderContainer}>
+            <h2 className={styles.title}>{"Similar\nAssets"}</h2>
             <ul className={styles.listContainer}>
                 {tickers.map((item, index) => (
-                <li key={index} className={styles.listItem}>{item}</li>
+                    <li key={index} className={styles.listItem}>
+                        <button className={styles.invisibleButton} onClick={() => handleItemClick(item)}>
+                            {item}
+                        </button>
+                    </li>
                 ))}
             </ul>
         </div>
