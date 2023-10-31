@@ -46,9 +46,10 @@
 
 .dataPoint {
   display: flex;
+  height: 55px;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   background-color: var(--data-point-background);
   padding: var(--spacing-small);
   margin-bottom: var(--spacing-medium);
@@ -56,11 +57,12 @@
 }
 
 .dataTitle {
-  font-weight: bold;
+  text-align:start;
 }
 
 .dataValue {
   text-align: right;
+  font-weight: bold;
 }
 
 .column .dataPoint:last-child {
