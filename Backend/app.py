@@ -160,8 +160,8 @@ def get_stock_data():
 
 
     #ALPHA VANTAGE
-    api = "Y8LETOLT99NRN9CG"
-    url_pricing = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api}'
+    api = "M3GBGSFV1EO9KEUX"
+    url_pricing = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo'#f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api}'
     r1 = requests.get(url_pricing)
     data_pricing = r1.json()
     quote = data_pricing['Global Quote']
@@ -178,8 +178,9 @@ def get_stock_data():
     change = quote['09. change']
     change_percent = quote['10. change percent']
 
+    ## https://query2.finance.yahoo.com/v8/finance/chart/AAPL?events=div%2Csplits%2CcapitalGains&includePrePost=False&interval=1d&range=1y
 
-    url_company = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={api}'
+    url_company = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo'#f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={api}'
     r2 = requests.get(url_company)
     data_company = r2.json()
 
