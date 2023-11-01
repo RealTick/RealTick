@@ -7,13 +7,12 @@
   margin-top: 72vh;
   margin-left: auto;
   margin-right: auto;
-  
 }
 
 .newsItem {
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start; 
   background-color: var(--data-point-background);
   border-radius: 15px;
   padding: 10px;
@@ -38,23 +37,33 @@
   border-radius: 15px;
 }
 
+.publisherInfo {
+  display: flex;
+  gap:4px;
+  align-items: center;
+  flex-wrap: nowrap; 
+}
+
+.newsItemInner {
+  display: flex;
+  flex-direction: column;  
+  gap: 5px;
+  align-self: flex-start;  
+}
+
 .newsLink {
-  margin: auto;
-  flex: 1;
-  text-decoration: none;
   font-size: 20px;
   color: var(--text-color);
 }
 
-/* .newsLink:visited { ???????????????????????????????????????
-    color: var(--text-color-visited);
-} */
+.newsTime {
+  font-size: 14px;
+  color: var(--text-color);
+  margin: 0;
+}
 
 .newsPublisher {
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  padding: 10px;
-  font-size: 20px;
+  font-size: 14px;
   color: var(--text-color);
+  margin: 0;
 }

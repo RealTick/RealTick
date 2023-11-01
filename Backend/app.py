@@ -169,12 +169,106 @@ def get_stock_data():
 
     
     # ALL FETCHING DOWN BELOW
+<<<<<<< Updated upstream
     current_price = stock.info['currentPrice'] #data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
     prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
     opening_price = stock.info['open'] #data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
     market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
     volume_unformatted = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
     volume = "{:,}".format(volume_unformatted) if not isinstance(volume_unformatted, str) else volume_unformatted
+=======
+    # current_price = stock.info['currentPrice'] #data['Close'].iloc[-1].round(2) if not data.empty else "N/A"
+    # prev_close = stock.history(period="2d")['Close'].iloc[0].round(2) if len(stock.history(period="2d")) > 1 else "N/A"
+    # opening_price = stock.info['open'] #data['Open'].iloc[-1].round(2) if not data.empty else "N/A"
+    # market_cap= format_market_cap(stock.info.get('marketCap',"N/A"))
+    # volume_unformatted = int(data['Volume'].iloc[-1].round(2)) if not data.empty else "N/A"
+    # volume = "{:,}".format(volume_unformatted) if not isinstance(volume_unformatted, str) else volume_unformatted
+
+    # fifty_two_week_range_tuple = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
+    # fifty_two_week_range= f"{fifty_two_week_range_tuple[0]} - {fifty_two_week_range_tuple[1]}" if not data.empty else "N/A"
+    # forward_dividend_yield = f"{stock.info.get('forwardPE', 'N/A')} x {stock.info.get('forwardEps', 'N/A')}" if stock.info.get('forwardPE') and stock.info.get('forwardEps') else "N/A"
+    # days_range_tuple = (data['Low'].iloc[-1].round(2), data['High'].iloc[-1].round(2)) if not data.empty else ("N/A", "N/A")
+    # days_range=f"{days_range_tuple[0]} - {days_range_tuple[1]}" if not data.empty else "N/A"
+    # beta = stock.info.get('beta', "N/A")
+    # stock_long_name=stock.info.get('longName')
+    # stock_short_name=stock.info.get('shortName')
+    # stock_symbol=stock.info.get('symbol')
+    # stock_display_name=stock_long_name+f' ({stock_symbol})'
+    # price_diff=(current_price-prev_close).round(3)
+    # price_diff_percentage=((current_price-prev_close)/(prev_close)*100).round(3) 
+    # END
+###### END OF YFINANCE
+
+
+    #ALPHA VANTAGE
+    api = "M3GBGSFV1EO9KEUX"
+    url_pricing = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo'#f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={api}'
+    r1 = requests.get(url_pricing)
+    data_pricing = r1.json()
+    quote = data_pricing['Global Quote']
+
+    # Extracting each variable
+    symbol_alpha = quote['01. symbol']
+    open_price = quote['02. open']
+    high = quote['03. high']
+    low = quote['04. low']
+    price = quote['05. price']
+    volume = quote['06. volume']
+    latest_trading_day = quote['07. latest trading day']
+    previous_close = quote['08. previous close']
+    change = quote['09. change']
+    change_percent = quote['10. change percent']
+
+    ## https://query2.finance.yahoo.com/v8/finance/chart/AAPL?events=div%2Csplits%2CcapitalGains&includePrePost=False&interval=1d&range=1y
+
+    url_company = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo'#f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={api}'
+    r2 = requests.get(url_company)
+    data_company = r2.json()
+
+    # Extracting all variables
+    (
+        Symbol, AssetType, Long_name, Description, CIK, Exchange, Currency, Country, Sector, Industry, Address, 
+        FiscalYearEnd, LatestQuarter, MarketCapitalization, EBITDA, PERatio, PEGRatio, BookValue, 
+        DividendPerShare, DividendYield, EPS, RevenuePerShareTTM, ProfitMargin, OperatingMarginTTM, 
+        ReturnOnAssetsTTM, ReturnOnEquityTTM, RevenueTTM, GrossProfitTTM, DilutedEPSTTM, QuarterlyEarningsGrowthYOY, 
+        QuarterlyRevenueGrowthYOY, AnalystTargetPrice, TrailingPE, ForwardPE, PriceToSalesRatioTTM, 
+        PriceToBookRatio, EVToRevenue, EVToEBITDA, Beta, _52WeekHigh, _52WeekLow, _50DayMovingAverage, 
+        _200DayMovingAverage, SharesOutstanding, DividendDate, ExDividendDate
+    ) = data_company.values()
+
+    def format_market_cap(value):
+            if value == "N/A":
+                return value
+
+            trillion = 1_000_000_000_000
+            billion = 1_000_000_000
+            million = 1_000_000
+
+            if value >= trillion:
+                return f"{value / trillion:.2f}T"
+            elif value >= billion:
+                return f"{value / billion:.2f}B"
+            elif value >= million:
+                return f"{value / million:.2f}M"
+            else:
+                return f"{value}"
+
+    current_price = round(float(price), 2)
+    prev_close=round(float(previous_close),2)
+    opening_price=round(float(open_price),2)
+    market_cap=format_market_cap(int(MarketCapitalization))
+    volume_output = "{:,}".format(int(volume))
+    fifty_two_week_range= f"{_52WeekLow} - {_52WeekHigh}"
+    ### TODO: HAVE N/A IF dividenpershare is 0
+    forward_dividend_yield = f"{DividendPerShare} ({round((float(DividendYield) * 100), 2)}%)"
+    days_range = f"{round(float(low), 2):.2f} - {round(float(high), 2):.2f}"
+    beta=round(float(Beta), 2)
+    stock_display_name=Long_name+f' ({symbol_alpha})'
+    price_diff=change
+    price_diff_percentage=change_percent
+
+    # print(news)
+>>>>>>> Stashed changes
 
     fifty_two_week_range_tuple = (data['Low'].min().round(2), data['High'].max().round(2)) if not data.empty else ("N/A", "N/A")
     fifty_two_week_range= f"{fifty_two_week_range_tuple[0]} - {fifty_two_week_range_tuple[1]}" if not data.empty else "N/A"
