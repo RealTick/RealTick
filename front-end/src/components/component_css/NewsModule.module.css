@@ -7,17 +7,16 @@
   margin-top: 72vh;
   margin-left: auto;
   margin-right: auto;
-  
 }
 
 .newsItem {
   display: flex;
   gap: 10px;
-  align-items: center;
-  background-color: var(--data-point-background);
+  align-items: flex-start;
+  background-color: var(--container-background);
   border-radius: 15px;
   padding: 10px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   cursor: pointer;
   text-decoration: none;
   color: var(--text-color);
@@ -27,10 +26,6 @@
   background-color: var(--container-background-hover);
 }
 
-.newsItem:hover .newsLink {
-  color: var(--text-color-hovered);
-}
-
 .newsImage {
   width: 100px;
   height: 100px;
@@ -38,23 +33,32 @@
   border-radius: 15px;
 }
 
-.newsLink {
-  margin: auto;
-  flex: 1;
-  text-decoration: none;
-  font-size: 20px;
-  color: var(--text-color);
+.newsContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* .newsLink:visited { ???????????????????????????????????????
-    color: var(--text-color-visited);
+.newsMeta {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.newsPublisher, .newsTime {
+  font-size: 0.8rem; /* Adjust the font size as needed */
+  margin: 0;
+}
+
+.newsTitle {
+  font-size: 1.6em;
+  margin-top: 8px; /* Space between the metadata and title */
+}
+
+.newsItem:hover .newsTitle {
+  color: var(--text-color-hovered);
+}
+
+/* .newsLink:visited {
+  color: var(--text-color-visited);
 } */
-
-.newsPublisher {
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  padding: 10px;
-  font-size: 20px;
-  color: var(--text-color);
-}

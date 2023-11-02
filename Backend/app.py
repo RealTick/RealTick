@@ -486,22 +486,23 @@ def get_stock_data():
             million = 1_000_000
 
             if value >= trillion:
-                return f"{value / trillion:.3f}T"
+                return f"{value / trillion:.2f}T"
             elif value >= billion:
-                return f"{value / billion:.3f}B"
+                return f"{value / billion:.2f}B"
             elif value >= million:
-                return f"{value / million:.3f}M"
+                return f"{value / million:.2f}M"
             else:
                 return f"{value}"
 
-    current_price = price
-    prev_close=previous_close
-    opening_price=open_price
+    current_price = round(float(price),2)
+    prev_close=round(float(previous_close),2)
+    opening_price=round(float(open_price),2)
     market_cap=format_market_cap(int(MarketCapitalization))
     volume_output = "{:,}".format(int(volume))
     fifty_two_week_range= f"{_52WeekLow} - {_52WeekHigh}"
     ### TODO: HAVE N/A IF dividenpershare is 0
-    forward_dividend_yield = f"{DividendPerShare} ({float(DividendYield) * 100}%)"
+    forward_dividend_yield = f"{DividendPerShare} ({round(float(DividendYield) * 100, 4)}%)"
+
     days_range = f"{round(float(low), 2):.2f} - {round(float(high), 2):.2f}"
     beta=Beta
     stock_display_name=Long_name+f' ({symbol_alpha})'
