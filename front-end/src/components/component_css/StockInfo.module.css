@@ -48,11 +48,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-<<<<<<< Updated upstream
-  font-size: 1.25rem;
-=======
   font-size: 1.1rem;
->>>>>>> Stashed changes
   background-color: var(--data-point-background);
   padding: var(--spacing-small);
   margin-bottom: 10px;
@@ -65,11 +61,8 @@
 
 .dataValue {
   text-align: right;
-<<<<<<< Updated upstream
-=======
   font-weight: bold;
 
->>>>>>> Stashed changes
 }
 
 .column .dataPoint:last-child {

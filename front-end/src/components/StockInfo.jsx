@@ -46,7 +46,7 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.fifty_two_week_range}</span>
           </div>
           <div className={styles.dataPoint}>
-            <span className={styles.dataTitle}>Forward Dividend & Yield (FIX):</span>
+            <span className={styles.dataTitle}>Forward Dividend & Yield:</span>
             <span className={styles.dataValue}>{data.forward_dividend_yield}</span>
           </div>
           <div className={styles.dataPoint}>
