@@ -9,8 +9,8 @@
 
 .stockDataContainer {
   flex: 1;
-  width: 35vw;
-  min-height: 450px;
+  width: 34vw;
+  min-height: 490px;
   display: flex;
   flex-direction: column;
   background-color: var(--container-background);
@@ -36,31 +36,32 @@
 .title {
   width: 100%;
   flex: 1;
-  font-size: 2.5rem;
-  background-color: var(--title-background);
-  padding: var(--spacing-medium);
-  margin-bottom: var(--spacing-medium);
-  border-radius: var(--border-radius-small);
-  border-color: var(--button-background-color);
+  font-size: 1.5rem;
+  padding: 15px;
+  margin-bottom: 1px;
+  /* border-radius:
+  border-color: */
 }
 
 .dataPoint {
   display: flex;
+  height: 55px;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   background-color: var(--data-point-background);
-  padding: var(--spacing-small);
-  margin-bottom: var(--spacing-medium);
+  padding: 8px;
+  margin-bottom: 10px;
   border-radius: var(--border-radius-small);
 }
 
 .dataTitle {
-  font-weight: bold;
+  text-align:start;
 }
 
 .dataValue {
   text-align: right;
+  font-weight: bold;
 }
 
 .column .dataPoint:last-child {

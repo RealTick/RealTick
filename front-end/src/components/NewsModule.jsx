@@ -19,7 +19,7 @@ const NewsItem = ({ article }) => {
 
   return (
     <a href={article.link} target="_blank" rel="noreferrer" className={styles.newsItem}>
-      <img src={article.thumbnail?.resolutions?.[1]?.url} />
+      <img src={article.thumbnail?.resolutions?.[1]?.url} className={styles.newsImage} />
       <div className={styles.newsContent}>
         <div className={styles.newsMeta}>
           <span className={styles.newsPublisher}>{article.publisher}</span>
