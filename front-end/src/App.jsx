@@ -88,7 +88,7 @@ function App() {
         <div className="Body">
           <div className="bodyWrapper">
             <div className='reccomenderContainer'>
-              {data && <Reccomender handleFetchData={handleFetchData} />}
+              {data && <Reccomender similarStocks={data.similar_stocks} handleFetchData={handleFetchData} />}
             </div>
 
             <div className='stockDataContainer'>

@@ -1,19 +1,15 @@
 import React from 'react';
 import styles from './component_css/Reccomender.module.css';
-import Input from './Input';
 
-/* Input({ symbol, setSymbol, fetchData }) */
+const Reccomender = ({ similarStocks, handleFetchData }) => {
+    console.log("Similar Stocks:", similarStocks);
 
-const Reccomender = ({ handleFetchData }) => {
-    const tickers = [
-        'META',
-        'AAPL',
-        'AMZN',
-        'NVDA',
-        'NFLX',
-        'INTC'
-    ];
-      
+    // Mapping similarStocks to an array of objects with Symbol and Title
+    const stocks = Array.isArray(similarStocks) ? similarStocks.map(stock => ({
+        symbol: stock.Symbol,
+        title: stock.Title
+    })) : [];
+
     const handleItemClick = (symbol) => {
         console.log("Button clicked with symbol:", symbol);
         handleFetchData(symbol);
@@ -21,12 +17,13 @@ const Reccomender = ({ handleFetchData }) => {
 
     return (
         <div className={styles.reccomenderContainer}>
-            <h2 className={styles.title}>{"Similar"}</h2>
+            <h2 className={styles.title}>Similar Stocks</h2>
             <ul className={styles.listContainer}>
-                {tickers.map((item, index) => (
+                {stocks.map((stock, index) => (
                     <li key={index} className={styles.listItem}>
-                        <button className={styles.invisibleButton} onClick={() => handleItemClick(item)}>
-                            {item}
+                        <button className={styles.invisibleButton} onClick={() => handleItemClick(stock.symbol)}>
+                            {stock.symbol} 
+                            {/* - {stock.title} */}
                         </button>
                     </li>
                 ))}
