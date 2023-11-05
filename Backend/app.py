@@ -145,9 +145,9 @@ def get_stock_data():
     
     # IN HOUSE SCRAPER CALL
     stock_info, similar_symbols_json = get_stock_data(symbol)
-    print(type(similar_symbols_json))
-    print(similar_symbols_json)
-    print(type(news))
+    # print(type(similar_symbols_json))
+    # print(similar_symbols_json)
+    # print(type(news))
 
     #print(stock_info)
 
@@ -184,4 +184,3 @@ def get_stock_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

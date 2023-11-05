@@ -68,10 +68,12 @@
   margin-bottom: 0;
 }
 
+
+
 .positive {
-  color: rgb(0, 255, 0);
+  color: #4CAF50; /* green */
 }
 
 .negative {
-  color: red;
+  color: #F44336; /* red */
 }
