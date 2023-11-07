@@ -13,6 +13,8 @@ import CandlestickChart from './components/CandlestickChart';
 import NewsModule from './components/NewsModule';
 import Logo from './components/Logo';
 import Reccomender from './components/Reccomender';
+import Watchlist from './components/Watchlist';
+import Trending from './components/Trending';
 import './components/component_css/bodyWrapper.css'
 import './components/component_css/headerWrapper.css'
 
@@ -87,8 +89,8 @@ function App() {
         {/* Body */}
         <div className="Body">
           <div className="bodyWrapper">
-            <div className='reccomenderContainer'>
-              {data && <Reccomender similarStocks={data.similar_stocks} handleFetchData={handleFetchData} />}
+            <div className='watchlistContainer'>
+              {data && <Watchlist similarStocks={data.tickers} handleFetchData={handleFetchData} />}
             </div>
 
             <div className='stockDataContainer'>
@@ -101,6 +103,10 @@ function App() {
                 <CandlestickChart chartData={data?.chart} />
               </div>
             }
+
+            <div className='reccomenderContainer'>
+              {data && <Reccomender similarStocks={data.similar_stocks} handleFetchData={handleFetchData} />}
+            </div>
           </div>
 
           {/* Footer */}
