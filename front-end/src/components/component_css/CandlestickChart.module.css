@@ -1,26 +1,16 @@
 /* CandlestickChart.module.css */
-:root {
-    --spacing-small: 0.5rem;
-    --spacing-medium: 1rem;
-    --spacing-large: 2rem;
-    --border-radius-small: 5px;
-    --border-radius-medium: 1px;
-}
 
 .candlestickChartContainer {
-    flex: 1;
-    min-height: 500px;
-    min-width: 50vw;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--container-background);
+    flex: 1; /* Grow to fill available space */
+    min-width: 50vw; /* Don't shrink below 250px */
     padding: var(--spacing-medium);
+    background-color: var(--container-background);
     border-radius: var(--border-radius-medium);
-    /* border: 1px solid #7289da; */
-
-    /* transition: background-color 0.3s ease-in-out; */
 }
 
-/* .candlestickChartContainer:hover {
-    background-color: var(--container-background-hover);
-} */
+@media (max-width: 768px) {
+    .candlestickChartContainer {
+        flex-basis: 100%; /* Take full width on small screens */
+        max-width: 100%; /* Override any max-width */
+    }
+}

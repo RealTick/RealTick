@@ -1,19 +1,15 @@
+/* Watchlist.module.css */
 .watchlistContainer {
-    display: flex;           /* Converts the container into a flex container */
+    display: flex;           
     flex-direction: column;
     text-align: center;
-    align-items: center;     /* Centers items vertically */
-    justify-content: center; /* Centers items horizontally */
-    border-radius:10px;
-    width: 35vw;
-    max-width: 125px;
+    align-items: center;     
+    justify-content: flex-start; /* Changed to flex-start to align items to the top */
+    border-radius: var(--border-radius-medium);
+    width: 100%; /* Full width for responsiveness */
+    max-width: 6vw; /* Adjusted as per your structure change */
     min-height: 450px;
     background-color: var(--container-background);
-    border-radius: var(--border-radius-medium);
-    margin-left: auto; /* Pushes the container to the right */
-    margin-right: 20px; /* Can adjust the right edge margin if needed */
-
-    /* padding: var(--spacing-small); */
 }
 
 .title {
@@ -24,7 +20,7 @@
     padding: var(--spacing-medium);
     border-radius: var(--border-radius-small);
     border-color: var(--button-background-color);
-
+    
     /* margin-bottom: var(--spacing-small); */
 }
 
