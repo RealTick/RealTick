@@ -3,6 +3,8 @@
 .candlestickChartContainer {
     flex: 1; /* Grow to fill available space */
     min-width: 50vw; /* Don't shrink below 250px */
+    flex-direction: column;
+    display: flex;
     padding: var(--spacing-medium);
     background-color: var(--container-background);
     border-radius: var(--border-radius-medium);

@@ -44,6 +44,7 @@ function CandlestickChart({ chartData }) {
     paper_bgcolor: paper_bgcolor_theme,
     plot_bgcolor: plot_bgcolor_theme,
     autosize: true,
+    responive: true,
     height: 500,
     font: {
       color: text_color_theme,
