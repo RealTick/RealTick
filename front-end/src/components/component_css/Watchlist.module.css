@@ -1,26 +1,18 @@
 /* Watchlist.module.css */
 .watchlistContainer {
-    display: flex;           
+    width: 100%;
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    align-items: center;     
-    justify-content: flex-start; /* Changed to flex-start to align items to the top */
-    border-radius: var(--border-radius-medium);
-    width: 100%; /* Full width for responsiveness */
-    max-width: 6vw; /* Adjusted as per your structure change */
-    min-height: 450px;
     background-color: var(--container-background);
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius-medium);
 }
 
 .title {
     width: 100%;
     flex: 1;
-    font-size: 1.75rem;
-    background-color: var(--title-background);
-    padding: var(--spacing-medium);
-    border-radius: var(--border-radius-small);
-    border-color: var(--button-background-color);
-    
+    font-size: 1.5rem;
+    padding: 15px;
     /* margin-bottom: var(--spacing-small); */
 }
 
@@ -46,7 +38,7 @@
 }
 
 .listItem:last-child {
-    border-bottom: none; /* Ensure the last item doesn't have a bottom border */
+    margin-bottom: 0;
 }
 
 .invisibleButton {

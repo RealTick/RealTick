@@ -9,7 +9,7 @@ const Watchlist = ({ handleFetchData }) => {
         'AMZN',
         'NVDA',
         'NFLX',
-        'INTC'
+        'INTC',
     ];
       
     const handleItemClick = (symbol) => {

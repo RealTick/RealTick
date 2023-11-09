@@ -17,7 +17,7 @@ const Reccomender = ({ similarStocks, handleFetchData }) => {
 
     return (
         <div className={styles.reccomenderContainer}>
-            <h2 className={styles.title}>Similar Stocks</h2>
+            <h2 className={styles.title}>Similar</h2>
             <ul className={styles.listContainer}>
                 {stocks.map((stock, index) => (
                     <li key={index} className={styles.listItem}>
