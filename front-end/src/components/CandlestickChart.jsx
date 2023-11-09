@@ -43,6 +43,7 @@ function CandlestickChart({ chartData }) {
   const layout = React.useMemo(() => ({
     paper_bgcolor: paper_bgcolor_theme,
     plot_bgcolor: plot_bgcolor_theme,
+    responsive: true,
     autosize: true,
     height: 500,
     font: {

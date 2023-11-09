@@ -1,19 +1,15 @@
-/* Reccomender.module.css */
-
-.reccomenderContainer {
-    width: 100%;
-    max-width: 7vw; /* Adjust this value to fit the content */
-    padding: var(--spacing-medium);
+/* Watchlist.module.css */
+.watchlistContainer {
+    display: flex;           
+    flex-direction: column;
+    text-align: center;
+    align-items: center;     
+    justify-content: flex-start; /* Changed to flex-start to align items to the top */
     border-radius: var(--border-radius-medium);
+    width: 100%; /* Full width for responsiveness */
+    max-width: 6vw; /* Adjusted as per your structure change */
+    min-height: 450px;
     background-color: var(--container-background);
-    margin-right: right;
-}
-
-
-@media (max-width: 768px) {
-    .reccomenderContainer {
-        max-width: 100%;
-    }
 }
 
 .title {
@@ -24,7 +20,7 @@
     padding: var(--spacing-medium);
     border-radius: var(--border-radius-small);
     border-color: var(--button-background-color);
-
+    
     /* margin-bottom: var(--spacing-small); */
 }
 
