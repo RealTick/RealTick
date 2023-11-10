@@ -17,12 +17,17 @@ def get_stock_data():
 
 ###### YFINANCE
     symbol = request.args.get('symbol')
-    period = request.args.get('period', '2y')  # default to 1 year if no period is provided
+    period = request.args.get('period', '5y')  # default to 1 year if no period is provided
     print(f"Received request for symbol: {symbol}")  # This will log to console
 
     # Ticker DEFINE
     stock = yf.Ticker(symbol)
-    data = stock.history(period=period)  # Fetch data for 1 year
+
+    ###### CLOSING PRICE HISTORY DATA PAST 5 YEARS, DAILY GRANULARITY
+    data = stock.history(period=period)  # CLOSING PRICE FETCHING
+
+    ###### REAL TIME DATA
+    real_time=yf.download(symbol,period='2d',interval='1m')
     
     # News
     news = stock.news
