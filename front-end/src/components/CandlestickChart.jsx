@@ -132,6 +132,17 @@ function CandlestickChart({ chartData }) {
 
   return (
     <div className={styles.candlestickChartContainer}>
+      <div className={styles.chartSwapContainer}>
+        <button className={styles.chartSwapButton}>
+            X
+        </button>
+        <button className={styles.chartSwapButton}>
+          Y
+        </button>
+        <button className={styles.chartSwapButton}>
+          Z
+        </button>
+      </div>
       <Plot data={data} layout={layout} />
     </div>
   );
