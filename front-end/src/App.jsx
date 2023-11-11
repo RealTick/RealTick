@@ -17,6 +17,8 @@ import Watchlist from './components/Watchlist';
 import Trending from './components/Trending';
 import './components/component_css/bodyWrapper.css'
 import './components/component_css/headerWrapper.css'
+import ChartSelector from "./components/ChartSelector";
+import ChartContainer from "./components/ChartContainer";
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState(''); 
@@ -99,8 +101,8 @@ function App() {
             </div>
 
             {query && 
-              <div className='candlestickChartContainer'>
-                <CandlestickChart chartData={data?.chart} />
+              <div className='ChartContainer'>
+                <ChartContainer chartData={data?.chart} />
               </div>
             }
 
