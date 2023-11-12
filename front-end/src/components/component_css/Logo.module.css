@@ -1,7 +1,8 @@
+/* Logo.module.css */
 .logoContainer {
-    display: flex;           /* Converts the container into a flex container */
-    align-items: center;     /* Centers items vertically */
-    justify-content: center; /* Centers items horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--input-background);    
     border-radius:10px;
 }

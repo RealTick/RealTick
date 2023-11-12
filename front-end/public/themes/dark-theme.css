@@ -24,10 +24,6 @@ button {
     color: var(--text-color);
 }
 
-button:hover {
-    background-color: var(--button-hover-background);
-}
-
 input {
     background-color: var(--input-background);
     color: var(--text-color);

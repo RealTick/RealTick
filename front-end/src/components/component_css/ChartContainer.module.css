@@ -33,10 +33,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s ease, opacity 0.2s ease; 
 }
 
 .settingsButton:hover {
   background: none;
+  color: var(--button-background);
+  opacity: 0.9;
 }
 
 .chart-selector-container {
@@ -67,5 +70,5 @@
 
 
 .chartSelectorDropdown li:hover {
-  background-color: var(--button-hover-background);
+  color: var(--button-hover-background);
 }

@@ -1,23 +1,22 @@
+/* bodyWrapper.css */
 :root {
-  /* Define a gap variable */
-  --gap: 10px; /* Adjust this value to whatever you like */
+  --gap: 10px;
 }
 
 .bodyWrapper {
     display: flex;
-    flex-direction: row; /* Align children in a row */
-    justify-content: center; /* Center children horizontally */
-    align-items: center; /* Align children to the top of the container */
-    gap: var(--gap); /* Use the gap variable */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap);
     padding: 1rem;
-    width: 100%; /* Take full width */
-    margin: auto; /* Center the wrapper */
+    width: 100%;
+    margin: auto;
     margin-top: 6%;
   }
   
-/* Adjust gap based on screen size if necessary */
 @media (max-width: 768px) {
   .bodyWrapper {
-    gap: var(--gap); /* You can adjust this value for smaller screens if needed */
+    gap: var(--gap);
   }
 }

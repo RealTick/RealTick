@@ -1,20 +1,28 @@
 import React, { useContext, useState } from "react";
 import Plot from "react-plotly.js";
-import ChartSelector from './ChartSelector';
-import CandlestickChart from './CandlestickChart';
-import LineChart from './LineChart';
+import ChartSelector from "./ChartSelector";
+import CandlestickChart from "./CandlestickChart";
+import LineChart from "./LineChart";
 import styles from "./component_css/ChartContainer.module.css";
 import { ThemeContext } from "../contexts/ThemeContext";
 
 function ChartContainer({ chartData }) {
-  const [chartType, setChartType] = useState('line');
+  const [chartType, setChartType] = useState("line");
   const { theme } = useContext(ThemeContext);
   const computedStyle = getComputedStyle(document.documentElement);
 
-  const paper_bgcolor_theme = computedStyle.getPropertyValue(`--background-color`).trim();
-  const text_color_theme = computedStyle.getPropertyValue(`--text-color`).trim();
-  const button_bgcolor = computedStyle.getPropertyValue(`--button-background`).trim();
-  const button_activecolor = computedStyle.getPropertyValue(`--button-hover-background`).trim();
+  const paper_bgcolor_theme = computedStyle
+    .getPropertyValue(`--background-color`)
+    .trim();
+  const text_color_theme = computedStyle
+    .getPropertyValue(`--text-color`)
+    .trim();
+  const button_bgcolor = computedStyle
+    .getPropertyValue(`--button-background`)
+    .trim();
+  const button_activecolor = computedStyle
+    .getPropertyValue(`--button-hover-background`)
+    .trim();
   const plot_bgcolor_theme = paper_bgcolor_theme;
 
   const layout = {
@@ -76,9 +84,9 @@ function ChartContainer({ chartData }) {
 
   const renderChart = () => {
     switch (chartType) {
-      case 'line':
+      case "line":
         return <LineChart chartData={chartData} layout={layout} />;
-      case 'candlestick':
+      case "candlestick":
         return <CandlestickChart chartData={chartData} layout={layout} />;
       default:
         return null;

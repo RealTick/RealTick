@@ -1,9 +1,9 @@
 /* Input.module.css */
 .searchContainer {
-  flex-grow: 2; /* Allows this container to grow */
+  flex-grow: 2;
   display: flex;
-  justify-content: center; /* Centers its children horizontally */
-  align-items: center; /* Centers its children vertically */
+  justify-content: center;
+  align-items: center;
   margin-left: auto;
   margin-right: auto;
 }
@@ -55,7 +55,7 @@
   position: absolute;
   width: 100%;
   background: var(--input-background);
-  z-index: 2222;  /* make sure it appears on top of other content */
+  z-index: 2222;
 }
 
 .resultItem {

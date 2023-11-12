@@ -1,18 +1,17 @@
-import React from 'react';
-import styles from './component_css/StockInfo.module.css';
+import React from "react";
+import styles from "./component_css/StockInfo.module.css";
 
 const StockInfo = ({ symbol, data }) => {
-
   // delta coloring
-  const priceDiffClass = data.price_diff.startsWith('+') ? styles.positive : styles.negative;
-
+  const priceDiffClass = data.price_diff.startsWith("+")
+    ? styles.positive
+    : styles.negative;
 
   return (
     <div className={styles.stockDataContainer}>
-
-
       <h1 className={styles.title}>
-        {data.stock_display_name} <span className={priceDiffClass}>{data.price_diff}</span>
+        {data.stock_display_name}{" "}
+        <span className={priceDiffClass}>{data.price_diff}</span>
       </h1>
 
       {/* <div className={styles.dataPoint}>
@@ -22,11 +21,8 @@ const StockInfo = ({ symbol, data }) => {
 
       </div> */}
 
-
-
       <div className={styles.dataColumns}>
         <div className={styles.column}>
-
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Current Price:</span>
             <span className={styles.dataValue}>{data.current_price}</span>
@@ -36,7 +32,6 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataTitle}>Previous Close:</span>
             <span className={styles.dataValue}>{data.prev_close}</span>
           </div>
-          
 
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Open:</span>
@@ -60,7 +55,9 @@ const StockInfo = ({ symbol, data }) => {
 
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>52 Week Range:</span>
-            <span className={styles.dataValue}>{data.fifty_two_week_range}</span>
+            <span className={styles.dataValue}>
+              {data.fifty_two_week_range}
+            </span>
           </div>
 
           <div className={styles.dataPoint}>
@@ -72,11 +69,8 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataTitle}>1y Target Est:</span>
             <span className={styles.dataValue}>{data.yr_target}</span>
           </div>
-
-
         </div>
         <div className={styles.column}>
-          
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Market Cap:</span>
             <span className={styles.dataValue}>{data.market_cap}</span>
@@ -96,7 +90,6 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.Avg_volume}</span>
           </div>
 
-          
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>PE Ratio (TTM):</span>
             <span className={styles.dataValue}>{data.PE_ratio}</span>
@@ -107,10 +100,13 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.EPS}</span>
           </div>
 
-
           <div className={styles.dataPoint}>
-            <span className={styles.dataTitle}>Forward <br></br> Dividend & Yield:</span>
-            <span className={styles.dataValue}>{data.forward_dividend_yield}</span>
+            <span className={styles.dataTitle}>
+              Forward <br></br> Dividend & Yield:
+            </span>
+            <span className={styles.dataValue}>
+              {data.forward_dividend_yield}
+            </span>
           </div>
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Ex-Dividend Date:</span>
@@ -121,10 +117,6 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataTitle}>EMPTY:</span>
             <span className={styles.dataValue}>{0}</span>
           </div>
-          
-          
-          
-
         </div>
       </div>
     </div>
