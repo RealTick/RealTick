@@ -1,0 +1,74 @@
+/* ChartContainer.module.css */
+.chartContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 668px;
+  min-width: 50vw;
+  max-width: 50vw;
+  padding: var(--spacing-medium);
+  background-color: var(--container-background);
+  border-radius: var(--border-radius-medium);
+}
+
+.chartHeader {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.settingsIcon {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+}
+
+.settingsButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, opacity 0.2s ease; 
+}
+
+.settingsButton:hover {
+  background: none;
+  color: var(--button-background);
+  opacity: 0.9;
+}
+
+.chart-selector-container {
+  position: relative;
+  display: inline-block;
+}
+
+.chartSelectorDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--container-background);
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: max-content;
+}
+
+.chartSelectorDropdown li {
+  padding: 5px 5px;
+  cursor: pointer;
+  color: var(--text-color);
+  background-color: var(--container-background);
+}
+
+
+.chartSelectorDropdown li:hover {
+  color: var(--button-hover-background);
+}

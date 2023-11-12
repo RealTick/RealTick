@@ -1,3 +1,4 @@
+/* TrendingModule.css */
 .trendingContainer {
     display: flex;           /* Converts the container into a flex container */
     flex-direction: column;
@@ -5,7 +6,7 @@
     align-items: center;     /* Centers items vertically */
     justify-content: center; /* Centers items horizontally */
     border-radius:10px;
-    width: 35vw;
+    width: 30vw;
     max-width: 125px;
     min-height: 450px;
     background-color: var(--container-background);

@@ -1,0 +1,67 @@
+/* Watchlist.module.css */
+.watchlistContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--container-background);
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius-medium);
+}
+
+.title {
+    width: 100%;
+    flex: 1;
+    font-size: 1.5rem;
+    padding: 15px;
+    /* margin-bottom: var(--spacing-small); */
+}
+
+.listContainer {
+    list-style-type: none;  /* Remove the default bullet points */
+    padding: 0;             /* Remove default padding */
+    margin: 0;              /* Remove default margin */
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    font-size: 1.25rem;
+    background-color: var(--data-point-background);
+    padding: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+    border-radius: var(--border-radius-small);
+}
+
+.listItem:hover {
+    background-color: var(--container-background-hover);
+}
+
+.listItem:last-child {
+    margin-bottom: 0;
+}
+
+.invisibleButton {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: block; /* ensures it takes the full width/height of its parent */
+}
+
+/* Remove focus highlight */
+.invisibleButton:focus {
+    outline: none;
+    box-shadow: none; /* Some browsers might use box-shadow for focus */
+}
+
+/* Remove any hover effect */
+.invisibleButton:hover {
+    background-color: transparent;
+}

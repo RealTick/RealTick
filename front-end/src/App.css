@@ -1,7 +1,8 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
+:root {
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --border-radius-small: 5px;
+  --border-radius-medium: 15px;
+}
 

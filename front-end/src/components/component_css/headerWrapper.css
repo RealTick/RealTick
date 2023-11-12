@@ -1,10 +1,4 @@
-:root {
-    --spacing-small: 0.5rem;
-    --spacing-medium: 1rem;
-    --border-radius-small: 5px;
-    --border-radius-medium: 15px;
-}
-
+/* headerWrapper.css */
 .headerWrapper {
     display: flex;
     justify-content: space-between;
