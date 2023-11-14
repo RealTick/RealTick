@@ -17,11 +17,12 @@
 }
 
 .title {
-    width: 100%;
+    width: 125%;
     flex: 1;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     background-color: var(--title-background);
-    padding: var(--spacing-medium);
+    padding-top: var(--spacing-medium);
+    padding-bottom: var(--spacing-small);
     border-radius: var(--border-radius-small);
     border-color: var(--button-background-color);
 
@@ -76,4 +77,18 @@
 /* Remove any hover effect */
 .invisibleButton:hover {
     background-color: transparent;
+}
+
+.pinButton {
+    width: 80%;
+    height: 80%;
+    background-color: var(--button-background);
+    color: inherit;
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 6px;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: var(--spacing-medium);
 }
