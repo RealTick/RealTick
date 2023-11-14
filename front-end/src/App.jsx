@@ -9,7 +9,6 @@ import ErrorMessage from "./components/errorMessage";
 import Input from "./components/Input";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import ThemeLoader from "../public/themes/ThemeLoader";
-import CandlestickChart from "./components/CandlestickChart";
 import NewsModule from "./components/NewsModule";
 import Logo from "./components/Logo";
 import Reccomender from "./components/Reccomender";

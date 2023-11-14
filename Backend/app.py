@@ -179,7 +179,7 @@ def get_stock_data():
 
         })
     else:
-        return jsonify({'error': 'Could not fetch data for given symbol.'}), 400
+        return jsonify({'error': ' Could not fetch data for given symbol.'}), 400
 
 
 

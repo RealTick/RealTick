@@ -1,38 +1,8 @@
 import React, { useContext } from "react";
-import Plot from "react-plotly.js";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import { ThemeContext } from "../contexts/ThemeContext";
-import Exporting from "highcharts/modules/exporting";
 
-Exporting(Highcharts);
-////////PLOTLY
-// function CandlestickChart({ chartData, layout }) {
-//   const dates = Object.keys(chartData || {});
-//   const openPrices = dates.map((date) => chartData[date].open);
-//   const highPrices = dates.map((date) => chartData[date].high);
-//   const lowPrices = dates.map((date) => chartData[date].low);
-//   const closePrices = dates.map((date) => chartData[date].close);
-
-//   const data = [
-//     {
-//       type: "candlestick",
-//       x: dates,
-//       open: openPrices,
-//       high: highPrices,
-//       low: lowPrices,
-//       close: closePrices,
-//     },
-//   ];
-
-//   return <Plot data={data} layout={layout} />;
-// }
-
-// export default React.memo(CandlestickChart);
-
-////////HIGHCHARTS
-function CandlestickChart({ chartData }) {
-  // Extract the theme properties
+function AreaChart({ chartData }) {
   const computedStyle = getComputedStyle(document.documentElement);
   const paper_bgcolor_theme = computedStyle
     .getPropertyValue(`--background-color`)
@@ -49,7 +19,7 @@ function CandlestickChart({ chartData }) {
 
   const dates = Object.keys(chartData || {});
 
-  const candlestickData = dates.map((date) => [
+  const ohlc_data = dates.map((date) => [
     new Date(date).getTime(), // convert date -> timestamp
     chartData[date].open,
     chartData[date].high,
@@ -72,10 +42,10 @@ function CandlestickChart({ chartData }) {
     },
     plotOptions: {
       candlestick: {
-        color: "pink",
-        lineColor: "red",
-        upColor: "lightgreen",
-        upLineColor: "green",
+        // color: "pink",
+        // lineColor: "red",
+        // upColor: "lightgreen",
+        // upLineColor: "green",
       },
     },
     exporting: {
@@ -95,7 +65,7 @@ function CandlestickChart({ chartData }) {
       },
     },
     rangeSelector: {
-      selected: 3,
+      selected: 2,
       buttonTheme: {
         fill: button_bgcolor,
         style: {
@@ -171,9 +141,9 @@ function CandlestickChart({ chartData }) {
     ],
     series: [
       {
-        type: "candlestick",
+        type: "area",
         name: "Stock Price",
-        data: candlestickData,
+        data: ohlc_data,
       },
       {
         type: "column",
@@ -190,7 +160,7 @@ function CandlestickChart({ chartData }) {
           },
           chartOptions: {
             chart: {
-              height: 300,
+              height: 600,
             },
             subtitle: {
               text: null,
@@ -213,4 +183,4 @@ function CandlestickChart({ chartData }) {
   );
 }
 
-export default React.memo(CandlestickChart);
+export default React.memo(AreaChart);
