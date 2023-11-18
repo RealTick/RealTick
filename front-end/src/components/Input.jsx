@@ -4,11 +4,23 @@ import styles from "./component_css/Input.module.css";
 function Input({ symbol, setSymbol, fetchData }) {
   const [localSymbol, setLocalSymbol] = useState(symbol);
   const [results, setResults] = useState([]); // New state for search results
+  const [selectedResult, setSelectedResult] = useState(-1); //initial index -1
+
   const MIN_INPUT_LENGTH = 2; // minimum number of characters before making an API request
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSubmit();
+    } else if (results.length > 0) {
+      if (e.key === "ArrowUp") {
+        setSelectedResult(
+          (prevIndex) => Math.max(prevIndex - 1, 0) //stop at 0
+        );
+      } else if (e.key === "ArrowDown") {
+        setSelectedResult(
+          (prevIndex) => Math.min(prevIndex + 1, results.length - 1) //stop at results.length - 1
+        );
+      }
     }
   };
 
@@ -41,8 +53,14 @@ function Input({ symbol, setSymbol, fetchData }) {
   };
 
   const handleSubmit = () => {
+    if (selectedResult >= 0 && selectedResult < results.length - 1) {
+      //use selected item
+      setLocalSymbol(results[selectedResult]["1. symbol"]);
+    }
+    setResults([]);
     setSymbol(localSymbol);
     fetchData(localSymbol);
+    setSelectedResult(-1);
   };
 
   return (
@@ -61,7 +79,7 @@ function Input({ symbol, setSymbol, fetchData }) {
         {/* Display search results */}
         {results.length > 0 && (
           <div className={styles.resultsContainer}>
-            {results.map((result) => (
+            {results.map((result, index) => (
               <div
                 key={result["1. symbol"]}
                 onClick={() => {
@@ -69,7 +87,9 @@ function Input({ symbol, setSymbol, fetchData }) {
                   setResults([]); // Clear the results after selection
                   handleSubmit();
                 }}
-                className={styles.resultItem}
+                className={`${styles.resultItem} ${
+                  index === selectedResult ? styles.selectedItem : "" // selected item highlighted
+                }`}
               >
                 {result["1. symbol"]} - {result["2. name"]}
               </div>

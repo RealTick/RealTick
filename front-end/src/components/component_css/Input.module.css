@@ -67,3 +67,8 @@
   background-color: var(--background-color);
   color: var(--text-color-hovered);
 }
+
+.selectedItem {
+  background-color: var(--background-color);
+  color: var(--text-color-hovered);
+}
