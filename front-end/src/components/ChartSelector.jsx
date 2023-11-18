@@ -52,6 +52,12 @@ function ChartSelector({ onChartTypeChange }) {
         >
           <IconChartArea size={24} stroke={2} /> Area
         </div>
+        <div
+          onClick={() => handleChartTypeChange("realtime")}
+          className={styles.dropdownItem}
+        >
+          <IconChartArea size={24} stroke={2} /> Realtime
+        </div>
       </div>
     </div>
   );

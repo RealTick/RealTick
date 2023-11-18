@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./component_css/NewsModule.module.css";
-
+import { IconNews } from "@tabler/icons-react";
 const NewsItem = ({ article }) => {
   const getHoursSincePublished = (timestamp) => {
     const publishedDate = new Date(Number(timestamp) * 1000);
@@ -12,6 +12,12 @@ const NewsItem = ({ article }) => {
       return "Just now";
     } else if (hoursDifference === 1) {
       return "1 hour ago";
+    } else if (~~(hoursDifference / 24 / 30) == 1) {
+      return `${~~(hoursDifference / 24 / 30)} month ago`;
+    } else if (~~(hoursDifference / 24 / 30) > 1) {
+      return `${~~(hoursDifference / 24 / 30)} months ago`;
+    } else if (hoursDifference >= 24) {
+      return `${~~(hoursDifference / 24)} days ago`;
     } else {
       return `${hoursDifference} hours ago`;
     }
@@ -24,10 +30,15 @@ const NewsItem = ({ article }) => {
       rel="noreferrer"
       className={styles.newsItem}
     >
-      <img
-        src={article.thumbnail?.resolutions?.[1]?.url}
-        className={styles.newsImage}
-      />
+      {article.thumbnail?.resolutions?.[1]?.url ? (
+        <img
+          src={article.thumbnail.resolutions[1].url}
+          alt="Article thumbnail"
+          className={styles.newsImage}
+        />
+      ) : (
+        <IconNews />
+      )}
       <div className={styles.newsContent}>
         <div className={styles.newsMeta}>
           <span className={styles.newsPublisher}>{article.publisher}</span>

@@ -6,6 +6,8 @@ import LineChart from "./charts/LineChart";
 import styles from "./component_css/ChartContainer.module.css";
 import OHLCChart from "./charts/OHLCChart";
 import AreaChart from "./charts/AreaChart";
+import RealtimeChart from "./charts/RealtimeChart";
+
 // import { ThemeContext } from "../contexts/ThemeContext";
 
 function ChartContainer({ chartData }) {
@@ -97,6 +99,8 @@ function ChartContainer({ chartData }) {
         return <OHLCChart chartData={chartData} />;
       case "area":
         return <AreaChart chartData={chartData} />;
+      case "realtime":
+        return <RealtimeChart chartData={chartData} />;
       default:
         return null;
     }
