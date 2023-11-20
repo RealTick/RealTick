@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./component_css/Reccomender.module.css";
-import Input from "./Input";
+import Search from "./Search";
 
 /* Input({ symbol, setSymbol, fetchData }) */
 
