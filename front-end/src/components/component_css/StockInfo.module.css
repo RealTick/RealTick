@@ -1,24 +1,22 @@
 /* StockInfo.module.css */
-:root {
-  --spacing-small: 0.5rem;
-  --spacing-medium: 1rem;
-  --spacing-large: 2rem;
-  --border-radius-small: 5px;
-  --border-radius-medium: 15px;
-}
-
 .stockDataContainer {
-  flex: 1;
-  width: 34vw;
-  min-height: 490px;
+  width: 100%;
+  max-width: 50vw;
+  min-height: 668px;
   display: flex;
   flex-direction: column;
   background-color: var(--container-background);
   padding: var(--spacing-medium);
   border-radius: var(--border-radius-medium);
-  /* border: 1px solid #7289da; */
 }
 
+@media (max-width: 768px) {
+    .stockDataContainer {
+        max-width: 100%;
+        min-height: initial;
+        padding: var(--spacing-small);
+    }
+}
 
 .dataColumns {
   gap: 10px;
@@ -37,10 +35,8 @@
   width: 100%;
   flex: 1;
   font-size: 1.5rem;
-  padding: 15px;
+  padding: 10px;
   margin-bottom: 1px;
-  /* border-radius:
-  border-color: */
 }
 
 .dataPoint {
@@ -48,7 +44,7 @@
   height: 55px;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   background-color: var(--data-point-background);
   padding: 8px;
   margin-bottom: 10px;
@@ -68,12 +64,10 @@
   margin-bottom: 0;
 }
 
-
-
 .positive {
-  color: #4CAF50; /* green */
+  color: var(--positive);
 }
 
 .negative {
-  color: #F44336; /* red */
+  color: var(--negative);
 }

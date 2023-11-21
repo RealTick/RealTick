@@ -17,14 +17,18 @@ def get_stock_data():
 
 ###### YFINANCE
     symbol = request.args.get('symbol')
-    period = request.args.get('period', '2y')  # default to 1 year if no period is provided
+    period = request.args.get('period', '5y')  # default to 1 year if no period is provided
     print(f"Received request for symbol: {symbol}")  # This will log to console
 
     # Ticker DEFINE
     stock = yf.Ticker(symbol)
-    data = stock.history(period=period)  # Fetch data for 1 year
+
+    ###### CLOSING PRICE HISTORY DATA PAST 5 YEARS, DAILY GRANULARITY
+
+    ###### REAL TIME DATA
+    real_time=yf.download(symbol,period='2d',interval='1m')
     
-    # News
+    # NewsS
     news = stock.news
         
     #Chart
@@ -33,10 +37,11 @@ def get_stock_data():
             'open': open_val,
             'high': high_val,
             'low': low_val,
-            'close': close_val
+            'close': close_val,
+            'volume': volume
         } 
-        for date, open_val, high_val, low_val, close_val in zip(data.index, data['Open'], data['High'], data['Low'], data['Close']) #do we need down to the minute?
-        #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5}, ...
+        for date, open_val, high_val, low_val, close_val, volume in zip(data.index, data['Open'], data['High'], data['Low'], data['Close'], data['Volume']) #do we need down to the minute?
+        #expected output: '2023-01-01': {'open': 100.0, 'high': 105.0, 'low': 98.0, 'close': 103.5, 'volume': xxxx}, ...
     }
 ###### END YFINANCE
 
@@ -178,7 +183,7 @@ def get_stock_data():
 
         })
     else:
-        return jsonify({'error': 'Could not fetch data for given symbol.'}), 400
+        return jsonify({'error': ' Could not fetch data for given symbol.'}), 400
 
 
 

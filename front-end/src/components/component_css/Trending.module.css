@@ -1,3 +1,4 @@
+/* Trending.module.css */
 .trendingContainer {
     display: flex;           /* Converts the container into a flex container */
     flex-direction: column;

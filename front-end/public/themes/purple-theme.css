@@ -1,0 +1,37 @@
+/* purple-theme.css */
+:root {
+    --background-color: #352F44;
+    --text-color: #ffffff;
+    --text-color-hovered: #d8c4f8;
+    --text-color-visited: #b9a4db;
+    --button-background: #B9B4C7;
+    --button-hover-background: #4e485f;
+    --input-background: #5C5470;
+    --placeholder-color: #756c6c;
+    --title-background: #7a606e;
+    --data-point-background: #7a606e;
+    --container-background: #A78295;
+    --container-background-hover: #694c5b2f;
+    --positive: green;
+    --negative: red;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--text-color);
+}
+
+
+input {
+    background-color: var(--input-background);
+    color: var(--text-color);
+}
+
+input::placeholder {
+    color: var(--placeholder-color);
+}

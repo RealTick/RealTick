@@ -1,29 +1,26 @@
-.reccomenderContainer {
-    display: flex;           /* Converts the container into a flex container */
-    flex-direction: column;
-    text-align: center;
-    align-items: center;     /* Centers items vertically */
-    justify-content: center; /* Centers items horizontally */
-    border-radius:10px;
-    width: 35vw;
-    max-width: 125px;
-    min-height: 450px;
-    background-color: var(--container-background);
-    border-radius: var(--border-radius-medium);
+/* Reccomender.module.css */
 
-    /* padding: var(--spacing-small); */
+.reccomenderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--container-background);
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius-medium);
+}
+
+
+@media (max-width: 768px) {
+    .reccomenderContainer {
+        max-width: 100%;
+    }
 }
 
 .title {
     width: 100%;
     flex: 1;
-    font-size: 1.75rem;
-    background-color: var(--title-background);
-    padding: var(--spacing-medium);
-    border-radius: var(--border-radius-small);
-    border-color: var(--button-background-color);
-
-    /* margin-bottom: var(--spacing-small); */
+    font-size: 1.5rem;
+    padding: 15px;
 }
 
 .listContainer {
@@ -48,7 +45,7 @@
 }
 
 .listItem:last-child {
-    border-bottom: none; /* Ensure the last item doesn't have a bottom border */
+    margin-bottom: 0;
 }
 
 .invisibleButton {

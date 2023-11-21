@@ -1,10 +1,11 @@
+/* NewsModule.module.css */
 .newsContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 10px;
   width: 80%;
-  margin-top: 72vh;
+  margin-top: 1vh;
   margin-left: auto;
   margin-right: auto;
 }
