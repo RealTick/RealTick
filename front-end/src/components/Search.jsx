@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./component_css/Search.module.css";
 import debounce from "lodash.debounce";
 
@@ -70,12 +70,22 @@ function Search({ symbol, setSymbol, fetchData }) {
       performSearch();
     } else if (e.key === "ArrowUp" && results.length > 0) {
       const newIndex = Math.max(selectedResult - 1, 0);
-      setSelectedResult(newIndex);
-      setLocalSymbol(results[newIndex]["1. symbol"]);
+      if (selectedResult - 1 < 0) {
+        setSelectedResult(results.length - 1);
+        setLocalSymbol(results[results.length - 1]["1. symbol"]);
+      } else {
+        setSelectedResult(newIndex);
+        setLocalSymbol(results[newIndex]["1. symbol"]);
+      }
     } else if (e.key === "ArrowDown" && results.length > 0) {
       const newIndex = Math.min(selectedResult + 1, results.length - 1);
-      setSelectedResult(newIndex);
-      setLocalSymbol(results[newIndex]["1. symbol"]);
+      if (selectedResult + 1 > results.length - 1) {
+        setSelectedResult(0);
+        setLocalSymbol(results[0]["1. symbol"]);
+      } else {
+        setSelectedResult(newIndex);
+        setLocalSymbol(results[newIndex]["1. symbol"]);
+      }
     }
   };
 
