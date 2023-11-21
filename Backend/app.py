@@ -24,6 +24,7 @@ def get_stock_data():
     stock = yf.Ticker(symbol)
 
     ###### CLOSING PRICE HISTORY DATA PAST 5 YEARS, DAILY GRANULARITY
+    data = stock.history(period=period)  # CLOSING PRICE FETCHING
 
     ###### REAL TIME DATA
     real_time=yf.download(symbol,period='2d',interval='1m')
