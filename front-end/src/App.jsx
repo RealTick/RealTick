@@ -48,6 +48,14 @@ function App() {
     setError(null); // resets error state so error can be shown again
   };
 
+  const resetComponents = () => {
+    setData(null);
+    setError(null);
+    setInputSymbol("");
+    setDisplayedSymbol("");
+    setQuery(false);
+  };
+
   // // REFRESH_TICKER SA
   // useEffect(() => {
   //   // Fetch stock data right away and then set up an interval to fetch every minute.
@@ -75,7 +83,7 @@ function App() {
           <div className="headerWrapper">
             <div className="leftComponent">
               <div className="logoContainer">
-                <Logo />
+                <Logo onReset={resetComponents} />
               </div>
             </div>
             <div className="middleComponent">

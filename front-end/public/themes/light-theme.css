@@ -12,6 +12,8 @@
     --data-point-background: #ffffff;
     --container-background: #d3d3d3;
     --container-background-hover: #c0c0c0;
+    --positive: green;
+    --negative: rgb(196, 0, 0);
 }
 
 body {
@@ -32,3 +34,4 @@ input {
 input::placeholder {
     color: var(--placeholder-color);
 }
+

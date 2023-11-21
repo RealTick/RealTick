@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./component_css/Logo.module.css";
 
-const Logo = () => {
+const Logo = ({ onReset }) => {
   const data = {
     text: "RealTick",
   };
 
   const handleSubmit = () => {
-    window.location.reload(false);
+    onReset();
   };
 
   return (

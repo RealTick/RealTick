@@ -65,9 +65,9 @@
 }
 
 .positive {
-  color: rgb(0, 255, 0);
+  color: var(--positive);
 }
 
 .negative {
-  color: red;
+  color: var(--negative);
 }

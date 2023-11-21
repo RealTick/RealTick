@@ -12,6 +12,8 @@
     --data-point-background: #424549;
     --container-background: #282b30;
     --container-background-hover: #1e2124;
+    --positive: rgb(0, 255, 0);
+    --negative: red;
 }
 
 body {
