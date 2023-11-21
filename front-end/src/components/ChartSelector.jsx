@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { IconSettings } from "@tabler/icons-react";
-import { IconChartLine } from "@tabler/icons-react";
-import { IconChartCandle } from "@tabler/icons-react";
-
+import {
+  IconTableOptions,
+  IconChartLine,
+  IconChartCandle,
+  IconChartCandleFilled,
+  IconChartArea,
+} from "@tabler/icons-react";
 import styles from "./component_css/ChartContainer.module.css";
 
 function ChartSelector({ onChartTypeChange }) {
@@ -18,19 +21,44 @@ function ChartSelector({ onChartTypeChange }) {
   return (
     <div className={styles.chartHeader}>
       <button onClick={toggleDropdown} className={styles.settingsButton}>
-        <IconSettings size={24} stroke={2} />
+        <IconTableOptions size={24} stroke={2} />
       </button>
-      {dropdownOpen && (
-        <ul className={styles.chartSelectorDropdown}>
-          <li onClick={() => handleChartTypeChange("line")}>
-            <IconChartLine size={24} stroke={2} /> Line
-          </li>
-          <li onClick={() => handleChartTypeChange("candlestick")}>
-            <IconChartCandle size={24} stroke={2} /> Candlestick
-          </li>
-          {/* Add more li elements for other chart types as needed */}
-        </ul>
-      )}
+      <div
+        className={`${styles.chartSelectorDropdown} ${
+          dropdownOpen ? styles.active : ""
+        }`}
+      >
+        <div
+          onClick={() => handleChartTypeChange("line")}
+          className={styles.dropdownItem}
+        >
+          <IconChartLine size={24} stroke={2} /> Line
+        </div>
+        <div
+          onClick={() => handleChartTypeChange("candlestick")}
+          className={styles.dropdownItem}
+        >
+          <IconChartCandle size={24} stroke={2} /> Candlestick
+        </div>
+        <div
+          onClick={() => handleChartTypeChange("ohlc")}
+          className={styles.dropdownItem}
+        >
+          <IconChartCandleFilled size={24} stroke={2} /> OHLC
+        </div>
+        <div
+          onClick={() => handleChartTypeChange("area")}
+          className={styles.dropdownItem}
+        >
+          <IconChartArea size={24} stroke={2} /> Area
+        </div>
+        <div
+          onClick={() => handleChartTypeChange("realtime")}
+          className={styles.dropdownItem}
+        >
+          <IconChartArea size={24} stroke={2} /> Realtime
+        </div>
+      </div>
     </div>
   );
 }

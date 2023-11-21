@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./component_css/Watchlist.module.css";
-import Input from "./Input";
+import Search from "./Search";
 
 const Watchlist = ({ handleFetchData }) => {
   const tickers = ["META", "AAPL", "AMZN", "NVDA", "NFLX", "INTC"];

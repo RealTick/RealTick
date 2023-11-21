@@ -44,6 +44,16 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.eoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
 .closeButton {
   position: absolute;
   top: 10px;
@@ -51,7 +61,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.2rem;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 

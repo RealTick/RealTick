@@ -6,10 +6,9 @@ import "./App.css";
 import fetchData from "./components/StockService";
 import StockInfo from "./components/StockInfo";
 import ErrorMessage from "./components/errorMessage";
-import Input from "./components/Input";
+import Search from "./components/Search";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import ThemeLoader from "../public/themes/ThemeLoader";
-import CandlestickChart from "./components/CandlestickChart";
 import NewsModule from "./components/NewsModule";
 import Logo from "./components/Logo";
 import Reccomender from "./components/Reccomender";
@@ -80,7 +79,7 @@ function App() {
               </div>
             </div>
             <div className="middleComponent">
-              <Input
+              <Search
                 symbol={inputSymbol}
                 setSymbol={setInputSymbol}
                 fetchData={handleFetchData}

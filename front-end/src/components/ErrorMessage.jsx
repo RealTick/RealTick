@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import styles from "./component_css/Settings.module.css";
 import { IconSquareRoundedX } from "@tabler/icons-react";
+import { IconAlertTriangle } from "@tabler/icons-react";
 
 Modal.setAppElement("#root");
 
@@ -25,13 +26,15 @@ function ErrorMessage({ error, onModalClose }) {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         className={styles.modal}
-        overlayClassName={styles.overlay}
+        overlayClassName={styles.eoverlay} //settings.module.css cause redundant
       >
         <button onClick={closeModal} className={styles.closeButton}>
           <IconSquareRoundedX size={24} stroke={2} />
         </button>
         <div style={{ color: "red", fontWeight: "bold", fontSize: "18px" }}>
-          {error}
+          <IconAlertTriangle size={24} stroke={2} />
+          &nbsp; {error} &nbsp;
+          <IconAlertTriangle size={24} stroke={2} />
         </div>
       </Modal>
     </div>

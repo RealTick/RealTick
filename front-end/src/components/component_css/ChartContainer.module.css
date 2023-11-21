@@ -13,7 +13,6 @@
 
 .chartHeader {
   position: relative;
-  display: flex;
   justify-content: flex-end;
   padding: 5px;
 }
@@ -42,33 +41,42 @@
   opacity: 0.9;
 }
 
-.chart-selector-container {
-  position: relative;
-  display: inline-block;
-}
-
 .chartSelectorDropdown {
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: 0;
+  left: 5%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
   background-color: var(--container-background);
   border: 2px solid var(--text-color);
   border-radius: 5px;
   z-index: 10;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  width: max-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.chartSelectorDropdown li {
-  padding: 5px 5px;
+.active {
+  transform: scaleX(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.dropdownItem {
+  padding: 5px 10px;
   cursor: pointer;
   color: var(--text-color);
   background-color: var(--container-background);
 }
 
-
-.chartSelectorDropdown li:hover {
+.dropdownItem:hover {
   color: var(--button-hover-background);
 }
