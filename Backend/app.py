@@ -144,43 +144,191 @@ def get_stock_data():
             symbols_json = symbols_list
         return stock_info, symbols_json
     
-    # IN HOUSE SCRAPER CALL
+    def stock_analysis(symbol):
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'
+        }
+        url = f'https://stockanalysis.com/stocks/{symbol}/'
+
+        # Single request for all data
+        response = requests.get(url, headers=headers)
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Function to scrape stock information
+        def scrape_stock_info(soup):
+            # Extract data based on the structure of the HTML and the text contained within the tags
+            def extract_data(label_text):
+                label_tag = soup.find('td', text=label_text)
+                if label_tag:
+                    value_tag = label_tag.find_next_sibling('td')
+                    if value_tag:
+                        return value_tag.text.strip()
+                return "Not Found"
+
+            keys = ["Market Cap", "Revenue (ttm)", "Net Income (ttm)", "Shares Out", "EPS (ttm)", "PE Ratio", "Forward PE", "Dividend", "Ex-Dividend Date", "Volume", "Open", "Previous Close", "Day's Range", "52-Week Range", "Beta", "Analysts", "Price Target", "Earnings Date"]
+
+
+            # PRICE, CHANGE, FULL NAME
+            parent_div = soup.find('div', class_='mb-5 flex flex-row items-end space-x-2 xs:space-x-3 bp:space-x-5')
+            if not parent_div:
+                return None
+
+            # Extracting the required data
+            price = parent_div.find('div', class_='text-4xl font-bold inline-block')
+            price = price.text.strip() if price else "Not Found"
+
+            # look for both classes
+            change_div = parent_div.find('div', {'class': ['font-semibold inline-block text-2xl text-green-vivid', 'font-semibold inline-block text-2xl text-red-vivid']})
+            change = change_div.text.strip() if change_div else "Not Found"
+
+            # Full name
+            full_name_tag = soup.find('h1', class_='mb-0 text-2xl font-bold text-default sm:text-[26px]')
+            full_name = full_name_tag.text.strip() if full_name_tag else "N/A"
+
+
+            # Mapping keys to your existing structure and adding new keys
+            stock_info = {
+                'Full_name': full_name,  # Assuming full name is not directly available
+                'RT_Price': price,   # Real time price not directly available
+                'Price_Change': change,  # Price change not directly available
+                'Market_Cap': extract_data("Market Cap"),
+                'Beta': extract_data("Beta"),
+                'PE': extract_data("PE Ratio"),
+                'EPS': extract_data("EPS (ttm)"),
+                'Earnings_Date': extract_data("Earnings Date"),
+                'Dividend_Yield': extract_data("Dividend"),  # Note: Might not be exact equivalent
+                'EX_dividend': extract_data("Ex-Dividend Date"),
+                'target': extract_data("Price Target"),
+                'Close': extract_data("Previous Close"),
+                'Open': extract_data("Open"),
+                'Bid': "N/A",  # Bid value not directly available
+                'Ask': "N/A",  # Ask value not directly available
+                'days_range': extract_data("Day's Range"),
+                '52WeekRange': extract_data("52-Week Range"),
+                'Volume': extract_data("Volume"),
+                'Avg_volume': "N/A",  # Average volume not directly available
+                # Additional keys from Stock Analysis
+                'Revenue': extract_data("Revenue (ttm)"),
+                'Net_Income': extract_data("Net Income (ttm)"),
+                'Shares_Out': extract_data("Shares Out"),
+                'Forward_PE': extract_data("Forward PE"),
+                'Analysts': extract_data("Analysts")
+            }
+            return stock_info
+            #return {key: extract_data(key) for key in keys}
+
+        
+
+        # Perform all scraping using the same soup object
+        stock_info_data = scrape_stock_info(soup)
+
+        
+        # json_output = json.dumps(all_data,indent=4)
+        return stock_info_data
+    
+    
+    # IN HOUSE SCRAPER CALL (YAHOO FINANCE)
     stock_info, similar_symbols_json = get_stock_data(symbol)
-    # print(type(similar_symbols_json))
-    # print(similar_symbols_json)
-    # print(type(news))
+    stockanalysis_info=stock_analysis(symbol)
+    print(stockanalysis_info)
+    
+    # IN HOUSE SCRAPER CALL (STOCKANALYSIS)
+    
+    '''
+    TESTING
+        # print(type(similar_symbols_json))
+        # print(similar_symbols_json)
+        # print(type(news))
+        #print(stock_info)
+    '''
+    
+    
+    # #YAHOO FINANCE
+    # if not data.empty:
+    #     return jsonify({
+    #         'chart': chart_data,
+    #         'news':news,
+    #         'stock_display_name': stock_info['Full_name'],
+    #         'current_price': stock_info['RT_Price'],
+    #         'prev_close': stock_info['Close'],
+    #         'opening_price': stock_info['Open'],
+    #         'market_cap': stock_info['Market_Cap'],
+    #         'volume': stock_info['Volume'],
+    #         'fifty_two_week_range': stock_info['52WeekRange'],
+    #         'forward_dividend_yield': stock_info['Dividend_Yield'],
+    #         'days_range': stock_info['days_range'],
+    #         'beta': stock_info['Beta'],
+    #         'bid': stock_info['Bid'],
+    #         'ask': stock_info['Ask'],
+    #         'price_diff': stock_info['Price_Change'],
+    #         'earnings_date':stock_info['Earnings_Date'],
+    #         'yr_target':stock_info['target'],
+    #         'Avg_volume': stock_info['Avg_volume'],
+    #         'PE_ratio':stock_info['PE'],
+    #         'EPS':stock_info['EPS'],
+    #         'EX_dividend':stock_info['EX_dividend'],
+    #         'similar_stocks': similar_symbols_json,
 
-    #print(stock_info)
-
+    #     })
+    # else:
+    #     return jsonify({'error': ' Could not fetch data for given symbol.'}), 400
+    
+    
+    # STOCK ANALYISIS
     if not data.empty:
         return jsonify({
             'chart': chart_data,
             'news':news,
-            'stock_display_name': stock_info['Full_name'],
-            'current_price': stock_info['RT_Price'],
-            'prev_close': stock_info['Close'],
-            'opening_price': stock_info['Open'],
-            'market_cap': stock_info['Market_Cap'],
-            'volume': stock_info['Volume'],
-            'fifty_two_week_range': stock_info['52WeekRange'],
-            'forward_dividend_yield': stock_info['Dividend_Yield'],
-            'days_range': stock_info['days_range'],
-            'beta': stock_info['Beta'],
-            'bid': stock_info['Bid'],
-            'ask': stock_info['Ask'],
-            'price_diff': stock_info['Price_Change'],
-            'earnings_date':stock_info['Earnings_Date'],
-            'yr_target':stock_info['target'],
-            'Avg_volume': stock_info['Avg_volume'],
-            'PE_ratio':stock_info['PE'],
-            'EPS':stock_info['EPS'],
-            'EX_dividend':stock_info['EX_dividend'],
+            'stock_display_name': stockanalysis_info['Full_name'],
+            'current_price': stockanalysis_info['RT_Price'],
+            'prev_close': stockanalysis_info['Close'],
+            'opening_price': stockanalysis_info['Open'],
+            'market_cap': stockanalysis_info['Market_Cap'],
+            'volume': stockanalysis_info['Volume'],
+            'fifty_two_week_range': stockanalysis_info['52WeekRange'],
+            'forward_dividend_yield': stockanalysis_info['Dividend_Yield'],
+            'days_range': stockanalysis_info['days_range'],
+            'beta': stockanalysis_info['Beta'],
+            'bid': "REMOVE THIS",
+            'ask': "REMOVE THIS",
+            'price_diff': stockanalysis_info['Price_Change'],
+            'earnings_date':stockanalysis_info['Earnings_Date'],
+            'yr_target':stockanalysis_info['target'],
+            'Avg_volume': "REMOVE THIS",
+            'PE_ratio':stockanalysis_info['PE'],
+            'EPS':stockanalysis_info['EPS'],
+            'EX_dividend':stockanalysis_info['EX_dividend'],
             'similar_stocks': similar_symbols_json,
 
         })
     else:
         return jsonify({'error': ' Could not fetch data for given symbol.'}), 400
+    
+    
+    
 
+# YFINANCEreal-time data
+@app.route('/realtime_stock', methods=['GET'])
+def get_realtime_stock_data():
+    symbol = request.args.get('symbol')
+    if not symbol:
+        return jsonify({'error': 'No symbol provided'}), 400
+
+    try:
+        # Fetch real-time data from yfinance
+        real_time_data = yf.download(symbol, period="2d", interval='1m')
+
+        # Check if the data is not empty
+        if real_time_data.empty:
+            return jsonify({'error': 'No data available for the given symbol'}), 404
+
+        # Convert the DataFrame to a dictionary for JSON response
+        real_time_dict = real_time_data.to_dict(orient='index')
+
+        return jsonify(real_time_dict)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':
