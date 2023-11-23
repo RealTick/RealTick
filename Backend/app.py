@@ -5,6 +5,7 @@ import requests
 import csv
 from bs4 import BeautifulSoup
 import json
+import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +24,7 @@ def get_stock_data():
     # Ticker DEFINE
     stock = yf.Ticker(symbol)
     data = stock.history(period=period)  # Fetch data for 1 year
+    #print(data)
     
     # NewsS
     news = stock.news
@@ -230,7 +232,7 @@ def get_stock_data():
     # IN HOUSE SCRAPER CALL (YAHOO FINANCE)
     stock_info, similar_symbols_json = get_stock_data(symbol)
     stockanalysis_info=stock_analysis(symbol)
-    print(stockanalysis_info)
+    #print(stockanalysis_info) #TESTING OUTPUT
     
     # IN HOUSE SCRAPER CALL (STOCKANALYSIS)
     
@@ -322,10 +324,19 @@ def get_realtime_stock_data():
         if real_time_data.empty:
             return jsonify({'error': 'No data available for the given symbol'}), 404
 
-        # Convert the DataFrame to a dictionary for JSON response
-        real_time_dict = real_time_data.to_dict(orient='index')
+        # Transform the DataFrame into a structured format
+        real_time_chart_data = {
+            dt.strftime('%Y-%m-%d %H:%M:%S'): {
+                'open': row['Open'],
+                'high': row['High'],
+                'low': row['Low'],
+                'close': row['Close'],
+                'volume': row['Volume']
+            }
+            for dt, row in real_time_data.iterrows()
+        }
 
-        return jsonify(real_time_dict)
+        return jsonify(real_time_chart_data)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500

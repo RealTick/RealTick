@@ -4,6 +4,7 @@ import axios from "axios";
 import "./App.css";
 
 import fetchData from "./components/StockService";
+import fetchRealTimeData from "./components/StockRealTimeService"; //REAL TIME DATA
 import StockInfo from "./components/StockInfo";
 import ErrorMessage from "./components/errorMessage";
 import Search from "./components/Search";
@@ -41,6 +42,22 @@ function App() {
     } catch (err) {
       setError(`Error fetching data: ${err.message || "Please try again."}`);
       setData(null);
+    }
+  };
+
+  const handleFetchRealTimeData = async (symbolToFetch) => {
+    try {
+      const realTimeData = await fetchRealTimeData(symbolToFetch);
+
+      if (realTimeData) {
+        // Process and store the real-time data
+        // For example, you might want to update a different state variable
+        setRealTimeData(realTimeData);
+      } else {
+        setError("Received unexpected real-time data format.");
+      }
+    } catch (err) {
+      setError(`Error fetching real-time data: ${err.message || "Please try again."}`);
     }
   };
 
