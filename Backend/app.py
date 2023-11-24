@@ -230,12 +230,50 @@ def get_stock_data():
         # json_output = json.dumps(all_data,indent=4)
         return stock_info_data
     
+    def scrape_similar_stocks(symbol):
+        url = f"https://stockanalysis.com/stocks/{symbol}/market-cap/"
+
+        # Send an HTTP GET request to the URL
+        response = requests.get(url)
+
+        # Check if the request was successful
+        if response.status_code != 200:
+            return f"Failed to retrieve data for symbol: {symbol}. Status code: {response.status_code}"
+
+        # Parse the HTML with BeautifulSoup
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Find the table using the class name
+        table = soup.find('table', class_='w-full border dark:border-dark-700')
+
+        # List to hold the scraped data
+        data = []
+
+        # Check if the table is found
+        if table:
+            # Iterate over each row in the table body
+            for row in table.find_all('tr')[1:6]:  # Limit to first 5 similar stocks
+                columns = row.find_all('td')
+                if len(columns) == 2:
+                    link = columns[0].find('a')
+                    if link and 'href' in link.attrs:
+                        # Extract the symbol from the href attribute
+                        extracted_symbol = link['href'].split('/')[2].upper()
+                        company_name = link.get_text(strip=True)
+                        data.append({'Symbol': extracted_symbol, 'Title': company_name})
+
+        return data
     
+    
+    # SIMILAR STOCKS STOCK ANALYSIS
+    similar_symbols_json = scrape_similar_stocks(symbol)
+    #print(similar_symbols_json_2)
+    # SIMILAR STOCKS STOCK ANALYSIS
     
     
     ############# IN HOUSE SCRAPER CALL (YAHOO FINANCE) #############
     #stock_info, similar_symbols_json = get_stock_data(symbol)
-    similar_symbols_json = get_stock_data(symbol)
+    #similar_symbols_json = get_stock_data(symbol)
     
     #print(similar_symbols_json)
     #print(stockanalysis_info) #TESTING OUTPUT
