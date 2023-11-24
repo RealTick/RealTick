@@ -6,7 +6,7 @@
     width: 100%;
     padding: 1rem 2%;
     background-color: var(--container-background);
-    border-bottom: 1px solid #7289da;
+    border-bottom: 2px solid var(--text-color-hovered);
     z-index: 1001;
     position:fixed;
     top:0px;

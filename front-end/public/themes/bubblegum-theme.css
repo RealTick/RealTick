@@ -1,0 +1,51 @@
+/* bubblegum-theme.css */
+:root {
+    --background-color: #d0a2f7;
+    
+    --text-color: #432c53;
+    --text-color-hovered: #5a4373;
+    --text-color-visited: #432c53;
+    
+    --button-background: #E5D4FF;
+    --button-hover-background: #432c53;
+    
+    --input-background: #e5d4ff;
+    --placeholder-color: #5a4373;
+    
+    --title-background: #d0a2f7;
+    --data-point-background: #e5d4ff;
+    
+    --container-background: #DCBFFF;
+    --container-background-hover: #af8bda; 
+    
+    --positive: rgb(0, 255, 0);
+    --negative: #ff616d;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--text-color);
+}
+
+input {
+    background-color: var(--input-background);
+    color: var(--text-color);
+}
+
+input::placeholder {
+    color: var(--placeholder-color);
+}
+
+a:hover {
+    color: var(--text-color-hovered);
+}
+
+a:visited {
+    color: var(--text-color-visited);
+}
+

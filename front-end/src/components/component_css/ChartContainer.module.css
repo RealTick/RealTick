@@ -78,5 +78,5 @@
 }
 
 .dropdownItem:hover {
-  color: var(--button-hover-background);
+  color: var(--button-background);
 }

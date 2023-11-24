@@ -1,0 +1,51 @@
+/* forest-theme.css */
+:root {
+    --background-color: #739072;
+    
+    --text-color: #2a4d39;
+    --text-color-hovered: #ECE3CE;
+    --text-color-visited: #2a4d39;
+    
+    --button-hover-background: #4c8b68;
+    
+    --input-background: #ece3ce;
+    --placeholder-color: #4f6f52;
+    
+    --title-background: #739072;
+    --data-point-background: #ece3ce;
+    
+    --container-background: #4f6f52;
+    --container-background-hover: #3a4d39;
+    
+    --positive: #2aa55f;
+    --negative: #ff616d;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--text-color);
+}
+
+
+input {
+    background-color: var(--input-background);
+    color: var(--text-color);
+}
+
+input::placeholder {
+    color: var(--placeholder-color);
+}
+
+a:hover {
+    color: var(--text-color-hovered);
+}
+
+a:visited {
+    color: var(--text-color-visited);
+}
+

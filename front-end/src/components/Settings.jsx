@@ -9,7 +9,7 @@ Modal.setAppElement("#root");
 function Settings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-  const themes = ["dark", "light", "purple"];
+  const themes = ["dark", "light", "purple", "bubblegum", "forest"];
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 

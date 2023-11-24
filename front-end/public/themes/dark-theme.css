@@ -34,3 +34,11 @@ input {
 input::placeholder {
     color: var(--placeholder-color);
 }
+
+a:hover {
+    color: var(--text-color-hovered);
+}
+
+a:visited {
+    color: var(--text-color-visited);
+}
