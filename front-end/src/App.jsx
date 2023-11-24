@@ -56,7 +56,9 @@ function App() {
         setError("Received unexpected real-time data format.");
       }
     } catch (err) {
-      setError(`Error fetching real-time data: ${err.message || "Please try again."}`);
+      setError(
+        `Error fetching real-time data: ${err.message || "Please try again."}`
+      );
     }
   };
 
@@ -142,6 +144,15 @@ function App() {
               {data && (
                 <Reccomender
                   similarStocks={data.similar_stocks}
+                  handleFetchData={handleFetchData}
+                />
+              )}
+            </div>
+
+            <div className="trendingContainer">
+              {data && (
+                <Trending
+                  trendingStocks={data.trending_stocks}
                   handleFetchData={handleFetchData}
                 />
               )}

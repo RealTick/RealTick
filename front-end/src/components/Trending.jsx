@@ -1,11 +1,15 @@
 import React from "react";
-import styles from "./component_css/Reccomender.module.css";
-import Search from "./Search";
+import styles from "./component_css/Trending.module.css"; // Update the CSS import if needed
 
-/* Input({ symbol, setSymbol, fetchData }) */
-
-const Trending = ({ handleFetchData }) => {
-  const tickers = ["META", "AAPL", "AMZN", "NVDA", "NFLX", "INTC"];
+const Trending = ({ trendingStocks, handleFetchData }) => {
+  console.log("Trending Stocks:", trendingStocks);
+  // Mapping trendingStocks to an array of objects with Symbol and Title
+  const stocks = Array.isArray(trendingStocks)
+    ? trendingStocks.map((stock) => ({
+        symbol: stock.Symbol,
+        title: stock.Title,
+      }))
+    : [];
 
   const handleItemClick = (symbol) => {
     console.log("Button clicked with symbol:", symbol);
@@ -13,16 +17,17 @@ const Trending = ({ handleFetchData }) => {
   };
 
   return (
-    <div className={styles.reccomenderContainer}>
-      <h2 className={styles.title}>{"Similar"}</h2>
+    <div className={styles.trendingContainer}>
+      <h2 className={styles.title}>Trending</h2>
       <ul className={styles.listContainer}>
-        {tickers.map((item, index) => (
+        {stocks.map((stock, index) => (
           <li key={index} className={styles.listItem}>
             <button
               className={styles.invisibleButton}
-              onClick={() => handleItemClick(item)}
+              onClick={() => handleItemClick(stock.symbol)}
             >
-              {item}
+              {stock.symbol}
+              {/* - {stock.title} */}
             </button>
           </li>
         ))}

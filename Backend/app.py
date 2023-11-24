@@ -26,7 +26,7 @@ def get_stock_data():
     data = stock.history(period=period)  # Fetch data for 1 year
     #print(data)
     
-    # NewsS
+    # News
     news = stock.news
         
     #Chart
@@ -267,6 +267,7 @@ def get_stock_data():
     
     # SIMILAR STOCKS STOCK ANALYSIS
     similar_symbols_json = scrape_similar_stocks(symbol)
+    
     #print(similar_symbols_json_2)
     # SIMILAR STOCKS STOCK ANALYSIS
     
@@ -284,7 +285,7 @@ def get_stock_data():
     # IN HOUSE SCRAPER CALL (STOCKANALYSIS)
     
     ####### REAL TIME PRICE #######
-    real_time_price=yf.download(symbol,period='5m',interval='1m')
+    real_time_price=yf.download(symbol,period='1d',interval='1m')
     R_price=round(real_time_price['Close'][-1],2) #real-time price
     prev=float(stockanalysis_info['Close']) #previous close price
     price_diff=round(R_price-prev,3)
@@ -311,11 +312,11 @@ def get_stock_data():
 
             if table:
                 # Find all rows in the table
-                rows = table.find_all("tr")
+                rows = table.find_all('tr')
 
                 # Iterating through rows starting from the second row (index 1) to skip the header row
                 for row in rows[1:]:
-                    columns = row.find_all("td")
+                    columns = row.find_all('td')
                     if len(columns) >= 3:  # Make sure there are enough columns
                         asset = {
                             'Symbol': columns[1].get_text(strip=True),
@@ -328,20 +329,21 @@ def get_stock_data():
         # Checking if the request was successful
         if response.status_code == 200:
             # Parse the HTML content of the page
-            soup = BeautifulSoup(response.text, "html.parser")
+            soup = BeautifulSoup(response.text, 'html.parser')
 
             # Calling the scraping function and get only top 5 stocks ###############################################################################################
             trending_stocks = scrape_trending_assets(soup)[:5]
 
             # Convert the list of dictionaries to JSON
-            return json.dumps(trending_stocks)
+            return trending_stocks #json.dumps(trending_stocks)
         else:
-            return json.dumps({'error': f"Failed to retrieve the webpage. Status code: {response.status_code}"})
+            return json.dumps({'error': f'Failed to retrieve the webpage. Status code: {response.status_code}'})
     
     
     #TRENDING STOCKS
     trending_stocks_json = get_trending_stocks()
-
+    print(similar_symbols_json)
+    print(trending_stocks_json)
     
     '''
     TESTING
