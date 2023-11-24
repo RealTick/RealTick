@@ -71,58 +71,60 @@ def get_stock_data():
         soup=BeautifulSoup(r.text,'html.parser')
         similar_section= soup.find('section', id='similar-by-symbol')
 
-        # TOP PART
-        full_name = safe_get_text(soup.find('h1', {'class': 'D(ib) Fz(18px)'}))
-        price_container = soup.find('div', {'class': 'D(ib) Mend(20px)'})
-        fin_streamers = price_container.find_all('fin-streamer') if price_container else []
-        real_time_price = safe_get_text(fin_streamers[0]) if len(fin_streamers) > 0 else "N/A"
-        nominal_change = safe_get_text(fin_streamers[1].find('span')) if len(fin_streamers) > 1 else "N/A"
-        percentage_change = safe_get_text(fin_streamers[2].find('span')) if len(fin_streamers) > 2 else "N/A"
-        price_change = f"{nominal_change} {percentage_change}"
+        # ####### COMMENTING YAHOO STOCKINFO SCRAPING
+        # # TOP PART
+        # full_name = safe_get_text(soup.find('h1', {'class': 'D(ib) Fz(18px)'}))
+        # price_container = soup.find('div', {'class': 'D(ib) Mend(20px)'})
+        # fin_streamers = price_container.find_all('fin-streamer') if price_container else []
+        # real_time_price = safe_get_text(fin_streamers[0]) if len(fin_streamers) > 0 else "N/A"
+        # nominal_change = safe_get_text(fin_streamers[1].find('span')) if len(fin_streamers) > 1 else "N/A"
+        # percentage_change = safe_get_text(fin_streamers[2].find('span')) if len(fin_streamers) > 2 else "N/A"
+        # price_change = f"{nominal_change} {percentage_change}"
 
-        # Second Column
-        market_cap_value = safe_get_text(soup.find('td', {'data-test': 'MARKET_CAP-value'}))
-        beta_5y_value = safe_get_text(soup.find('td', {'data-test': 'BETA_5Y-value'}))
-        pe_ratio_value = safe_get_text(soup.find('td', {'data-test': 'PE_RATIO-value'}))
-        eps_ratio_value = safe_get_text(soup.find('td', {'data-test': 'EPS_RATIO-value'}))
-        earnings_date_value = safe_get_text(soup.find('td', {'data-test': 'EARNINGS_DATE-value'}))
-        dividend_yield_value = safe_get_text(soup.find('td', {'data-test': 'DIVIDEND_AND_YIELD-value'}))
-        ex_dividend_date_value = safe_get_text(soup.find('td', {'data-test': 'EX_DIVIDEND_DATE-value'}))
-        one_year_target_est_value = safe_get_text(soup.find('td', {'data-test': 'ONE_YEAR_TARGET_PRICE-value'}))
+        # # Second Column
+        # market_cap_value = safe_get_text(soup.find('td', {'data-test': 'MARKET_CAP-value'}))
+        # beta_5y_value = safe_get_text(soup.find('td', {'data-test': 'BETA_5Y-value'}))
+        # pe_ratio_value = safe_get_text(soup.find('td', {'data-test': 'PE_RATIO-value'}))
+        # eps_ratio_value = safe_get_text(soup.find('td', {'data-test': 'EPS_RATIO-value'}))
+        # earnings_date_value = safe_get_text(soup.find('td', {'data-test': 'EARNINGS_DATE-value'}))
+        # dividend_yield_value = safe_get_text(soup.find('td', {'data-test': 'DIVIDEND_AND_YIELD-value'}))
+        # ex_dividend_date_value = safe_get_text(soup.find('td', {'data-test': 'EX_DIVIDEND_DATE-value'}))
+        # one_year_target_est_value = safe_get_text(soup.find('td', {'data-test': 'ONE_YEAR_TARGET_PRICE-value'}))
 
-        # First Column
-        previous_close_value = safe_get_text(soup.find('td', {'data-test': 'PREV_CLOSE-value'}))
-        open_value = safe_get_text(soup.find('td', {'data-test': 'OPEN-value'}))
-        bid_value = safe_get_text(soup.find('td', {'data-test': 'BID-value'}))
-        ask_value = safe_get_text(soup.find('td', {'data-test': 'ASK-value'}))
-        days_range_value = safe_get_text(soup.find('td', {'data-test': 'DAYS_RANGE-value'}))
-        fifty_two_wk_range_value = safe_get_text(soup.find('td', {'data-test': 'FIFTY_TWO_WK_RANGE-value'}))
-        volume_value = safe_get_text(soup.find('td', {'data-test': 'TD_VOLUME-value'}))
-        average_volume_3month_value = safe_get_text(soup.find('td', {'data-test': 'AVERAGE_VOLUME_3MONTH-value'}))
+        # # First Column
+        # previous_close_value = safe_get_text(soup.find('td', {'data-test': 'PREV_CLOSE-value'}))
+        # open_value = safe_get_text(soup.find('td', {'data-test': 'OPEN-value'}))
+        # bid_value = safe_get_text(soup.find('td', {'data-test': 'BID-value'}))
+        # ask_value = safe_get_text(soup.find('td', {'data-test': 'ASK-value'}))
+        # days_range_value = safe_get_text(soup.find('td', {'data-test': 'DAYS_RANGE-value'}))
+        # fifty_two_wk_range_value = safe_get_text(soup.find('td', {'data-test': 'FIFTY_TWO_WK_RANGE-value'}))
+        # volume_value = safe_get_text(soup.find('td', {'data-test': 'TD_VOLUME-value'}))
+        # average_volume_3month_value = safe_get_text(soup.find('td', {'data-test': 'AVERAGE_VOLUME_3MONTH-value'}))
 
-        # Construct a dictionary with all the information
-        stock_info = {
-            'Full_name': full_name,
-            'RT_Price': real_time_price,
-            'Price_Change': price_change,
-            'Market_Cap': market_cap_value,
-            'Beta': beta_5y_value,
-            'PE': pe_ratio_value,
-            'EPS': eps_ratio_value,
-            'Earnings_Date': earnings_date_value,
-            'Dividend_Yield': dividend_yield_value,
-            'EX_dividend': ex_dividend_date_value,
-            'target': one_year_target_est_value,
-            'Close': previous_close_value,
-            'Open': open_value,
-            'Bid': bid_value,
-            'Ask': ask_value,
-            'days_range': days_range_value,
-            '52WeekRange': fifty_two_wk_range_value,
-            'Volume': volume_value,
-            'Avg_volume': average_volume_3month_value,
-            ####
-            }
+        # # Construct a dictionary with all the information
+        # stock_info = {
+        #     'Full_name': full_name,
+        #     'RT_Price': real_time_price,
+        #     'Price_Change': price_change,
+        #     'Market_Cap': market_cap_value,
+        #     'Beta': beta_5y_value,
+        #     'PE': pe_ratio_value,
+        #     'EPS': eps_ratio_value,
+        #     'Earnings_Date': earnings_date_value,
+        #     'Dividend_Yield': dividend_yield_value,
+        #     'EX_dividend': ex_dividend_date_value,
+        #     'target': one_year_target_est_value,
+        #     'Close': previous_close_value,
+        #     'Open': open_value,
+        #     'Bid': bid_value,
+        #     'Ask': ask_value,
+        #     'days_range': days_range_value,
+        #     '52WeekRange': fifty_two_wk_range_value,
+        #     'Volume': volume_value,
+        #     'Avg_volume': average_volume_3month_value,
+        #     ####
+        #     }
+        # ####### COMMENTING YAHOO STOCKINFO SCRAPING
 
         symbols_json= None
         # Check if 'sec' is not None before continuing
@@ -144,7 +146,7 @@ def get_stock_data():
 
             # Convert our list of dictionaries to a JSON string
             symbols_json = symbols_list
-        return stock_info, symbols_json
+        return symbols_json #stock_info, symbols_json
     
     def stock_analysis(symbol):
         headers = {
@@ -229,12 +231,23 @@ def get_stock_data():
         return stock_info_data
     
     
-    # IN HOUSE SCRAPER CALL (YAHOO FINANCE)
-    stock_info, similar_symbols_json = get_stock_data(symbol)
-    stockanalysis_info=stock_analysis(symbol)
+    ############# IN HOUSE SCRAPER CALL (YAHOO FINANCE) #############
+    #stock_info, similar_symbols_json = get_stock_data(symbol)
+    similar_symbols_json = get_stock_data(symbol)
+    
+    #print(similar_symbols_json)
     #print(stockanalysis_info) #TESTING OUTPUT
+    ############# IN HOUSE SCRAPER CALL (YAHOO FINANCE) #############
     
     # IN HOUSE SCRAPER CALL (STOCKANALYSIS)
+    stockanalysis_info=stock_analysis(symbol)
+    # IN HOUSE SCRAPER CALL (STOCKANALYSIS)
+    
+    ####### REAL TIME PRICE #######
+    real_time_price=yf.download(symbol,period='5m',interval='1m')
+    R_price=round(real_time_price['Close'][-1],2)
+    ####### REAL TIME PRICE #######
+    
     
     '''
     TESTING
@@ -282,7 +295,7 @@ def get_stock_data():
             'chart': chart_data,
             'news':news,
             'stock_display_name': stockanalysis_info['Full_name'],
-            'current_price': stockanalysis_info['RT_Price'],
+            'current_price': R_price, #stockanalysis_info['RT_Price'],
             'prev_close': stockanalysis_info['Close'],
             'opening_price': stockanalysis_info['Open'],
             'market_cap': stockanalysis_info['Market_Cap'],
