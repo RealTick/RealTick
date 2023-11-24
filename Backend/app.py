@@ -231,6 +231,8 @@ def get_stock_data():
         return stock_info_data
     
     
+    
+    
     ############# IN HOUSE SCRAPER CALL (YAHOO FINANCE) #############
     #stock_info, similar_symbols_json = get_stock_data(symbol)
     similar_symbols_json = get_stock_data(symbol)
@@ -245,9 +247,63 @@ def get_stock_data():
     
     ####### REAL TIME PRICE #######
     real_time_price=yf.download(symbol,period='5m',interval='1m')
-    R_price=round(real_time_price['Close'][-1],2)
+    R_price=round(real_time_price['Close'][-1],2) #real-time price
+    prev=float(stockanalysis_info['Close']) #previous close price
+    price_diff=round(R_price-prev,3)
+    price_diff_percentage=round(((R_price-prev)/prev)*100,2)
+    if(price_diff>0):
+        price_change=f"+{price_diff} ({price_diff_percentage}%)"
+    else:
+        price_change=f"{price_diff} ({price_diff_percentage}%)"
     ####### REAL TIME PRICE #######
     
+    def get_trending_stocks():
+        # StockAnalysis Trending URL
+        url = "https://stockanalysis.com/trending/"
+
+        # Send an HTTP GET request to the URL
+        response = requests.get(url)
+
+        # Function to scrape trending assets
+        def scrape_trending_assets(soup):
+            trending_data = []
+
+            # Find the table containing the trending assets
+            table = soup.find("table")
+
+            if table:
+                # Find all rows in the table
+                rows = table.find_all("tr")
+
+                # Iterating through rows starting from the second row (index 1) to skip the header row
+                for row in rows[1:]:
+                    columns = row.find_all("td")
+                    if len(columns) >= 3:  # Make sure there are enough columns
+                        asset = {
+                            'Symbol': columns[1].get_text(strip=True),
+                            'Title': columns[2].get_text(strip=True)  # Extract company name
+                        }
+                        trending_data.append(asset)
+
+            return trending_data
+
+        # Checking if the request was successful
+        if response.status_code == 200:
+            # Parse the HTML content of the page
+            soup = BeautifulSoup(response.text, "html.parser")
+
+            # Calling the scraping function and get only top 5 stocks ###############################################################################################
+            trending_stocks = scrape_trending_assets(soup)[:5]
+
+            # Convert the list of dictionaries to JSON
+            return json.dumps(trending_stocks)
+        else:
+            return json.dumps({'error': f"Failed to retrieve the webpage. Status code: {response.status_code}"})
+    
+    
+    #TRENDING STOCKS
+    trending_stocks_json = get_trending_stocks()
+
     
     '''
     TESTING
@@ -306,7 +362,7 @@ def get_stock_data():
             'beta': stockanalysis_info['Beta'],
             'bid': "REMOVE THIS",
             'ask': "REMOVE THIS",
-            'price_diff': stockanalysis_info['Price_Change'],
+            'price_diff': price_change, #stockanalysis_info['Price_Change'], ### CHANGE THIS
             'earnings_date':stockanalysis_info['Earnings_Date'],
             'yr_target':stockanalysis_info['target'],
             'Avg_volume': "REMOVE THIS",
@@ -314,6 +370,7 @@ def get_stock_data():
             'EPS':stockanalysis_info['EPS'],
             'EX_dividend':stockanalysis_info['EX_dividend'],
             'similar_stocks': similar_symbols_json,
+            'trending_stocks':trending_stocks_json,
 
         })
     else:
