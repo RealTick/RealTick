@@ -58,6 +58,12 @@ function ChartSelector({ onChartTypeChange }) {
         >
           <IconChartArea size={24} stroke={2} /> Realtime
         </div>
+        <div
+          onClick={() => handleChartTypeChange("advancedline")}
+          className={styles.dropdownItem}
+        >
+          <IconChartLine size={24} stroke={2} /> Advanced
+        </div>
       </div>
     </div>
   );

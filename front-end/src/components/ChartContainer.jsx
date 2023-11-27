@@ -8,6 +8,7 @@ import OHLCChart from "./charts/OHLCChart";
 import AreaChart from "./charts/AreaChart";
 import RealtimeChart from "./charts/RealtimeChart";
 import CompareTo from "./CompareTo";
+import AdvancedLineChart from "./charts/AdvancedLineChart";
 
 function ChartContainer({ chartData, symbol }) {
   const [chartType, setChartType] = useState("line");
@@ -24,6 +25,8 @@ function ChartContainer({ chartData, symbol }) {
         return <AreaChart chartData={chartData} />;
       case "realtime":
         return <RealtimeChart chartData={chartData} symbol={symbol} />;
+      case "advancedline":
+        return <AdvancedLineChart chartData={chartData} symbol={symbol} />;
       default:
         return null;
     }
