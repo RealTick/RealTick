@@ -6,6 +6,8 @@ import csv
 from bs4 import BeautifulSoup
 import json
 import datetime
+from datetime import datetime, timedelta
+
 
 app = Flask(__name__)
 CORS(app)
@@ -452,6 +454,37 @@ def get_realtime_stock_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/compare_to', methods=['GET'])
+def compare_to():
+    symbol = request.args.get('symbol')
+    if not symbol:
+        return jsonify({'error': 'No symbol provided'}), 400
+
+    try:
+        #1 year ago from today
+        baseline_date = datetime.now() - timedelta(days=365)
+        baseline_date_str = baseline_date.strftime("%Y-%m-%d")
+
+        # Fetch historical data
+        stock_data = yf.download(symbol, start=baseline_date_str)
+
+        if stock_data.empty:
+            return jsonify({'error': 'No data available for the given symbol'}), 404
+
+        # Calculate the percentage change from the baseline for each day
+        baseline_close = stock_data.iloc[0]['Close']
+        historical_chart_data = {
+            index.strftime('%Y-%m-%d'): {
+                'percentage_change': ((row['Close'] - baseline_close) / baseline_close) * 100
+            }
+            for index, row in stock_data.iterrows()
+        }
+
+        return jsonify(historical_chart_data)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
