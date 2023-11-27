@@ -36,23 +36,22 @@
   flex: 1;
   font-size: 1.5rem;
   padding: 10px;
-  margin-bottom: 1px;
 }
 
 .dataPoint {
   display: flex;
-  height: 55px;
+  height: 74px;
   justify-content: space-between;
   align-items: center;
   font-size: 1.1rem;
   background-color: var(--data-point-background);
-  padding: 8px;
+  padding: 10px;
   margin-bottom: 10px;
   border-radius: var(--border-radius-small);
 }
 
 .dataTitle {
-  text-align:start;
+  text-align:left;
 }
 
 .dataValue {

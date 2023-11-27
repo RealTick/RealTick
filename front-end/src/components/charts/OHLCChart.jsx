@@ -50,6 +50,7 @@ function OHLCChart({ chartData }) {
 
   const options = {
     chart: {
+      height: 575,
       backgroundColor: paper_bgcolor_theme,
       style: {
         fontFamily: "Arial",

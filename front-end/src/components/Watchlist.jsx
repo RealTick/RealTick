@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./component_css/Watchlist.module.css";
 import Search from "./Search";
+import { IconPin, IconPinFilled } from "@tabler/icons-react";
 
 const Watchlist = ({ handleFetchData, displayedSymbol }) => {
   const [watchlist, setWatchlist] = useState(() => {
@@ -13,10 +14,22 @@ const Watchlist = ({ handleFetchData, displayedSymbol }) => {
   }, [watchlist]);
 
   const pinCurrentSymbol = (displayedSymbol) => {
+
+    console.log("Appending Watchlist:", displayedSymbol);
+    let updatedWatchlist;
+
     if (displayedSymbol && !watchlist.includes(displayedSymbol)) {
-      const updatedWatchlist = [...watchlist, displayedSymbol];
-      setWatchlist(updatedWatchlist);
+      updatedWatchlist = [...watchlist, displayedSymbol];
+    } 
+    else if (displayedSymbol && watchlist.includes(displayedSymbol)) {
+      updatedWatchlist = watchlist.filter(symbol => symbol !== displayedSymbol);
     }
+
+    setWatchlist(updatedWatchlist);
+  };
+
+  const clearWatchlist = () => {
+    setWatchlist([]);
   };
 
   const handleItemClick = (displayedSymbol) => {
@@ -31,7 +44,11 @@ const Watchlist = ({ handleFetchData, displayedSymbol }) => {
         className={styles.pinButton} 
         onClick={() => pinCurrentSymbol(displayedSymbol)} // Ensure symbol prop is being passed correctly
       >
-        Pin Current
+        {
+          watchlist.includes(displayedSymbol) ?
+          <IconPinFilled size={24} stroke={2} /> : // Display this icon when displayedSymbol is in the watchlist
+          <IconPin size={24} stroke={2} /> // Display this icon when displayedSymbol is not in the watchlist
+        }
       </button>
       <ul className={styles.listContainer}>
         {watchlist.map((item, index) => (
@@ -45,6 +62,12 @@ const Watchlist = ({ handleFetchData, displayedSymbol }) => {
           </li>
         ))}
       </ul>
+      <button 
+        className={styles.clearButton} 
+        onClick={() => clearWatchlist()} // Ensure symbol prop is being passed correctly
+      >
+        Clear
+      </button>
     </div>
   );
 };
