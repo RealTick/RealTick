@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styles from "./component_css/Watchlist.module.css";
 import Search from "./Search";
 
-
 const Watchlist = ({ handleFetchData, displayedSymbol }) => {
   const [watchlist, setWatchlist] = useState(() => {
     const storedWatchlist = localStorage.getItem("watchlist");
@@ -14,7 +13,6 @@ const Watchlist = ({ handleFetchData, displayedSymbol }) => {
   }, [watchlist]);
 
   const pinCurrentSymbol = (displayedSymbol) => {
-    console.log("Appending Watchlist:", displayedSymbol);
     if (displayedSymbol && !watchlist.includes(displayedSymbol)) {
       const updatedWatchlist = [...watchlist, displayedSymbol];
       setWatchlist(updatedWatchlist);
