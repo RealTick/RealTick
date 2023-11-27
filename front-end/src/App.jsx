@@ -27,7 +27,6 @@ function App() {
 
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(false);
-  
 
   const handleFetchData = async (symbolToFetch) => {
     try {
@@ -156,6 +155,15 @@ function App() {
               {data && (
                 <Reccomender
                   similarStocks={data.similar_stocks}
+                  handleFetchData={handleFetchData}
+                />
+              )}
+            </div>
+
+            <div className="trendingContainer">
+              {data && (
+                <Trending
+                  trendingStocks={data.trending_stocks}
                   handleFetchData={handleFetchData}
                 />
               )}
