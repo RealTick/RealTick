@@ -132,8 +132,8 @@ function App() {
             <div className="watchlistContainer">
               {data && (
                 <Watchlist
-                  similarStocks={data.tickers}
                   handleFetchData={handleFetchData}
+                  displayedSymbol={displayedSymbol}
                 />
               )}
             </div>
