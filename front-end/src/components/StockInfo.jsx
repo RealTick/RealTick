@@ -38,15 +38,15 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.opening_price}</span>
           </div>
 
-          <div className={styles.dataPoint}>
+          {/* <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Bid:</span>
             <span className={styles.dataValue}>{data.bid}</span>
-          </div>
+          </div> */}
 
-          <div className={styles.dataPoint}>
+          {/* <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Ask:</span>
             <span className={styles.dataValue}>{data.ask}</span>
-          </div>
+          </div> */}
 
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Day's Range:</span>
@@ -54,7 +54,9 @@ const StockInfo = ({ symbol, data }) => {
           </div>
 
           <div className={styles.dataPoint}>
-            <span className={styles.dataTitle}>52 Week Range:</span>
+            <span className={styles.dataTitle}>
+              52 Week <br></br>Range:
+            </span>
             <span className={styles.dataValue}>
               {data.fifty_two_week_range}
             </span>
@@ -76,7 +78,9 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.market_cap}</span>
           </div>
           <div className={styles.dataPoint}>
-            <span className={styles.dataTitle}>Beta (5Y Monthly):</span>
+            <span className={styles.dataTitle}>
+              Beta <br></br>(5Y Monthly):
+            </span>
             <span className={styles.dataValue}>{data.beta}</span>
           </div>
 
@@ -85,10 +89,10 @@ const StockInfo = ({ symbol, data }) => {
             <span className={styles.dataValue}>{data.volume}</span>
           </div>
 
-          <div className={styles.dataPoint}>
+          {/* <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>Avg. Volume:</span>
             <span className={styles.dataValue}>{data.Avg_volume}</span>
-          </div>
+          </div> */}
 
           <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>PE Ratio (TTM):</span>
@@ -109,14 +113,16 @@ const StockInfo = ({ symbol, data }) => {
             </span>
           </div>
           <div className={styles.dataPoint}>
-            <span className={styles.dataTitle}>Ex-Dividend Date:</span>
+            <span className={styles.dataTitle}>
+              Ex-Dividend <br></br>Date:
+            </span>
             <span className={styles.dataValue}>{data.EX_dividend}</span>
           </div>
 
-          <div className={styles.dataPoint}>
+          {/* <div className={styles.dataPoint}>
             <span className={styles.dataTitle}>EMPTY:</span>
             <span className={styles.dataValue}>{0}</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
