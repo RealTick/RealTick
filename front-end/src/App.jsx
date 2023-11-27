@@ -24,6 +24,7 @@ function App() {
   const [inputSymbol, setInputSymbol] = useState("");
   const [displayedSymbol, setDisplayedSymbol] = useState("");
   const [data, setData] = useState(null);
+
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(false);
   
@@ -45,23 +46,30 @@ function App() {
       setData(null);
     }
   };
-  const handleFetchRealTimeData = async (symbolToFetch) => {
-    try {
-      const realTimeData = await fetchRealTimeData(symbolToFetch);
 
-      if (realTimeData) {
-        // Process and store the real-time data
-        // For example, you might want to update a different state variable
-        setRealTimeData(realTimeData);
-      } else {
-        setError("Received unexpected real-time data format.");
-      }
-    } catch (err) {
-      setError(
-        `Error fetching real-time data: ${err.message || "Please try again."}`
-      );
-    }
-  };
+  // const handleFetchRealTimeData = async (symbolToFetch) => {
+  //   try {
+  //     const response = await fetchRealTimeData(symbolToFetch);
+  //     if (response) {
+  //       // Process and store the real-time data
+  //       // For example, you might want to update a different state variable
+  //       console.log("Fetched Realtime data for " + symbolToFetch);
+  //       setRealTimeData(response);
+  //     } else {
+  //       setError("Received unexpected real-time data format.");
+  //     }
+  //   } catch (err) {
+  //     setError(
+  //       `Error fetching real-time data: ${err.message || "Please try again."}`
+  //     );
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (displayedSymbol) {
+  //     handleFetchRealTimeData(displayedSymbol);
+  //   }
+  // }, [displayedSymbol]);
 
   const handleErrorClose = () => {
     setError(null); // resets error state so error can be shown again
@@ -137,7 +145,10 @@ function App() {
 
             {query && (
               <div className="ChartContainer">
-                <ChartContainer chartData={data?.chart} />
+                <ChartContainer
+                  chartData={data?.chart}
+                  symbol={displayedSymbol}
+                />
               </div>
             )}
 
@@ -145,15 +156,6 @@ function App() {
               {data && (
                 <Reccomender
                   similarStocks={data.similar_stocks}
-                  handleFetchData={handleFetchData}
-                />
-              )}
-            </div>
-
-            <div className="trendingContainer">
-              {data && (
-                <Trending
-                  trendingStocks={data.trending_stocks}
                   handleFetchData={handleFetchData}
                 />
               )}

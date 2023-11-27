@@ -388,6 +388,7 @@ def get_stock_data():
     # STOCK ANALYISIS
     if not data.empty:
         return jsonify({
+            'symbol': symbol,
             'chart': chart_data,
             'news':news,
             'stock_display_name': stockanalysis_info['Full_name'],
@@ -428,7 +429,7 @@ def get_realtime_stock_data():
 
     try:
         # Fetch real-time data from yfinance
-        real_time_data = yf.download(symbol, period="2d", interval='1m')
+        real_time_data = yf.download(symbol, period="1d", interval='1m')
 
         # Check if the data is not empty
         if real_time_data.empty:
@@ -446,7 +447,7 @@ def get_realtime_stock_data():
             for dt, row in real_time_data.iterrows()
         }
 
-        return jsonify(real_time_chart_data)
+        return jsonify({'symbol': symbol, 'data': real_time_chart_data})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
