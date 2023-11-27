@@ -7,6 +7,7 @@ import styles from "./component_css/ChartContainer.module.css";
 import OHLCChart from "./charts/OHLCChart";
 import AreaChart from "./charts/AreaChart";
 import RealtimeChart from "./charts/RealtimeChart";
+import CompareTo from "./CompareTo";
 
 function ChartContainer({ chartData, symbol }) {
   const [chartType, setChartType] = useState("line");
@@ -32,6 +33,7 @@ function ChartContainer({ chartData, symbol }) {
     <div className={styles.chartContainer}>
       <div className={styles.chartHeader}>
         <ChartSelector onChartTypeChange={setChartType} />
+        <CompareTo symbol={symbol} />
       </div>
       {renderChart()}
     </div>

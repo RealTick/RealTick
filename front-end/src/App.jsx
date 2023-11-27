@@ -19,6 +19,7 @@ import "./components/component_css/bodyWrapper.css";
 import "./components/component_css/headerWrapper.css";
 import ChartContainer from "./components/ChartContainer";
 import Settings from "./components/Settings";
+import CompareTo from "./components/CompareTo";
 
 function App() {
   const [inputSymbol, setInputSymbol] = useState("");

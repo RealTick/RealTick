@@ -34,7 +34,7 @@ function AreaChart({ chartData }) {
 
   const options = {
     chart: {
-      height: 585,
+      height: 575,
       backgroundColor: paper_bgcolor_theme,
       style: {
         fontFamily: "Arial",

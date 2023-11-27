@@ -78,7 +78,7 @@ function RealtimeChart({ chartData, symbol }) {
   const options = {
     chart: {
       type: "line",
-      height: 585,
+      height: 575,
       events: {
         load: function () {
           chartRef.current = this;
