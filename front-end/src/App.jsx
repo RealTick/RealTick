@@ -26,6 +26,7 @@ function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState(false);
+  
 
   const handleFetchData = async (symbolToFetch) => {
     try {

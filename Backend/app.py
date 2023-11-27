@@ -342,8 +342,8 @@ def get_stock_data():
     
     #TRENDING STOCKS
     trending_stocks_json = get_trending_stocks()
-    print(similar_symbols_json)
-    print(trending_stocks_json)
+    #print(similar_symbols_json)
+    #print(trending_stocks_json)
     
     '''
     TESTING
