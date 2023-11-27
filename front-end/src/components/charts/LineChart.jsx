@@ -64,6 +64,7 @@ function LineChart({ chartData }) {
 
   const options = {
     chart: {
+      height: 585,
       backgroundColor: paper_bgcolor_theme,
       style: {
         fontFamily: "Arial",

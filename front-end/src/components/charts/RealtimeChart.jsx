@@ -3,6 +3,7 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import fetchRealTimeData from "../StockRealTimeService";
 
+import { IconLoader } from "@tabler/icons-react";
 import Exporting from "highcharts/modules/exporting";
 Exporting(Highcharts);
 
@@ -77,6 +78,7 @@ function RealtimeChart({ chartData, symbol }) {
   const options = {
     chart: {
       type: "line",
+      height: 585,
       events: {
         load: function () {
           chartRef.current = this;
@@ -176,7 +178,9 @@ function RealtimeChart({ chartData, symbol }) {
           ref={chartRef}
         />
       ) : (
-        <p>loading...</p> //loading screen test + add css
+        <div>
+          <IconLoader size={50} stroke={2} />
+        </div> //loading screen test + add css
       )}
     </div>
   );

@@ -3,32 +3,6 @@ import Plot from "react-plotly.js";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import { ThemeContext } from "../../contexts/ThemeContext";
-// import Exporting from "highcharts/modules/exporting";
-
-// Exporting(Highcharts);
-////////PLOTLY
-// function CandlestickChart({ chartData, layout }) {
-//   const dates = Object.keys(chartData || {});
-//   const openPrices = dates.map((date) => chartData[date].open);
-//   const highPrices = dates.map((date) => chartData[date].high);
-//   const lowPrices = dates.map((date) => chartData[date].low);
-//   const closePrices = dates.map((date) => chartData[date].close);
-
-//   const data = [
-//     {
-//       type: "candlestick",
-//       x: dates,
-//       open: openPrices,
-//       high: highPrices,
-//       low: lowPrices,
-//       close: closePrices,
-//     },
-//   ];
-
-//   return <Plot data={data} layout={layout} />;
-// }
-
-// export default React.memo(CandlestickChart);
 
 ////////HIGHCHARTS
 function CandlestickChart({ chartData }) {
@@ -63,6 +37,7 @@ function CandlestickChart({ chartData }) {
 
   const options = {
     chart: {
+      height: 585,
       backgroundColor: paper_bgcolor_theme,
       style: {
         fontFamily: "Arial",
@@ -188,9 +163,7 @@ function CandlestickChart({ chartData }) {
             maxWidth: 500,
           },
           chartOptions: {
-            chart: {
-              height: 600,
-            },
+            chart: {},
             subtitle: {
               text: null,
             },
