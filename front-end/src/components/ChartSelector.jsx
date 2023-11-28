@@ -46,12 +46,20 @@ function ChartSelector({ onChartTypeChange }) {
         >
           <IconChartCandleFilled size={24} stroke={2} /> OHLC
         </div>
-        <div
+        {/* <div
           onClick={() => handleChartTypeChange("area")}
           className={styles.dropdownItem}
         >
           <IconChartArea size={24} stroke={2} /> Area
+        </div> */}
+        <div
+          onClick={() => handleChartTypeChange("ichimoku")}
+          className={styles.dropdownItem}
+        >
+          <IconChartCandleFilled size={24} stroke={2} /> Ichimoku
         </div>
+
+
         <div
           onClick={() => handleChartTypeChange("realtime")}
           className={styles.dropdownItem}

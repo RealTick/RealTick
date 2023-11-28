@@ -9,6 +9,7 @@ import AreaChart from "./charts/AreaChart";
 import RealtimeChart from "./charts/RealtimeChart";
 import CompareTo from "./CompareTo";
 import AdvancedLineChart from "./charts/AdvancedLineChart";
+import Ichimoku from "./charts/Ichimoku";
 
 function ChartContainer({ chartData, symbol }) {
   const [chartType, setChartType] = useState("line");
@@ -21,8 +22,8 @@ function ChartContainer({ chartData, symbol }) {
         return <CandlestickChart chartData={chartData} />;
       case "ohlc":
         return <OHLCChart chartData={chartData} />;
-      case "area":
-        return <AreaChart chartData={chartData} />;
+      case "ichimoku":
+        return <Ichimoku chartData={chartData} />;
       case "realtime":
         return <RealtimeChart chartData={chartData} symbol={symbol} />;
       case "advancedline":
