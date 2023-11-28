@@ -19,9 +19,8 @@
 
 .title {
     width: 100%;
-    flex: 1;
+    flex: 0;
     font-size: 1.5rem;
-    padding: 15px;
     background-color: var(--title-background);
     padding: var(--spacing-medium);
     border-radius: var(--border-radius-small);
