@@ -6,3 +6,32 @@
   --border-radius-medium: 15px;
 }
 
+/* CSS Scroll Snap */
+.scroll-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh; /* This confines the container to the height of the viewport */
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on mobile */
+}
+
+.Body, .Footer {
+  scroll-snap-align: start;
+  height: 100vh; /* Make each section the height of the viewport */
+  /* Additional styles if necessary */
+}
+
+/* Spacer to create invisible space between Body and Footer */
+.spacer {
+  height: 50vh; /* This height is adjustable based on the amount of space you want */
+  width: 100%;
+}
+
+/* Ensure the Body content does not overflow its container */
+.Body {
+  overflow: hidden;
+}
+
+/* Footer styling, ensure it does not overflow as well */
+.Footer {
+  overflow: hidden;
+}

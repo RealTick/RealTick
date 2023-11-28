@@ -126,54 +126,59 @@ function App() {
           </div>
         </div>
 
+        <div className="scroll-container">
+
         {/* Body */}
-        <div className="Body">
-          <div className="bodyWrapper">
-            <div className="watchlistContainer">
-              {data && (
-                <Watchlist
-                  handleFetchData={handleFetchData}
-                  displayedSymbol={displayedSymbol}
-                />
-              )}
-            </div>
-
-            <div className="stockDataContainer">
-              {data && <StockInfo symbol={displayedSymbol} data={data} />}
-              <ErrorMessage error={error} onModalClose={handleErrorClose} />
-            </div>
-
-            {query && (
-              <div className="ChartContainer">
-                <ChartContainer
-                  chartData={data?.chart}
-                  symbol={displayedSymbol}
-                />
+          <div className="Body">
+            <div className="bodyWrapper">
+              <div className="watchlistContainer">
+                {data && (
+                  <Watchlist
+                    handleFetchData={handleFetchData}
+                    displayedSymbol={displayedSymbol}
+                  />
+                )}
               </div>
-            )}
 
-            <div className="reccomenderContainer">
-              {data && (
-                <Reccomender
-                  similarStocks={data.similar_stocks}
-                  handleFetchData={handleFetchData}
-                />
+              <div className="stockDataContainer">
+                {data && <StockInfo symbol={displayedSymbol} data={data} />}
+                <ErrorMessage error={error} onModalClose={handleErrorClose} />
+              </div>
+
+              {query && (
+                <div className="ChartContainer">
+                  <ChartContainer
+                    chartData={data?.chart}
+                    symbol={displayedSymbol}
+                  />
+                </div>
               )}
+
+              <div className="reccomenderContainer">
+                {data && (
+                  <Reccomender
+                    similarStocks={data.similar_stocks}
+                    handleFetchData={handleFetchData}
+                  />
+                )}
+              </div>
+
+              <div className="trendingContainer">
+                {data && (
+                  <Trending
+                    trendingStocks={data.trending_stocks}
+                    handleFetchData={handleFetchData}
+                  />
+                )}
+              </div>
             </div>
 
-            <div className="trendingContainer">
-              {data && (
-                <Trending
-                  trendingStocks={data.trending_stocks}
-                  handleFetchData={handleFetchData}
-                />
-              )}
+            <div className="spacer"></div>
+            
+            {/* Footer */}
+            <div className="newsContainer">
+              <NewsModule data={data?.news} />
             </div>
-          </div>
-
-          {/* Footer */}
-          <div className="newsContainer">
-            <NewsModule data={data?.news} />
           </div>
         </div>
       </div>
