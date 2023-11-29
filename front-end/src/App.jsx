@@ -6,7 +6,7 @@ import "./App.css";
 import fetchData from "./components/StockService";
 import fetchRealTimeData from "./components/StockRealTimeService"; //REAL TIME DATA
 import StockInfo from "./components/StockInfo";
-import ErrorMessage from "./components/errorMessage";
+import ErrorMessage from "./components/ErrorMessage";
 import Search from "./components/Search";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import ThemeLoader from "../public/themes/ThemeLoader";
