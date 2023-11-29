@@ -17,11 +17,10 @@
 
 .verticalWrapper {
   flex-direction: column;
-  margin: var(--spacing-medium);
 }
 
 .verticalWrapper:first-child {
-  margin-bottom: var(--spacing-large);
+  margin-bottom: var(--spacing-small);
 }
 
 @media (max-width: 768px) {
