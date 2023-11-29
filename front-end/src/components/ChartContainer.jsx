@@ -10,6 +10,8 @@ import RealtimeChart from "./charts/RealtimeChart";
 import CompareTo from "./CompareTo";
 import AdvancedLineChart from "./charts/AdvancedLineChart";
 import Ichimoku from "./charts/Ichimoku";
+import CompareChart from "./charts/CompareChart";
+
 
 function ChartContainer({ chartData, symbol }) {
   const [chartType, setChartType] = useState("line");
@@ -28,6 +30,8 @@ function ChartContainer({ chartData, symbol }) {
         return <RealtimeChart chartData={chartData} symbol={symbol} />;
       case "advancedline":
         return <AdvancedLineChart chartData={chartData} symbol={symbol} />;
+      case "comparetochart":
+        return <CompareChart chartData={chartData} symbol={symbol} />;
       default:
         return null;
     }

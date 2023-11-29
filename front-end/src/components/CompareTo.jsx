@@ -2,25 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import styles from "./component_css/CompareTo.module.css";
 import debounce from "lodash.debounce";
 import fetchCompareToData from './StockCompareTo'; // Adjust the path accordingly
-
 import SearchResults from "./CompareToResults";
-
 import { IconSearch } from "@tabler/icons-react";
-import { local } from "d3";
 
+function CompareTo({ symbol, onDataFetched }) {
+  const [localSymbol, setLocalSymbol] = useState(symbol); // Initial symbol
+  const [results, setResults] = useState([]); // State for search results
+  const [selectedResult, setSelectedResult] = useState(-1); // Initial index -1
+  const [cache, setCache] = useState({}); // Cache for search results
 
-function CompareTo({ symbol }) {
-  const [localSymbol, setLocalSymbol] = useState(symbol); //initial symbol
-  const [results, setResults] = useState([]); // New state for search results
-  const [selectedResult, setSelectedResult] = useState(-1); //initial index -1
-  const [cache, setCache] = useState({}); // cache for search results
-  console.log("LOCAL: "+localSymbol);
-  console.log("NEW: "+symbol);
+  const MIN_INPUT_LENGTH = 2; // Minimum characters before making an API request
+  const MAX_INPUT_LENGTH = 5; // Maximum characters before API requests stop
 
-  const MIN_INPUT_LENGTH = 2; // minimum number of characters before making an API request
-  const MAX_INPUT_LENGTH = 5; // minimum number of characters before API requests stop
-
-  // debounce search using lodash
   const debounced_fetchSymbols = useCallback(
     debounce((query) => {
       if (cache[query]) {
@@ -29,11 +22,10 @@ function CompareTo({ symbol }) {
         fetchSymbols(query);
       }
     }, 100),
-    [cache] // include cache to ensure it uses the latest state, not an old one
+    [cache]
   );
 
   const fetchSymbols = async (query) => {
-    console.log("Fetching Results for: ", query);
     try {
       const response = await fetch(
         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=3XBBB1VNSPCX9YSJ`
@@ -48,9 +40,9 @@ function CompareTo({ symbol }) {
 
       setCache((prevCache) => ({
         ...prevCache,
-        [query]: matches.slice(0, 6), // cache only 6 results
+        [query]: matches.slice(0, 6), // Cache only 6 results
       }));
-      setResults(matches.slice(0, 6)); // display 6 results
+      setResults(matches.slice(0, 6)); // Display 6 results
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -75,59 +67,46 @@ function CompareTo({ symbol }) {
       performSearch();
     } else if (e.key === "ArrowUp" && results.length > 0) {
       const newIndex = Math.max(selectedResult - 1, 0);
-      if (selectedResult - 1 < 0) {
-        setSelectedResult(results.length - 1);
-        setLocalSymbol(results[results.length - 1]["1. symbol"]);
-      } else {
-        setSelectedResult(newIndex);
-        setLocalSymbol(results[newIndex]["1. symbol"]);
-      }
+      setSelectedResult(newIndex);
+      setLocalSymbol(results[newIndex]["1. symbol"]);
     } else if (e.key === "ArrowDown" && results.length > 0) {
       const newIndex = Math.min(selectedResult + 1, results.length - 1);
-      if (selectedResult + 1 > results.length - 1) {
-        setSelectedResult(0);
-        setLocalSymbol(results[0]["1. symbol"]);
-      } else {
-        setSelectedResult(newIndex);
-        setLocalSymbol(results[newIndex]["1. symbol"]);
-      }
+      setSelectedResult(newIndex);
+      setLocalSymbol(results[newIndex]["1. symbol"]);
     }
   };
 
   const handleResultHover = (index) => {
     setLocalSymbol(results[index]["1. symbol"]);
-    setSelectedResult(index); // selected result becomes new index
+    setSelectedResult(index);
   };
 
-  const performSearch = () => {
-    setResults([]); // clear results
-    setSelectedResult(-1); // clear selectedResult
-  
+  const performSearch = async () => {
+    setResults([]); // Clear results
+    setSelectedResult(-1); // Clear selectedResult
+
     const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
-    
-    // First fetch for trimmedSymbol
-    fetchCompareToData(trimmedSymbol)
-      .then((data) => {
-        console.log("Data for trimmed symbol: "+trimmedSymbol, data);
-        // Delay the second fetch by 1 millisecond
-        setTimeout(() => {
-          fetchCompareToData(symbol) // fetch OLD symbol
-            .then((oldData) => {
-              console.log("Data for old symbol: "+symbol, oldData);
-              // Handle the data as needed
-            })
-            .catch((error) => {
-              console.error("Error fetching data for old symbol:", error);
-            });
-        }, 1);
-      })
-      .catch((error) => {
-        console.error("Error fetching data for trimmed symbol:", error);
-      });
-  };
-  
 
-  // cleanup debounce
+    try {
+      const data = await fetchCompareToData(trimmedSymbol);
+      console.log("Data for trimmed symbol:", data);
+      onDataFetched(data); // Send the fetched data back to the parent component
+
+      // Optional: Delay the second fetch by 1 millisecond
+      setTimeout(async () => {
+        try {
+          const oldData = await fetchCompareToData(symbol);
+          console.log("Data for old symbol:", oldData);
+          onDataFetched(oldData); // Also send this data back
+        } catch (error) {
+          console.error("Error fetching data for old symbol:", error);
+        }
+      }, 1);
+    } catch (error) {
+      console.error("Error fetching data for trimmed symbol:", error);
+    }
+  };
+
   useEffect(() => {
     return () => debounced_fetchSymbols.cancel();
   }, [debounced_fetchSymbols]);

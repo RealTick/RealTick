@@ -72,6 +72,12 @@ function ChartSelector({ onChartTypeChange }) {
         >
           <IconChartLine size={24} stroke={2} /> Advanced
         </div>
+        <div
+          onClick={() => handleChartTypeChange("comparetochart")}
+          className={styles.dropdownItem}
+        >
+          <IconChartLine size={24} stroke={2} /> COMPARE
+        </div>
       </div>
     </div>
   );
