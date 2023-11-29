@@ -15,6 +15,10 @@ import CompareChart from "./charts/CompareChart";
 
 function ChartContainer({ chartData, symbol }) {
   const [chartType, setChartType] = useState("line");
+  const [fetchedData, setFetchedData] = useState(null);
+  const handleDataFetched = (data) => {
+    setFetchedData(data);
+  };
 
   const renderChart = () => {
     switch (chartType) {
@@ -31,7 +35,7 @@ function ChartContainer({ chartData, symbol }) {
       case "advancedline":
         return <AdvancedLineChart chartData={chartData} symbol={symbol} />;
       case "comparetochart":
-        return <CompareChart chartData={chartData} symbol={symbol} />;
+        return <CompareChart chartData={fetchedData} symbol={symbol} />;
       default:
         return null;
     }
@@ -41,7 +45,7 @@ function ChartContainer({ chartData, symbol }) {
     <div className={styles.chartContainer}>
       <div className={styles.chartHeader}>
         <ChartSelector onChartTypeChange={setChartType} />
-        <CompareTo symbol={symbol} />
+        <CompareTo symbol={symbol} onDataFetched={handleDataFetched} />
       </div>
       {renderChart()}
     </div>

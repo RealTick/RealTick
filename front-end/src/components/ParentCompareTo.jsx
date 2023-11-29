@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CompareTo from './CompareTo';
-import LineChart from './LineChart'; // Import LineChart
+import CompareChart from './CompareChart'; // Import the CompareChart
 
 function ParentComponent() {
   const [fetchedData, setFetchedData] = useState(null);
@@ -12,7 +12,7 @@ function ParentComponent() {
   return (
     <div>
       <CompareTo symbol="InitialSymbol" onDataFetched={handleDataFetched} />
-      {fetchedData && <LineChart chartData={fetchedData} />} {/* Render LineChart with fetched data */}
+      {fetchedData && <CompareChart chartData={fetchedData} />}
     </div>
   );
 }

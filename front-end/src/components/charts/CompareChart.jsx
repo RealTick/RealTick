@@ -4,36 +4,20 @@ import HighchartsReact from "highcharts-react-official";
 
 function CompareChart({ chartData }) {
   const computedStyle = getComputedStyle(document.documentElement);
-  const paper_bgcolor_theme = computedStyle
-    .getPropertyValue(`--background-color`)
-    .trim();
-  const text_color_theme = computedStyle
-    .getPropertyValue(`--text-color`)
-    .trim();
-  const button_bgcolor = computedStyle
-    .getPropertyValue(`--button-background`)
-    .trim();
-  const button_activecolor = computedStyle
-    .getPropertyValue(`--button-hover-background`)
-    .trim();
+  const paper_bgcolor_theme = computedStyle.getPropertyValue(`--background-color`).trim();
+  const text_color_theme = computedStyle.getPropertyValue(`--text-color`).trim();
 
-  const dates = Object.keys(chartData || {});
-
-  const ohlc_data = dates.map((date) => [
-    new Date(date).getTime(), // convert date -> timestamp
-    chartData[date].open,
-    chartData[date].high,
-    chartData[date].low,
-    chartData[date].close,
-  ]);
-
-  const volumeData = dates.map((date) => [
-    new Date(date).getTime(), // convert date -> timestamp
-    chartData[date].volume,
-  ]);
+  // Process the percentage change data
+  const percentageChangeData = Object.entries(chartData || {}).map(([date, data]) => {
+    return [
+      new Date(date).getTime(), // Date as timestamp
+      data.percentage_change,   // Assuming each entry has a percentage_change field
+    ];
+  });
 
   const options = {
     chart: {
+      type: 'line',
       height: 575,
       backgroundColor: paper_bgcolor_theme,
       style: {
@@ -41,59 +25,13 @@ function CompareChart({ chartData }) {
         color: text_color_theme,
       },
     },
-    plotOptions: {
-      candlestick: {
-        // color: "pink",
-        // lineColor: "red",
-        // upColor: "lightgreen",
-        // upLineColor: "green",
-      },
-    },
-    exporting: {
-      enabled: true,
-      buttons: {
-        contextButton: {
-          menuItems: [
-            "viewFullscreen",
-            "fullscreen",
-            "printChart",
-            "downloadPNG",
-            "downloadJPEG",
-            "downloadPDF",
-            "downloadSVG",
-          ],
-        },
-      },
-    },
-    rangeSelector: {
-      selected: 2,
-      buttonTheme: {
-        fill: button_bgcolor,
-        style: {
-          color: text_color_theme,
-        },
-        states: {
-          hover: {
-            fill: button_activecolor,
-          },
-          select: {
-            fill: button_activecolor,
-          },
-        },
-      },
-    },
     title: {
-      text: "Asset Price and Volume over Time",
+      text: "Daily Percentage Change Over Time",
       style: {
         color: text_color_theme,
       },
     },
     xAxis: {
-      title: {
-        style: {
-          color: text_color_theme,
-        },
-      },
       type: "datetime",
       lineColor: text_color_theme,
       lineWidth: 1,
@@ -103,75 +41,37 @@ function CompareChart({ chartData }) {
         },
       },
     },
-    yAxis: [
-      {
-        title: {
-          text: "Open Price",
-          style: {
-            color: text_color_theme,
-          },
+    yAxis: {
+      title: {
+        text: "Percentage Change",
+        style: {
+          color: text_color_theme,
         },
-        labels: {
-          align: "right",
-          x: -3,
-          style: {
-            color: text_color_theme,
-          },
+      },
+      labels: {
+        style: {
+          color: text_color_theme,
         },
-        height: "60%",
-        lineWidth: 2,
-        resize: {
-          enabled: true,
-        },
-        gridLineColor: button_bgcolor,
       },
-      {
-        labels: {
-          align: "right",
-          x: -3,
-          style: {
-            color: text_color_theme,
-          },
-        },
-        top: "65%",
-        height: "35%",
-        offset: 0,
-        lineWidth: 2,
-        gridLineColor: button_bgcolor,
-      },
-    ],
-    series: [
-      {
-        type: "line",
-        name: "Stock Price",
-        data: ohlc_data,
-      },
-      {
-        type: "column",
-        name: "Volume",
-        data: volumeData,
-        yAxis: 1,
-      },
-    ],
+    },
+    series: [{
+      name: "Percentage Change",
+      data: percentageChangeData,
+    }],
     responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 500,
+      rules: [{
+        condition: {
+          maxWidth: 500,
+        },
+        chartOptions: {
+          chart: {
+            height: 600,
           },
-          chartOptions: {
-            chart: {
-              height: 600,
-            },
-            subtitle: {
-              text: null,
-            },
-            navigator: {
-              enabled: false,
-            },
+          navigator: {
+            enabled: false,
           },
         },
-      ],
+      }],
     },
   };
 
