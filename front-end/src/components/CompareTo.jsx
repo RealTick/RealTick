@@ -108,6 +108,27 @@ function CompareTo({ symbol, onDataFetched }) {
   //     console.error("Error fetching data for trimmed symbol:", error);
   //   }
   // };
+
+
+
+  // //// WORKING FOR ONE
+  // const performSearch = async () => {
+  //   setResults([]); // Clear previous search results
+  //   setSelectedResult(-1); // Clear selected result
+  
+  //   const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
+  
+  //   try {
+  //     const data = await fetchCompareToData(trimmedSymbol);
+  //     console.log("Data for trimmed symbol:", data);
+  //     // Update the parent component with the new data
+  //     // This assumes onDataFetched is a function that can handle an object with symbol as key
+  //     onDataFetched({ [trimmedSymbol]: data });
+  //   } catch (error) {
+  //     console.error("Error fetching data for trimmed symbol:", error);
+  //   }
+  // };
+  
   const performSearch = async () => {
     setResults([]); // Clear previous search results
     setSelectedResult(-1); // Clear selected result
@@ -117,9 +138,19 @@ function CompareTo({ symbol, onDataFetched }) {
     try {
       const data = await fetchCompareToData(trimmedSymbol);
       console.log("Data for trimmed symbol:", data);
-      // Update the parent component with the new data
-      // This assumes onDataFetched is a function that can handle an object with symbol as key
-      onDataFetched({ [trimmedSymbol]: data });
+  
+      // Update the fetched data state with new data
+      setFetchedData(prevFetchedData => ({
+        ...prevFetchedData,
+        [trimmedSymbol]: data
+      }));
+  
+      // Notify the parent component with the updated fetched data
+      // This will contain all previously fetched symbols along with the new one
+      onDataFetched({
+        ...fetchedData,
+        [trimmedSymbol]: data
+      });
     } catch (error) {
       console.error("Error fetching data for trimmed symbol:", error);
     }
