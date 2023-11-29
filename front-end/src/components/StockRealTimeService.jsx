@@ -1,11 +1,10 @@
 // StockService.jsx
 import axios from "axios";
 
-// TODO: implement second url
-const fetchRealTimeData = async (symbol) => {
+const fetchCurrentPriceData = async (symbol) => {
   try {
     const response = await axios.get(
-      `http://127.0.0.1:5000/realtime_stock?symbol=${symbol}`
+      `http://127.0.0.1:5000/currentprice?symbol=${symbol}`
     );
     return response.data;
   } catch (err) {
@@ -13,4 +12,4 @@ const fetchRealTimeData = async (symbol) => {
   }
 };
 
-export default fetchRealTimeData; 
+export default fetchCurrentPriceData;
