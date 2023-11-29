@@ -7,12 +7,19 @@ function CompareChart({ chartData }) {
   const paper_bgcolor_theme = computedStyle.getPropertyValue(`--background-color`).trim();
   const text_color_theme = computedStyle.getPropertyValue(`--text-color`).trim();
 
-  // Process the percentage change data
-  const percentageChangeData = Object.entries(chartData || {}).map(([date, data]) => {
-    return [
-      new Date(date).getTime(), // Date as timestamp
-      data.percentage_change,   // Assuming each entry has a percentage_change field
-    ];
+  // Process the data for each stock symbol into its own series
+  const seriesData = Object.entries(chartData || {}).map(([symbol, data]) => {
+    const dataPoints = Object.entries(data || {}).map(([date, value]) => {
+      return [
+        new Date(date).getTime(), // Date as timestamp
+        value.percentage_change,   // Percentage change for the day
+      ];
+    });
+
+    return {
+      name: symbol,
+      data: dataPoints,
+    };
   });
 
   const options = {
@@ -54,10 +61,7 @@ function CompareChart({ chartData }) {
         },
       },
     },
-    series: [{
-      name: "Percentage Change",
-      data: percentageChangeData,
-    }],
+    series: seriesData,
     responsive: {
       rules: [{
         condition: {

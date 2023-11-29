@@ -3,18 +3,19 @@ import CompareTo from './CompareTo';
 import CompareChart from './CompareChart'; // Import the CompareChart
 
 function ParentComponent() {
-  const [fetchedData, setFetchedData] = useState(null);
+  const [fetchedData, setFetchedData] = useState({});
 
-  const handleDataFetched = (data) => {
-    setFetchedData(data);
+  const handleDataFetched = (newData) => {
+    setFetchedData(prevData => ({ ...prevData, ...newData }));
   };
 
   return (
     <div>
       <CompareTo symbol="InitialSymbol" onDataFetched={handleDataFetched} />
-      {fetchedData && <CompareChart chartData={fetchedData} />}
+      <CompareChart chartData={fetchedData} />
     </div>
   );
 }
+
 
 export default ParentComponent;

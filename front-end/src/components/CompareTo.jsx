@@ -10,6 +10,8 @@ function CompareTo({ symbol, onDataFetched }) {
   const [results, setResults] = useState([]); // State for search results
   const [selectedResult, setSelectedResult] = useState(-1); // Initial index -1
   const [cache, setCache] = useState({}); // Cache for search results
+  const [fetchedData, setFetchedData] = useState({}); // Store data for multiple stocks
+
 
   const MIN_INPUT_LENGTH = 2; // Minimum characters before making an API request
   const MAX_INPUT_LENGTH = 5; // Maximum characters before API requests stop
@@ -81,31 +83,48 @@ function CompareTo({ symbol, onDataFetched }) {
     setSelectedResult(index);
   };
 
+  // const performSearch = async () => {
+  //   setResults([]); // Clear results
+  //   setSelectedResult(-1); // Clear selectedResult
+
+  //   const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
+
+  //   try {
+  //     const data = await fetchCompareToData(trimmedSymbol);
+  //     console.log("Data for trimmed symbol:", data);
+  //     onDataFetched(data); // Send the fetched data back to the parent component
+
+  //     // Optional: Delay the second fetch by 1 millisecond
+  //     setTimeout(async () => {
+  //       try {
+  //         const oldData = await fetchCompareToData(symbol);
+  //         console.log("Data for old symbol:", oldData);
+  //         onDataFetched(oldData); // Also send this data back
+  //       } catch (error) {
+  //         console.error("Error fetching data for old symbol:", error);
+  //       }
+  //     }, 1);
+  //   } catch (error) {
+  //     console.error("Error fetching data for trimmed symbol:", error);
+  //   }
+  // };
   const performSearch = async () => {
-    setResults([]); // Clear results
-    setSelectedResult(-1); // Clear selectedResult
-
+    setResults([]); // Clear previous search results
+    setSelectedResult(-1); // Clear selected result
+  
     const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
-
+  
     try {
       const data = await fetchCompareToData(trimmedSymbol);
       console.log("Data for trimmed symbol:", data);
-      onDataFetched(data); // Send the fetched data back to the parent component
-
-      // Optional: Delay the second fetch by 1 millisecond
-      setTimeout(async () => {
-        try {
-          const oldData = await fetchCompareToData(symbol);
-          console.log("Data for old symbol:", oldData);
-          onDataFetched(oldData); // Also send this data back
-        } catch (error) {
-          console.error("Error fetching data for old symbol:", error);
-        }
-      }, 1);
+      // Update the parent component with the new data
+      // This assumes onDataFetched is a function that can handle an object with symbol as key
+      onDataFetched({ [trimmedSymbol]: data });
     } catch (error) {
       console.error("Error fetching data for trimmed symbol:", error);
     }
   };
+  
 
   useEffect(() => {
     return () => debounced_fetchSymbols.cancel();
