@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./component_css/CompareTo.module.css";
 import debounce from "lodash.debounce";
+import fetchCompareToData from './StockCompareTo'; // Adjust the path accordingly
 
 import SearchResults from "./CompareToResults";
 
 import { IconSearch } from "@tabler/icons-react";
+import { local } from "d3";
+
 
 function CompareTo({ symbol }) {
   const [localSymbol, setLocalSymbol] = useState(symbol); //initial symbol
   const [results, setResults] = useState([]); // New state for search results
   const [selectedResult, setSelectedResult] = useState(-1); //initial index -1
   const [cache, setCache] = useState({}); // cache for search results
+  console.log("LOCAL: "+localSymbol);
+  console.log("NEW: "+symbol);
 
   const MIN_INPUT_LENGTH = 2; // minimum number of characters before making an API request
   const MAX_INPUT_LENGTH = 5; // minimum number of characters before API requests stop
@@ -96,10 +101,31 @@ function CompareTo({ symbol }) {
 
   const performSearch = () => {
     setResults([]); // clear results
-    setSymbol(localSymbol); // new symbol to fetch
-    fetchData(localSymbol); // fetch new symbol
     setSelectedResult(-1); // clear selectedResult
+  
+    const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
+    
+    // First fetch for trimmedSymbol
+    fetchCompareToData(trimmedSymbol)
+      .then((data) => {
+        console.log("Data for trimmed symbol: "+trimmedSymbol, data);
+        // Delay the second fetch by 1 millisecond
+        setTimeout(() => {
+          fetchCompareToData(symbol) // fetch OLD symbol
+            .then((oldData) => {
+              console.log("Data for old symbol: "+symbol, oldData);
+              // Handle the data as needed
+            })
+            .catch((error) => {
+              console.error("Error fetching data for old symbol:", error);
+            });
+        }, 1);
+      })
+      .catch((error) => {
+        console.error("Error fetching data for trimmed symbol:", error);
+      });
   };
+  
 
   // cleanup debounce
   useEffect(() => {
