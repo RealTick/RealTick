@@ -486,5 +486,54 @@ def compare_to():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+'''
+ ####### REAL TIME PRICE #######
+    real_time_price=yf.download(symbol,period='1d',interval='1m')
+    R_price=round(real_time_price['Close'][-1],2) #real-time price
+    prev=float(stockanalysis_info['Close']) #previous close price
+    price_diff=round(R_price-prev,3)
+    price_diff_percentage=round(((R_price-prev)/prev)*100,2)
+    if(price_diff>0):
+        price_change=f"+{price_diff} ({price_diff_percentage}%)"
+    else:
+        price_change=f"{price_diff} ({price_diff_percentage}%)"
+    ####### REAL TIME PRICE #######
+'''
+
+@app.route('/currentprice', methods=['GET'])
+def current_price():
+    symbol = request.args.get('symbol')
+    if not symbol:
+        return jsonify({'error': 'No symbol provided'}), 400
+
+    try:
+        # Fetch real-time price
+        real_time_price = yf.download(symbol, period='1d', interval='1m')
+        if real_time_price.empty:
+            return jsonify({'error': 'No real-time data available for the given symbol'}), 404
+
+        # Calculate the latest price and previous close price
+        R_price = round(real_time_price['Close'][-1], 2)
+        prev = float(real_time_price['Close'][-2])  # previous close price
+
+        # Calculate the price difference and percentage change
+        price_diff = round(R_price - prev, 3)
+        price_diff_percentage = round(((R_price - prev) / prev) * 100, 2)
+
+        # Format the price change string
+        if price_diff > 0:
+            price_change = f"+{price_diff} ({price_diff_percentage}%)"
+        else:
+            price_change = f"{price_diff} ({price_diff_percentage}%)"
+
+        return jsonify({
+            'real_time_price': R_price,
+            'price_change_percentage': price_change
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
