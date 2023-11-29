@@ -151,23 +151,24 @@ function App() {
                 />
               </div>
             )}
+            <div className="verticalWrapper">
+              <div className="reccomenderContainer">
+                {data && (
+                  <Reccomender
+                    similarStocks={data.similar_stocks}
+                    handleFetchData={handleFetchData}
+                  />
+                )}
+              </div>
 
-            <div className="reccomenderContainer">
-              {data && (
-                <Reccomender
-                  similarStocks={data.similar_stocks}
-                  handleFetchData={handleFetchData}
-                />
-              )}
-            </div>
-
-            <div className="trendingContainer">
-              {data && (
-                <Trending
-                  trendingStocks={data.trending_stocks}
-                  handleFetchData={handleFetchData}
-                />
-              )}
+              <div className="trendingContainer">
+                {data && (
+                  <Trending
+                    trendingStocks={data.trending_stocks}
+                    handleFetchData={handleFetchData}
+                  />
+                )}
+              </div>
             </div>
           </div>
 

@@ -7,6 +7,8 @@
     background-color: var(--container-background);
     padding: var(--spacing-medium);
     border-radius: var(--border-radius-medium);
+
+    margin-bottom: var(--spacing-medium);
 }
 
 
@@ -18,9 +20,13 @@
 
 .title {
     width: 100%;
-    flex: 1;
+    flex: 0;
     font-size: 1.5rem;
-    padding: 15px;
+    background-color: var(--title-background);
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius-small);
+    border-color: var(--button-background-color);
+    text-align: center;
 }
 
 .listContainer {
@@ -45,7 +51,7 @@
 }
 
 .listItem:last-child {
-    margin-bottom: 0;
+    border-bottom: none;
 }
 
 .invisibleButton {
