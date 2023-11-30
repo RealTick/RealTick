@@ -317,7 +317,7 @@ def get_stock_data():
                 rows = table.find_all('tr')
 
                 # Iterating through rows starting from the second row (index 1) to skip the header row
-                for row in rows[1:]:
+                for row in rows[4:]:
                     columns = row.find_all('td')
                     if len(columns) >= 3:  # Make sure there are enough columns
                         asset = {
