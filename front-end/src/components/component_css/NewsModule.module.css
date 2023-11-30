@@ -2,9 +2,14 @@
 .newsContainer {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   gap: 20px;
   padding: 10px;
-  width: 80%;
+  width: 75%;
   margin-top: 1vh;
   margin-left: auto;
   margin-right: auto;
@@ -47,13 +52,13 @@
 }
 
 .newsPublisher, .newsTime {
-  font-size: 0.8rem; /* Adjust the font size as needed */
+  font-size: 0.8rem;
   margin: 0;
 }
 
 .newsTitle {
   font-size: 1.6em;
-  margin-top: 8px; /* Space between the metadata and title */
+  margin-top: 8px;
 }
 
 .newsItem:hover .newsTitle {
