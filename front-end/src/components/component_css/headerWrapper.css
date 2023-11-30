@@ -7,7 +7,7 @@
     padding: 1rem 2%;
     background-color: var(--container-background);
     border-bottom: 2px solid var(--text-color-hovered);
-    z-index: 1001;
+    z-index: 111111;
     position:fixed;
     top:0px;
 }

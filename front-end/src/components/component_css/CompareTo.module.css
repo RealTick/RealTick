@@ -6,6 +6,7 @@
     position: relative; /* Add this if not already positioned relative */
     width: 300px;
     height: 100%;
+    padding:0px;
   }
   
   .inputContainer {
@@ -18,7 +19,25 @@
     border-radius: 15px 15px 15px 15px;
     
   }
-  
+
+  .clearButton {
+    width: 50px; /* Square dimensions */
+    background-color: transparent;
+    border: 1px solid var(--input-border);
+    border-right: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px 0 0 15px; 
+    transition: color 0.2s ease, opacity 0.2s ease;
+
+}
+
+.clearButton:hover{
+  background-color: transparent;
+  color: var(--button-hover-background)
+}
   .inputField:focus {
     outline:1px solid var(--button-background);
   }
@@ -28,7 +47,7 @@
     padding: 10px;
     border: 0px solid var(--button-background);
     border-right: none; 
-    border-radius: 15px 0 0 15px;
+    border-radius: 0px 0 0 0px;
     background-color: var(--input-background);
     color: var(--text-color);
   }
@@ -46,11 +65,13 @@
     cursor: pointer;
     border-radius: 0 15px 15px 0;
     box-shadow: -1px 0 0 0 var(--input-border);
+    transition: color 0.2s ease, opacity 0.2s ease;
+
   }
   
-  /* .searchButton:hover {
-    background-color: var(--button-hover-background);
-  } */
+  .searchButton:hover {
+    color: var(--button-hover-background)
+  }
   
   .resultsContainer {
     padding:15px 0px 15px 0px;

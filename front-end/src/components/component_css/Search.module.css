@@ -30,6 +30,7 @@
   border-radius: 15px 0 0 15px;
   background-color: var(--input-background);
   color: var(--text-color);
+  
 }
 
 .inputField::placeholder {
@@ -45,11 +46,12 @@
   cursor: pointer;
   border-radius: 0 15px 15px 0;
   box-shadow: -1px 0 0 0 var(--input-border);
+  
 }
 
-/* .searchButton:hover {
-  background-color: var(--button-hover-background);
-} */
+.searchButton:hover {
+  color: var(--button-hover-background)
+}
 
 .resultsContainer {
   padding:15px 0px 15px 0px;

@@ -4,7 +4,34 @@
     display: inline-block;
     padding: 5px;
   }
-  
+
+.themeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.themeButtons button {
+  padding: 5px 10px;
+  border: 1px solid var(--input-background);
+  background-color: var(--button-hover-background);
+  color: var(--container-background);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.themeButtons button:hover {
+  background-color: var(--button-background);
+  transform: translateY(-2px);
+}
+
+.themeButtons button.active {
+  border-color: var(--container-background);
+  color: var(--container-background);
+  font-weight: bold;
+}
   .settingsButton {
     background: none;
     border: none;
@@ -32,7 +59,7 @@
     background: var(--container-background);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,1);
-    z-index: 10;
+    z-index: 1011111231;
 }
 
 .overlay {
@@ -70,9 +97,9 @@
 }
 
 .modal {
-  z-index: 10000;
+  z-index: 10012312300;
 }
 
 .overlay {
-  z-index: 9999;
+  z-index: 9912312399;
 }

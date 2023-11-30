@@ -13,8 +13,10 @@ function Settings() {
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const handleThemeChange = (event) => {
-    setTheme(event.target.value);
+  const handleThemeChange = (themeOption) => {
+    setTheme(themeOption);
+    toggleModal();
+    window.location.reload();
   };
 
   return (
@@ -30,23 +32,21 @@ function Settings() {
       >
         <h2>Settings</h2>
         <div className={styles.setting}>
-          <label htmlFor="theme-select">Theme: </label>
-          <select
-            id="theme-select"
-            value={theme}
-            onChange={handleThemeChange}
-            className={styles.themeSelect}
-          >
+          <label>Theme:</label>
+          <div className={styles.themeButtons}>
             {themes.map((themeOption) => (
-              <option key={themeOption} value={themeOption}>
+              <button
+                key={themeOption}
+                onClick={() => handleThemeChange(themeOption)}
+                className={`${styles.themeButton} ${
+                  theme === themeOption ? styles.active : ""
+                }`}
+              >
                 {themeOption.charAt(0).toUpperCase() + themeOption.slice(1)}
-              </option>
+              </button>
             ))}
-          </select>
+          </div>
         </div>
-        <div>blahblahblah</div>
-        <div>blahblahblah</div>
-        <div>blahblahblah</div>
         <button onClick={toggleModal} className={styles.closeButton}>
           <IconSquareRoundedX size={24} stroke={2} />
         </button>

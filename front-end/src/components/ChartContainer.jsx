@@ -12,10 +12,9 @@ import AdvancedLineChart from "./charts/AdvancedLineChart";
 import Ichimoku from "./charts/Ichimoku";
 import CompareChart from "./charts/CompareChart";
 
-
-function ChartContainer({ chartData, symbol }) {
-  const [chartType, setChartType] = useState("line");
+function ChartContainer({ chartData, symbol, chartType, setChartType }) {
   const [fetchedData, setFetchedData] = useState(null);
+
   const handleDataFetched = (data) => {
     setFetchedData(data);
   };
@@ -45,7 +44,9 @@ function ChartContainer({ chartData, symbol }) {
     <div className={styles.chartContainer}>
       <div className={styles.chartHeader}>
         <ChartSelector onChartTypeChange={setChartType} />
-        <CompareTo symbol={symbol} onDataFetched={handleDataFetched} />
+        {chartType === "comparetochart" && (
+          <CompareTo symbol={symbol} onDataFetched={handleDataFetched} />
+        )}
       </div>
       {renderChart()}
     </div>

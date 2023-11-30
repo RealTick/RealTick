@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./component_css/CompareTo.module.css";
 import debounce from "lodash.debounce";
-import fetchCompareToData from './StockCompareTo'; // Adjust the path accordingly
+import fetchCompareToData from "./StockCompareTo"; // Adjust the path accordingly
 import SearchResults from "./CompareToResults";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch, IconX } from "@tabler/icons-react";
 
 function CompareTo({ symbol, onDataFetched }) {
-  const [localSymbol, setLocalSymbol] = useState(symbol); // Initial symbol
+  const [localSymbol, setLocalSymbol] = useState(); // Initial symbol
   const [results, setResults] = useState([]); // State for search results
   const [selectedResult, setSelectedResult] = useState(-1); // Initial index -1
   const [cache, setCache] = useState({}); // Cache for search results
   const [fetchedData, setFetchedData] = useState({}); // Store data for multiple stocks
-
 
   const MIN_INPUT_LENGTH = 2; // Minimum characters before making an API request
   const MAX_INPUT_LENGTH = 5; // Maximum characters before API requests stop
@@ -27,6 +26,23 @@ function CompareTo({ symbol, onDataFetched }) {
     [cache]
   );
 
+  useEffect(() => {
+    const performInitialSearch = async () => {
+      if (symbol && !fetchedData[symbol]) {
+        try {
+          const data = await fetchCompareToData(symbol);
+          const newFetchedData = { ...fetchedData, [symbol]: data };
+          setFetchedData(newFetchedData);
+          onDataFetched(newFetchedData);
+        } catch (error) {
+          console.error("Error fetching initial data for symbol:", error);
+        }
+      }
+    };
+
+    performInitialSearch();
+  }, [symbol, onDataFetched, fetchedData]);
+
   const fetchSymbols = async (query) => {
     try {
       const response = await fetch(
@@ -39,12 +55,18 @@ function CompareTo({ symbol, onDataFetched }) {
 
       const data = await response.json();
       const matches = data.bestMatches || [];
+      const filteredMatches = matches.filter(
+        (match) =>
+          match["4. region"] === "United States" &&
+          match["3. type"] !== "Mutual Fund" &&
+          match["3. type"] !== "ETF"
+      );
 
       setCache((prevCache) => ({
         ...prevCache,
-        [query]: matches.slice(0, 6), // Cache only 6 results
+        [query]: filteredMatches.slice(0, 6), // Cache only 6 results
       }));
-      setResults(matches.slice(0, 6)); // Display 6 results
+      setResults(filteredMatches.slice(0, 6)); // Display 6 results
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -83,79 +105,33 @@ function CompareTo({ symbol, onDataFetched }) {
     setSelectedResult(index);
   };
 
-  // const performSearch = async () => {
-  //   setResults([]); // Clear results
-  //   setSelectedResult(-1); // Clear selectedResult
+  const clearSearchedSymbols = () => {
+    setResults([]);
+    setFetchedData([]);
+  };
 
-  //   const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
-
-  //   try {
-  //     const data = await fetchCompareToData(trimmedSymbol);
-  //     console.log("Data for trimmed symbol:", data);
-  //     onDataFetched(data); // Send the fetched data back to the parent component
-
-  //     // Optional: Delay the second fetch by 1 millisecond
-  //     setTimeout(async () => {
-  //       try {
-  //         const oldData = await fetchCompareToData(symbol);
-  //         console.log("Data for old symbol:", oldData);
-  //         onDataFetched(oldData); // Also send this data back
-  //       } catch (error) {
-  //         console.error("Error fetching data for old symbol:", error);
-  //       }
-  //     }, 1);
-  //   } catch (error) {
-  //     console.error("Error fetching data for trimmed symbol:", error);
-  //   }
-  // };
-
-
-
-  // //// WORKING FOR ONE
-  // const performSearch = async () => {
-  //   setResults([]); // Clear previous search results
-  //   setSelectedResult(-1); // Clear selected result
-  
-  //   const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
-  
-  //   try {
-  //     const data = await fetchCompareToData(trimmedSymbol);
-  //     console.log("Data for trimmed symbol:", data);
-  //     // Update the parent component with the new data
-  //     // This assumes onDataFetched is a function that can handle an object with symbol as key
-  //     onDataFetched({ [trimmedSymbol]: data });
-  //   } catch (error) {
-  //     console.error("Error fetching data for trimmed symbol:", error);
-  //   }
-  // };
-  
   const performSearch = async () => {
     setResults([]); // Clear previous search results
     setSelectedResult(-1); // Clear selected result
-  
-    const trimmedSymbol = localSymbol.replace(/^['"]|['"]$/g, '');
-  
+    setLocalSymbol(""); // Clear previous search results
+    const trimmedSymbol = localSymbol.trim().toUpperCase();
+
+    // Check if data for this symbol is already fetched
+    if (fetchedData[trimmedSymbol]) {
+      return;
+    }
+
     try {
       const data = await fetchCompareToData(trimmedSymbol);
-      console.log("Data for trimmed symbol:", data);
-  
-      // Update the fetched data state with new data
-      setFetchedData(prevFetchedData => ({
-        ...prevFetchedData,
-        [trimmedSymbol]: data
-      }));
-  
+      const newFetchedData = { ...fetchedData, [trimmedSymbol]: data };
+      setFetchedData(newFetchedData);
+
       // Notify the parent component with the updated fetched data
-      // This will contain all previously fetched symbols along with the new one
-      onDataFetched({
-        ...fetchedData,
-        [trimmedSymbol]: data
-      });
+      onDataFetched(newFetchedData);
     } catch (error) {
       console.error("Error fetching data for trimmed symbol:", error);
     }
   };
-  
 
   useEffect(() => {
     return () => debounced_fetchSymbols.cancel();
@@ -164,6 +140,9 @@ function CompareTo({ symbol, onDataFetched }) {
   return (
     <div className={styles.searchContainer}>
       <div className={styles.inputContainer}>
+        <button onClick={clearSearchedSymbols} className={styles.clearButton}>
+          <IconX />
+        </button>
         <input
           value={localSymbol}
           onChange={handleInputChange}

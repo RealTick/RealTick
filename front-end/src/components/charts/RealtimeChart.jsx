@@ -9,8 +9,8 @@ Exporting(Highcharts);
 
 Highcharts.setOptions({
   global: {
-    useUTC: true
-  }
+    useUTC: true,
+  },
 });
 function RealtimeChart({ chartData, symbol }) {
   const [seriesData, setSeriesData] = useState([]);

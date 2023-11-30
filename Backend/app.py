@@ -529,7 +529,7 @@ def current_price():
 
         return jsonify({
             'real_time_price': R_price,
-            'price_change_percentage': price_change
+            'price_change_percentage': price_change,
         })
 
     except Exception as e:
