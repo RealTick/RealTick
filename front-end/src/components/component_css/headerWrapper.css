@@ -6,10 +6,13 @@
     width: 100%;
     padding: 1rem 2%;
     background-color: var(--container-background);
-    border-bottom: 2px solid var(--text-color-hovered);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+    box-shadow: var(--shadow-md);
     z-index: 111111;
-    position:fixed;
-    top:0px;
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(10px);
+    background-color: rgba(31, 41, 55, 0.95);
 }
 
 .middleComponent {

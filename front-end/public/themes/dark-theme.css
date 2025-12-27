@@ -1,19 +1,29 @@
 /* dark-theme.css */
 :root {
-    --background-color: #36393e;
-    --text-color: #ffffff;
-    --text-color-hovered: #7289da;
-    --text-color-visited: #4d5d96;
-    --button-background: #7289da;
-    --button-hover-background: #687bc3;
-    --input-background: #424549;
-    --placeholder-color: #756c6c;
-    --title-background: #16181a00;
-    --data-point-background: #424549;
-    --container-background: #282b30;
-    --container-background-hover: #1e2124;
-    --positive: rgb(0, 255, 0);
-    --negative: red;
+    --background-color: #0f172a;
+    --text-color: #f3f4f6;
+    --text-color-hovered: #93c5fd;
+    --text-color-visited: #bfdbfe;
+    --button-background: #6366f1;
+    --button-hover-background: #818cf8;
+    --input-background: #1e293b;
+    --placeholder-color: #6b7280;
+    --title-background: transparent;
+    --data-point-background: #252b34;
+    --container-background: #1f2937;
+    --container-background-hover: #1e40af;
+    --positive: #10b981;
+    --negative: #ef4444;
+    --border-radius-large: 12px;
+    --border-radius-medium: 8px;
+    --border-radius-small: 6px;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.125rem;
+    --transition-normal: 0.3s ease;
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --spacing-large: 1.5rem;
+    --spacing-small: 0.75rem;
 }
 
 body {

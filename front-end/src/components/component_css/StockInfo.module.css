@@ -5,9 +5,12 @@
   min-height: 668px;
   display: flex;
   flex-direction: column;
-  background-color: var(--container-background);
-  padding: var(--spacing-medium);
-  border-radius: var(--border-radius-medium);
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: var(--spacing-large);
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 @media (max-width: 768px) {
@@ -36,27 +39,44 @@
   flex: 1;
   font-size: 1.5rem;
   padding: 10px;
+  color: #f3f4f6;
 }
 
 .dataPoint {
   display: flex;
-  height: 74px;
+  height: auto;
+  padding: 1rem;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.1rem;
-  background-color: var(--data-point-background);
-  padding: 10px;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  background-color: #252b34;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  margin-bottom: 0.75rem;
   border-radius: var(--border-radius-small);
+  transition: all 0.3s ease;
+}
+
+.dataPoint:hover {
+  background-color: #2d3847;
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
 .dataTitle {
-  text-align:left;
+  text-align: left;
+  color: #bfdbfe;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .dataValue {
   text-align: right;
-  font-weight: bold;
+  font-weight: 700;
+  color: #f3f4f6;
+  font-size: var(--font-size-lg);
 }
 
 .column .dataPoint:last-child {

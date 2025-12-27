@@ -7,64 +7,79 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  gap: 8px;
-  padding: 10px;
+  gap: 1rem;
+  padding: 1.5rem;
   width: 75%;
-  margin-top: 0;
-  margin-left: auto;
-  margin-right: auto;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border-radius: var(--border-radius-large);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 .newsItem {
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   align-items: flex-start;
-  background-color: var(--container-background);
-  border-radius: 15px;
-  padding: 10px;
-  transition: 0.3s ease;
+  background-color: #252b34;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--border-radius-medium);
+  padding: 1rem;
+  transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
-  color: var(--text-color);
+  color: #e4e6eb;
 }
 
 .newsItem:hover {
-  background-color: var(--container-background-hover);
+  background-color: #2d3847;
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
 }
 
 .newsImage {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: var(--border-radius-medium);
+  flex-shrink: 0;
+  border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .newsContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
 }
 
 .newsMeta {
   display: flex;
-  gap: 5px;
+  gap: 0.5rem;
   align-items: center;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
 }
 
 .newsPublisher, .newsTime {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: #bfdbfe;
 }
 
 .newsTitle {
-  font-size: 1.6em;
-  margin-top: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  color: #f3f4f6;
 }
 
 .newsItem:hover .newsTitle {
-  color: var(--text-color-hovered);
+  color: #93c5fd;
 }
-
-/* .newsLink:visited {
-  color: var(--text-color-visited);
-} */

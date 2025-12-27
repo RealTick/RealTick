@@ -1,6 +1,6 @@
 /* bodyWrapper.css */
 :root {
-  --gap: 10px;
+  --gap: 1.5rem;
 }
 
 .bodyWrapper {
@@ -8,11 +8,14 @@
   flex-direction: row;
   justify-content: center;
   gap: var(--gap);
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
   margin: auto;
-  margin-top: 6%;
-  
+  margin-top: 5.5rem;
+  background-color: var(--background-color);
+  height: calc(100vh - 5.5rem);
+  overflow-y: auto;
+}
 }
 
 .verticalWrapper {
